@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var ShowListCtrl = function($filter, $scope, Core, $attrs) {
+var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 	var $ctrl = this;
 
 	$scope.formatDate = function(date) {
@@ -80,6 +80,15 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs) {
 		}, function(response) {
 			alert("Kunde inte hämta priserna: " + response.status);
 		});
+	}
+
+	$scope.addToCart = function(category, rate, show) {
+
+		var ticket = {category: category,
+		rate: rate,
+		show: show};
+
+		cartService.addTicket(ticket);
 	}
 
 }
