@@ -35,10 +35,8 @@
 
 	  </div>
 	</div>
-	<h1>{{show.name}}</h1>
+	<h2 class="title-item">{{show.name}}</h1>
 	<div class="row">
-
-		<div>
 			<div class="list-group col-md-4"
 				ng-repeat="(date, performances) in show.dates">
 				<div class="list-group-item active"> {{date | date : 'EEEE d MMMM yyyy'}}
@@ -46,5 +44,4 @@
 				<button data-toggle="modal" data-target="#myModal" class="list-group-item" ng-repeat="performance in performances">{{performance.start
 					| timestamp | date : 'HH:mm'}}</button>
 			</div>
-		</div>
 	</div>
