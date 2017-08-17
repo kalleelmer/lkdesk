@@ -41,7 +41,7 @@
 				ng-repeat="(date, performances) in show.dates">
 				<div class="list-group-item active"> {{date | date : 'EEEE d MMMM yyyy'}}
 				</div>
-				<button data-toggle="modal" data-target="#myModal" class="list-group-item" ng-repeat="performance in performances">{{performance.start
+				<button data-toggle="modal" data-target="#myModal" class="list-group-item" ng-repeat="performance in performances" ng-click = "setSelectedPerformance(performance)">{{performance.start
 					| timestamp | date : 'HH:mm'}}</button>
 			</div>
 	</div>
