@@ -3,11 +3,12 @@
     <div id="menu-column" class="col-sm-2" ng-controller="ShowsCtrl as showCtrl" style="background-color:red;">
       <h2>Menu</h2>
       <div class="list-group">
-        <a href="" class="list-group-item" ng-repeat="show in shows">{{show.name}}</a>
+        <button href="" class="list-group-item" ng-click="selectShow(show.id)" ng-repeat="show in shows">{{show.name}}</button>
       </div>
     </div>
     <div class="col-sm-7" style="background-color:green;">
       <h2>Content</h2>
+      <show-list sid="{{selected}}"></show-list>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur rutrum dolor ac lacus ullamcorper, vitae finibus quam egestas. Sed ac quam ac enim finibus dictum. Sed vel interdum tellus. Aliquam pellentesque felis metus, id faucibus urna vestibulum at. Ut viverra quis massa a mattis. Maecenas tempus tempus nibh in pretium. Nullam a sagittis tortor. Sed libero elit, viverra et tristique eu, lacinia vel mi. Sed ipsum lorem, venenatis ac arcu vitae, laoreet ultricies quam. Cras vel auctor tortor. Nam et orci nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
     </div>
     <div class="col-sm-3" style="background-color:blue;">

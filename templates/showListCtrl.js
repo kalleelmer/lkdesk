@@ -2,20 +2,29 @@ var module = angular.module("lkticket.admin");
 
 var ShowListCtrl = function($filter, $scope, Core, $attrs) {
 	var $ctrl = this;
-	console.log($attrs.id);
+
 	$scope.formatDate = function(date) {
 		return date.replace(" ", "T");
 	};
 
-	Core.get("/admin/shows/" + $attrs.id).then(function(response) {
-		$scope.show = response.data;
-		$ctrl.loadShowData();
-	}, function(response) {
-		alert("Kunde inte hämta nöje: " + response.status);
-	});
+	$ctrl.$onChanges = function(change) {
+		if($attrs.sid){
+			$ctrl.loadShow();
+		}
+	}
+
+	$ctrl.loadShow = function() {
+		Core.get("/admin/shows/" + $attrs.sid).then(function(response) {
+			$scope.show = response.data;
+			$ctrl.loadShowData();
+		}, function(response) {
+			alert("Kunde inte hämta nöje: " + response.status);
+		});
+	}
+
 
 	$ctrl.loadShowData = function() {
-		Core.get("/admin/shows/" + $attrs.id + "/performances").then(
+		Core.get("/admin/shows/" + $attrs.sid + "/performances").then(
 			function(response) {
 				var dates = {};
 				for ( var i in response.data) { // Group by date
@@ -29,11 +38,11 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs) {
 				alert("Kunde inte hämta föreställningar: " + response.status);
 			});
 
-		Core.get("/admin/shows/" + $attrs.id + "/rates").then(
+		Core.get("/admin/shows/" + $attrs.sid + "/rates").then(
 			function(response) {
 				$scope.show.rates = response.data;
 
-				Core.get("/admin/shows/" + $attrs.id + "/categories")
+				Core.get("/admin/shows/" + $attrs.sid + "/categories")
 					.then(
 						function(response) {
 							$scope.show.categories = response.data;
@@ -72,27 +81,6 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs) {
 			alert("Kunde inte hämta priserna: " + response.status);
 		});
 	}
-
-	$scope.addCategory = function() {
-
-		var name = prompt("Ange namn");
-		if (!name) {
-			return;
-		}
-		// TODO Lösa så att ett id skapas, annars går det inte att skapa nya
-		// priser
-
-		var category = {
-			name : name,
-		};
-
-		Core.post("/admin/shows/" + $scope.id + "/categories", category).then(
-			function(response) {
-				$scope.show.categories.push(response.data);
-			}, function(response) {
-				alert("Kunde inte hämta rate: ", response.status);
-			});
-	};
 
 }
 

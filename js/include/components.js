@@ -3,7 +3,7 @@ var module = angular.module("lkticket.admin");
 module.component("showList",{
       templateUrl: '/templates/showList.html',
       bindings: {
-         id: '@'
+         sid: '@'
        },
       controller: "ShowListCtrl"
   });
