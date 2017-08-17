@@ -1,0 +1,51 @@
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Välj biljetter</h4>
+	      </div>
+	      <div class="modal-body">
+
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th></th>
+								<th ng-repeat="category in show.categories">{{category.name}}</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="(i, rate) in show.rates">
+								<th scope="row">{{rate.name}}</th>
+								<td ng-repeat="category in show.categories"><button class = "btn btn-secondary">{{category.prices[rate.id].price
+										|| "X"}}</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+	<div class="row">
+
+		<div>
+			<div class="list-group col-md-4"
+				ng-repeat="(date, performances) in show.dates">
+				<div class="list-group-item active"> {{date | date : 'EEEE d MMMM yyyy'}}
+				</div>
+				<button data-toggle="modal" data-target="#myModal" class="list-group-item" ng-repeat="performance in performances">{{performance.start
+					| timestamp | date : 'HH:mm'}}</button>
+			</div>
+		</div>
+	</div>
