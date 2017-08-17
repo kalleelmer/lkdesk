@@ -1,17 +1,17 @@
-<div class="container-fluid">
-  <div class="row">
-    <div id="shows" class="col-sm-2 full-height" ng-controller="ShowsCtrl as showCtrl" style="background-color:red;">
+<div class="container-fluid full-screen-container">
+  <!--<div class="row">-->
+    <div id="shows" class="col-sm-2 full-height-item" ng-controller="ShowsCtrl as showCtrl" style="background-color:red;">
       <h2 class="title-item">Menu</h2>
       <div class="list-group">
         <button href="" class="list-group-item" ng-click="selectShow(show.id)" ng-repeat="show in shows">{{show.name}}</button>
       </div>
     </div>
-    <div id="timetable" class="col-sm-7 full-height" style="background-color:green;">
+    <div id="timetable" class="col-sm-7 full-height-item" style="background-color:green;">
       <show-list sid="{{selected}}"></show-list>
     </div>
-    <div id="cart" class="col-sm-3 full-height" style="background-color:blue;">
+    <div id="cart" class="col-sm-3 full-height-item" style="background-color:blue;">
       <h2 class="title-item">Cart</h2>
       <cart> </cart>
     </div>
-  </div>
+<!--  </div>-->
 </div>

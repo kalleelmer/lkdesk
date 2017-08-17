@@ -6,7 +6,9 @@
 	float: right;
 	margin-top: 5px;
 }
+
 /*  - - - - - MENU - - - - - */
+
 #shows{
 	padding-left: 0px!important;
 	padding-right: 0px!important;
@@ -20,40 +22,42 @@
     border-bottom-right-radius: 0px;
 }
 
+/*  - - - - - TIMETABLE - - - - - */
 #timetable{
 	padding-left: 10px;
 	padding-right: 10px;
 }
-
 #timetable .row {
 	margin-right: 0px;
 	margin-left: 0px;
 }
-html, body {
-    height: 100%;
+
+/*  - - - - - FULL SCREEN LAYOUT - - - - - */
+html,body {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
 }
-.container-fluid {
-    height: 100%;
-    min-height: 100%;
+.full-screen-container {
+    /*min-height: 100%;*/
+		padding: 77px 0px 0px 0px;
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
 }
-.container-fluid .row {
-    height: 100%;
-    min-height: 100%;
-}
-.ng-scope{
-	height: 100%;
+.full-height-item{
 	min-height: 100%;
 }
-.full-height{
-	height: 100%;
-	min-height: 100%;
-}
+
 .title-item{
 	padding: 10px 15px;
 }
 .list-group{
 	-webkit-box-shadow: none;
 	box-shadow: none;
+	white-space:nowrap;
 }
 .list-group:last-child {
 	padding-right: 0px;
