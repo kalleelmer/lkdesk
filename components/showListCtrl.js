@@ -3,6 +3,8 @@ var module = angular.module("lkticket.admin");
 var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 	var $ctrl = this;
 
+	var selectedPerformance = {};
+
 	$scope.formatDate = function(date) {
 		return date.replace(" ", "T");
 	};
@@ -75,8 +77,6 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 				category.prices[price.rate_id] = price;
 			}
 
-			console.log($scope.show);
-
 		}, function(response) {
 			alert("Kunde inte hämta priserna: " + response.status);
 		});
@@ -86,9 +86,15 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 
 		var ticket = {category: category,
 		rate: rate,
-		show: show};
+		show: show,
+		performance: selectedPerformance
+		};
 
 		cartService.addTicket(ticket);
+	}
+
+	$scope.setSelectedPerformance = function(performance) {
+		selectedPerformance = performance;
 	}
 
 }

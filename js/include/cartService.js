@@ -1,10 +1,36 @@
 var module = angular.module("lkticket.admin");
 
 module.factory('cartService', function() {
-  var cart = { tickets: [] };
+  var cart = {};
   return {
     addTicket: function(ticket) {
-      cart.tickets.push(ticket);
+      console.log(ticket);
+
+      var sendToServer = {
+        category_id: ticket.category.id,
+        performance_id: ticket.performance.id,
+        rate_id: ticket.rate.id,
+        count: 1
+      }
+
+      var cartObject = {
+        category_id: ticket.category.id,
+        performance_id: ticket.performance.id,
+        rate_id: ticket.rate.id,
+        count: 1,
+        rate_name: ticket.rate.name,
+        category_name: ticket.category.name
+      }
+
+      if (!cart.tickets[ticket.performance.id]) {
+        cart.tickets[ticket.performance.id] = {
+          tickets: [],
+          name: ticket.show.name + ticket.performance.time
+        };
+      }
+
+      cart[ticket.performance.id].tickets.push(cartObject);
+
     },
     getCart: function() {
       return cart;
