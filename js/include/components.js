@@ -1,7 +1,7 @@
 var module = angular.module("lkticket.admin");
 
 module.component("showList",{
-      templateUrl: '/templates/showList.html',
+      templateUrl: '/components/showList.html',
       bindings: {
          sid: '@'
        },
