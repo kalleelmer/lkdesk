@@ -36,7 +36,7 @@ do
 	echo >> x.js
 done
 
-for f in `echo templates/*.js`
+for f in `echo components/*.js`
 do
 	echo "Including $f"
 	echo "//"$f >> x.js
