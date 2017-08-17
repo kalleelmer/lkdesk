@@ -22,10 +22,11 @@ module.factory('cartService', function() {
         category_name: ticket.category.name
       }
 
-      if (!cart.tickets[ticket.performance.id]) {
-        cart.tickets[ticket.performance.id] = {
+      if (!cart[ticket.performance.id]) {
+        cart[ticket.performance.id] = {
           tickets: [],
-          name: ticket.show.name + ticket.performance.time
+          name: ticket.show.name,
+          time: ticket.performance.start
         };
       }
 
