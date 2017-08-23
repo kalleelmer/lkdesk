@@ -1,9 +1,10 @@
 <div>
-  <ul class="list-group" ng-repeat="performance in $ctrl.cart">
-    <li class="list-group-item active"> {{performance.name}} - {{performance.time
+  <ul class="list-group" ng-repeat="performance in $ctrl.cart.performances">
+    <li class="list-group-item active"> {{performance.name}} - {{performance.start
       | timestamp | date : 'EEE HH:mm'}}</li>
     <li class="list-group-item" ng-repeat="ticket in performance.tickets">
-      {{ ticket.rate_name }} {{ ticket.category_name }}
+      {{ ticket.rate_id }} {{ ticket.category_id }}
     </li>
   </ul>
+
 </div>
