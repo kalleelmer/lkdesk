@@ -1,15 +1,15 @@
 var module = angular.module("lkticket.admin");
 
 module.factory('cartService', function(Core) {
-  var cartObject = {};
   var cart = {
     totalPrice: 0,
-    //performances: {},
-    tickets: []
+    tickets: [],
+    cartObject: {},
   };
 
   Core.get("/desk/orders/create").then(function(response) {
-    cartObject = response.data;
+    cart.cartObject = response.data;
+
   }, function(response) {
     alert("fel: " + response.status);
   });
@@ -38,7 +38,7 @@ module.factory('cartService', function(Core) {
         count: parseInt(ticket.count)
       }
 
-      Core.post("/desk/orders/" + cartObject.id + "/tickets", sendToServer).then(function(response) {
+      Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 
         addTicketsToCart(response.data);
 
