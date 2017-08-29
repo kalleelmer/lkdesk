@@ -4,7 +4,8 @@ module.factory('cartService', function(Core) {
   var cartObject = {};
   var cart = {
     totalPrice: 0,
-    performances: {}
+    //performances: {},
+    tickets: []
   };
 
   Core.get("/desk/orders/create").then(function(response) {
@@ -17,33 +18,14 @@ module.factory('cartService', function(Core) {
     console.log(ticketsToAdd);
     for (var i = 0; i < ticketsToAdd.length; i++) {
 
-      if (!cart.performances[ticketsToAdd[i].performance_id]) {
-        cart.performances[ticketsToAdd[i].performance_id] = {
-          start: "",
-          tickets: []
-        };
 
-        Core.get("/desk/performances/" + ticketsToAdd[i].performance_id).then(function(response) {
-          cart.performances[response.data.id].start = response.data.start;
-
-          Core.get("/desk/shows/" + response.data.show_id).then(function(response2) {
-            cart.performances[response.data.id].name = response2.data.name;
-          }, function(error) {
-            alert("error: " + error.status);
-          });
-
-        }, function(error) {
-          alert("error: " + error.status);
-        });
-
-
-
-      }
-
-      cart.performances[ticketsToAdd[i].performance_id].tickets.push(ticketsToAdd[i]);
+      cart.tickets.push(ticketsToAdd[i]);
       cart.totalPrice = cart.totalPrice + ticketsToAdd[i].price;
 
+
+
     }
+    console.log("KART: ", cart);
   }
 
   return {
