@@ -8,6 +8,11 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 		$location.path("/");
 	}
 
+	$scope.pay = function() {
+		alert("Betalt och klart!");
+		$location.path("/");
+	}
+
 }
 
 module.controller("CartCtrl", cartCtrl);

@@ -59,12 +59,14 @@ module.factory('cartService', function(Core, $routeParams, $location) {
         count: parseInt(ticket.count)
       }
 
+      console.log(sendToServer);
+
       Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 
         addTicketsToCart(response.data);
 
       }, function(error) {
-        alert("fel: " + error.status);
+        alert("fel i skickning av biljett: " + error.status);
       });
 
     },

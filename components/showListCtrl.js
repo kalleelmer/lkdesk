@@ -3,7 +3,7 @@ var module = angular.module("lkticket.admin");
 var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 	var $ctrl = this;
 
-	var selectedPerformance = {};
+ 	$scope.selectedPerformance = {};
 
 	$scope.formatDate = function(date) {
 		return date.replace(" ", "T");
@@ -91,10 +91,12 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 
 		var count = prompt("Antal");
 
+		console.log($scope.selectedPerformance);
+
 		var ticket = {category: category,
 		rate: rate,
 		show: show,
-		performance: selectedPerformance,
+		performance: $scope.selectedPerformance,
 		count: count
 		};
 
@@ -104,7 +106,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 	}
 
 	$scope.setSelectedPerformance = function(performance) {
-		selectedPerformance = performance;
+		$scope.selectedPerformance = performance;
 	}
 
 }
