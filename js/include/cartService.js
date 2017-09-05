@@ -8,15 +8,38 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     cartObject: {},
   };
 
-  if (!$routeParams.id) {
-    Core.get("/desk/orders/create").then(function(response) {
-      cart.cartObject = response.data;
+  function updateCart() {
 
-      $location.path("/" + response.data.id).replace();
+    if (!$routeParams.id) {
+      Core.get("/desk/orders/create").then(function(response) {
+        cart.cartObject = response.data;
 
-    }, function(response) {
-      alert("fel: " + response.status);
-    });
+        $location.path("/" + response.data.id).replace();
+
+      }, function(response) {
+        alert("fel: " + response.status);
+      });
+    } else {
+      cart = {
+        totalPrice: 0,
+        tickets: [],
+        cartObject: {},
+      };
+
+      Core.get("/desk/orders/" + $routeParams.id).then(function(response) {
+        cart.cartObject = response.data
+
+        Core.get("/desk/orders/" + $routeParams.id + "/tickets").then(function(response2) {
+
+          addTicketsToCart(response2.data);
+        }, function(response) {
+          alert("fel: " + response.status);
+        });
+
+      }, function(response) {
+        alert("fel: " + response.status);
+      });
+    }
   }
 
   function addTicketsToCart(ticketsToAdd) {
@@ -49,26 +72,7 @@ module.factory('cartService', function(Core, $routeParams, $location) {
       return cart;
     },
     reloadCart: function() {
-
-      cart = {
-        totalPrice: 0,
-        tickets: [],
-        cartObject: {},
-      };
-
-      Core.get("/desk/orders/" + $routeParams.id).then(function(response) {
-        cart.cartObject = response.data
-
-        Core.get("/desk/orders/" + $routeParams.id + "/tickets").then(function(response2) {
-
-          addTicketsToCart(response2.data);
-        }, function(response) {
-          alert("fel: " + response.status);
-        });
-
-      }, function(response) {
-        alert("fel: " + response.status);
-      });
+      updateCart();
     }
   }
 });

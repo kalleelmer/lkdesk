@@ -1,12 +1,10 @@
 var module = angular.module("lkticket.admin");
 
-var ShowCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce) {
+var ShowCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce, $location) {
 
   $scope.selected = 1;
 
-  if ($routeParams.id) {
-    cartService.reloadCart();
-  }
+  cartService.reloadCart();
 
   $scope.selectShow = function(selected) {
     $scope.selected = selected;
