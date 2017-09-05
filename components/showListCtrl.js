@@ -89,14 +89,18 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 
 	$scope.addToCart = function(category, rate, show) {
 
+		var count = prompt("Antal");
+
 		var ticket = {category: category,
 		rate: rate,
 		show: show,
 		performance: selectedPerformance,
-		count: prompt("Antal")
+		count: count
 		};
 
-		cartService.addTicket(ticket);
+		if (count){
+			cartService.addTicket(ticket);
+		}
 	}
 
 	$scope.setSelectedPerformance = function(performance) {
