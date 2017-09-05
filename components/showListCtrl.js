@@ -16,12 +16,17 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 	}
 
 	$ctrl.loadShow = function() {
-		Core.get("/admin/shows/" + $attrs.sid).then(function(response) {
-			$scope.show = response.data;
-			$ctrl.loadShowData();
-		}, function(response) {
-			alert("Kunde inte hämta nöje: " + response.status);
-		});
+
+		console.log($attrs.sid);
+
+		if ($attrs.sid != "{{selected}}") {
+			Core.get("/admin/shows/" + $attrs.sid).then(function(response) {
+				$scope.show = response.data;
+				$ctrl.loadShowData();
+			}, function(response) {
+				alert("Kunde inte hämta nöje: " + response.status);
+			});
+		}
 	}
 
 

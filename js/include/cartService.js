@@ -1,31 +1,29 @@
 var module = angular.module("lkticket.admin");
 
-module.factory('cartService', function(Core) {
+module.factory('cartService', function(Core, $routeParams, $location) {
+
   var cart = {
     totalPrice: 0,
     tickets: [],
     cartObject: {},
   };
 
-  Core.get("/desk/orders/create").then(function(response) {
-    cart.cartObject = response.data;
+  if (!$routeParams.id) {
+    Core.get("/desk/orders/create").then(function(response) {
+      cart.cartObject = response.data;
 
-  }, function(response) {
-    alert("fel: " + response.status);
-  });
+      $location.path("/" + response.data.id).replace();
+
+    }, function(response) {
+      alert("fel: " + response.status);
+    });
+  }
 
   function addTicketsToCart(ticketsToAdd) {
-    console.log(ticketsToAdd);
     for (var i = 0; i < ticketsToAdd.length; i++) {
-
-
       cart.tickets.push(ticketsToAdd[i]);
       cart.totalPrice = cart.totalPrice + ticketsToAdd[i].price;
-
-
-
     }
-    console.log("KART: ", cart);
   }
 
   return {
@@ -49,6 +47,28 @@ module.factory('cartService', function(Core) {
     },
     getCart: function() {
       return cart;
+    },
+    reloadCart: function() {
+
+      cart = {
+        totalPrice: 0,
+        tickets: [],
+        cartObject: {},
+      };
+
+      Core.get("/desk/orders/" + $routeParams.id).then(function(response) {
+        cart.cartObject = response.data
+
+        Core.get("/desk/orders/" + $routeParams.id + "/tickets").then(function(response2) {
+
+          addTicketsToCart(response2.data);
+        }, function(response) {
+          alert("fel: " + response.status);
+        });
+
+      }, function(response) {
+        alert("fel: " + response.status);
+      });
     }
   }
 });
