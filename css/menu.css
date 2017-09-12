@@ -16,3 +16,53 @@
 .main-menu .user-display {
 	min-width: 200px;
 }
+
+.scrollableInY {
+    overflow-y: scroll;
+}
+
+.navbar-green {
+    background-color: #4fa685;
+    border-radius: 0px;
+    color:white;
+    height: 80px;
+}
+
+.nav li {
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 20px;
+}
+
+    .nav li .fa-fw {
+        font-size:25px;
+    }
+    .nav {
+    
+    height:80px;
+}
+
+
+.rightMenu {
+    background-color: #da8a82;
+    color:white;
+    /*#95C2BF;*/
+}
+
+.rightMenu .list-group .list-group-item{
+        background-color: #da8a82;
+        color: white;
+        /*#95C2BF;*/
+    }
+
+.rightMenu .list-group .list-group-item : hover {
+    background-color: #4fa685;
+    color: black;
+}
+
+.active {
+    background-color: #95C2BF !important;
+    text-shadow: none !important;
+    border-color: #95C2BF !important;
+}
