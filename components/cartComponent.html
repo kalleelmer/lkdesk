@@ -1,5 +1,5 @@
 <div>
-  <span>{{$ctrl.cart.cartObject.identifier}}</span>
+  <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
   <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
       {{value[0].show_name}} - {{value[0].performance_start
@@ -12,7 +12,7 @@
     </div>
   </ul>
 
-  <h1 style="color: #00FF00">{{$ctrl.cart.totalPrice}} kr</h1>
+  <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
 
   <button type="button" class="btn" ng-click="reload()">Ny kund</button>
   <button type="button" class="btn" ng-click="pay()">Betala</button>
