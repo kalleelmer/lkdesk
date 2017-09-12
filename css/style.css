@@ -40,13 +40,14 @@ html,body {
 }
 .full-screen-container {
     /*min-height: 100%;*/
-		padding: 67px 0px 0px 0px;
+		padding: 80px 0px 0px 0px;
 	  position: absolute;
 	  top: 0;
 	  bottom: 0;
 	  left: 0;
 	  right: 0;
 }
+
 .full-height-item{
 	min-height: 100%;
 }
@@ -61,4 +62,27 @@ html,body {
 }
 .list-group:last-child {
 	padding-right: 0px;
+}
+
+.container-full {
+    margin: 0 auto;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.list-group-item {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+* {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    background-image: none !important;
 }
