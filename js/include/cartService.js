@@ -53,13 +53,11 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     addTicket: function(ticket) {
 
       var sendToServer = {
-        category_id: ticket.category.id,
+        category_id: ticket.category_id,
         performance_id: ticket.performance.id,
-        rate_id: ticket.rate.id,
+        rate_id: ticket.rate_id,
         count: parseInt(ticket.count)
       }
-
-      console.log(sendToServer);
 
       Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 

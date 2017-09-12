@@ -5,6 +5,21 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 
  	$scope.selectedPerformance = {};
 
+	$scope.ticketsToAdd = [];
+
+	$scope.addTicketToAdd = function(ticket) {
+
+		for (var i = 0; i < $scope.ticketsToAdd.length; i++) {
+			if($scope.ticketsToAdd[i].category_id == ticket.category_id && $scope.ticketsToAdd[i].rate_id == ticket.rate_id && $scope.ticketsToAdd[i].show == ticket.show){
+				$scope.ticketsToAdd[i].count = ticket.count;
+				return;
+			}
+		}
+
+		$scope.ticketsToAdd.push(ticket);
+		console.log($scope.ticketsToAdd);
+	}
+
 	$scope.formatDate = function(date) {
 		return date.replace(" ", "T");
 	};
@@ -87,20 +102,33 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
 		});
 	}
 
-	$scope.addToCart = function(category, rate, show) {
+	$scope.addTicketsToCart = function() {
+		for (var i = 0; i < $scope.ticketsToAdd.length; i++) {
+			$scope.addToCart($scope.ticketsToAdd[i])
+		}
 
-		var count = prompt("Antal");
+		//TODO fixa felhantering
 
-		console.log($scope.selectedPerformance);
+		$scope.ticketsToAdd = [];
 
-		var ticket = {category: category,
-		rate: rate,
-		show: show,
-		performance: $scope.selectedPerformance,
-		count: count
-		};
+	}
 
-		if (count){
+	$scope.getPriceOfCart = function() {
+
+	var price = 0;
+
+		for (var i = 0; i < $scope.ticketToAdd.length; i++) {
+			price += $scope.ticketToAdd[i].price;
+		}
+
+		return price;
+	}
+
+	$scope.addToCart = function(ticket) {
+
+		ticket.performance = $scope.selectedPerformance;
+
+		if (ticket.count){
 			cartService.addTicket(ticket);
 		}
 	}
