@@ -14,3 +14,10 @@ module.component("cart", {
   },
   controller: "CartCtrl"
 });
+
+module.component("addTicketsModal", {
+  templateUrl: '/components/addTicketsModal.html',
+  bindings: {
+  },
+  controller: "AddTicketsModalCtrl"
+});

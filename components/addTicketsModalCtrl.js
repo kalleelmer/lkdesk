@@ -1,5 +1,5 @@
 var module = angular.module("lkticket.admin");
-var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
+var addTicketsModalCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 	var $ctrl = this;
   $ctrl.cart = cartService.getCart();
 
@@ -10,10 +10,9 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 
 	$scope.pay = function() {
 		alert("Betalt och klart!");
-		agent.speak("HEJ");
 		$location.path("/");
 	}
 
 }
 
-module.controller("CartCtrl", cartCtrl);
+module.controller("AddTicketsModalCtrl", addTicketsModalCtrl);
