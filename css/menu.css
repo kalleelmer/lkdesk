@@ -66,3 +66,24 @@
     text-shadow: none !important;
     border-color: #95C2BF !important;
 }
+
+.nav > li > a{
+    background-color: #57bb95 !important;
+		color: #FFF !important;
+		margin-top: -5px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus{
+		background-color: #469a7a !important;
+}
+
+.navbar-brand {
+    padding: 10px 10px;
+}
+.navbar-form{
+	margin-top: 23px;
+	margin-bottom: 22px;
+}
+.level-one .user-display{
+	margin-top: 0px !important;
+}
