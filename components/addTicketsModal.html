@@ -4,50 +4,45 @@
     <!-- Modal content-->
     <div class="modal-content">
       <form id="category.name" ng-model="tickets">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{show.name}} - {{selectedPerformance.start | date : 'EEEE d MMMM yyyy HH:mm'}}</h4>
-      </div>
-      <div class="modal-body">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{$ctrl.modaldata.show.name}} - {{$ctrl.selectedperformance.start | date : 'EEEE d MMMM yyyy HH:mm'}}</h4>
+        </div>
+        <div class="modal-body">
 
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th></th>
-              <th colspan="2" ng-repeat="category in show.categories">{{category.name}}</th>
-            </tr>
-          </thead>
-          <tbody>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th colspan="2" ng-repeat="category in $ctrl.modaldata.categories">{{category.name}}</th>
+              </tr>
+            </thead>
+            <tbody>
 
-            <tr ng-repeat="(i, rate) in show.rates">
-              <th scope="row">{{rate.name}}</th>
-              <td ng-repeat-start="category in show.categories"><!--<button class = "btn btn-secondary" ng-click="addToCart(category, rate, show)">{{category.prices[rate.id].price
+              <tr ng-repeat="rate in $ctrl.modaldata.rates">
+                <th scope="row">{{rate.name}}</th>
+                <td ng-repeat-start="category in $ctrl.modaldata.categories">
+                  <!--<button class = "btn btn-secondary" ng-click="addToCart(category, rate, show)">{{category.prices[rate.id].price
                   || "X"}}</button>-->
-                  {{category.prices[rate.id].price}} kr
+                  {{ getPrice(rate.id, category.id).price}} kr
                 </td>
                 <td ng-repeat-end>
-                  <select ng-change = "addTicketToAdd(ticket)" ng-show="category.prices[rate.id].price !=null"
-                  ng-options="i for i in [0,1,2,3,4,5,6,7,8,9]"
-                  ng-init = "ticket.price = category.prices[rate.id].price; ticket.category_id = category.id; ticket.rate_id = rate.id; ticket.show = show.id"
-                  ng-model="ticket.count"></select>
+                  <select ng-change="ticketAdded()"ng-show="getPrice(rate.id, category.id) !=null" ng-options="i for i in [0,1,2,3,4,5,6,7,8,9]"
+                    ng-model="getPrice(rate.id, category.id).count"></select>
 
-              </td>
-            </tr>
-          </tbody>
-        </form>
-        </table>
+              </tr>
+            </tbody>
+          </table>
 
-      </div>
+        </div>
 
-      {{tickets}}
+        Du har {{getNumberOfTickets() || 0}} valda biljetter för totalt {{getAmount()}} kr
 
-      Totalt antal biljett, totalt pris,
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ticketsToAdd = []">Avbryt</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addTicketsToCart()">Lägg i kundvagn</button>
-      </div>
-    </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Avbryt</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addTicketsToCart()">Lägg i kundvagn</button>
+        </div>
+      </form>
     </div>
 
   </div>

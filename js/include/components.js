@@ -18,6 +18,9 @@ module.component("cart", {
 module.component("addTicketsModal", {
   templateUrl: '/components/addTicketsModal.html',
   bindings: {
+    modaldata: '<',
+    prices: '<',
+    selectedperformance: '<',
   },
   controller: "AddTicketsModalCtrl"
 });
