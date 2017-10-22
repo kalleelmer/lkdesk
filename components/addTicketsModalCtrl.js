@@ -6,7 +6,7 @@ var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location
 
 	$ctrl.$onChanges = function(change) {
 
-		$scope.prices = JSON.parse(JSON.stringify($ctrl.prices));
+		$scope.prices = angular.copy($ctrl.prices);
 
 	}
 
@@ -41,7 +41,9 @@ var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location
 		_.forEach(tickets, function(ticket) {
 			ticket.performance = $ctrl.selectedperformance;
 			cartService.addTicket(ticket);
-		})
+		});
+
+		$scope.prices = angular.copy($ctrl.prices);
 
 	}
 
