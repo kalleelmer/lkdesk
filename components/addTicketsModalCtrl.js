@@ -1,7 +1,7 @@
 var module = angular.module("lkticket.admin");
-var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location) {
+var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location, $attrs) {
 	var $ctrl = this
-
+	$scope.uid = $attrs.uid;
 
 
 	$ctrl.$onChanges = function(change) {

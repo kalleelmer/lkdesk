@@ -22,6 +22,7 @@ module.component("addTicketsModal", {
     prices: '<',
     selectedperformance: '<',
     showname: '<',
+    uid: '@'
   },
   controller: "AddTicketsModalCtrl"
 });

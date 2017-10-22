@@ -1,9 +1,11 @@
 <div>
-  <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
+  <add-tickets-modal uid="cartModal" modaldata="modaldata" prices="prices" selectedperformance="selectedPerformance" showname="show"></add-tickets-modal>
+    <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
   <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
       {{value[0].show_name}} - {{value[0].performance_start
       | timestamp | date : 'EEE HH:mm'}}
+      <button ng-click = "editShow(value)" class="badge badge-info" data-toggle="modal" data-target="#cartModal">Ändra</button>
     </li>
     <div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
       <li class="list-group-item" ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
