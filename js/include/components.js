@@ -21,6 +21,7 @@ module.component("addTicketsModal", {
     modaldata: '<',
     prices: '<',
     selectedperformance: '<',
+    showname: '<',
   },
   controller: "AddTicketsModalCtrl"
 });
