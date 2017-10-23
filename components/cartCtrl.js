@@ -12,14 +12,17 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 	$scope.show = {name: ""};
 
   $scope.reload = function() {
-    console.log("Hej");
     $location.path("/");
   }
 
   $scope.pay = function() {
     alert("Betalt och klart!");
-    agent.speak("HEJ");
     $location.path("/");
+  }
+
+  $scope.saveCustomer = function() {
+    console.log($scope.customer);
+    $scope.customer = angular.copy({});
   }
 
   $scope.editShow = function(tickets) {

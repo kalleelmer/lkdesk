@@ -1,11 +1,10 @@
 <div>
   <add-tickets-modal uid="cartModal" modaldata="modaldata" prices="prices" selectedperformance="selectedPerformance" showname="show"></add-tickets-modal>
-    <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
+  <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
   <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
-      {{value[0].show_name}} - {{value[0].performance_start
-      | timestamp | date : 'EEE HH:mm'}}
-      <button ng-click = "editShow(value)" class="badge badge-info" data-toggle="modal" data-target="#cartModal">Ändra</button>
+      {{value[0].show_name}} - {{value[0].performance_start | timestamp | date : 'EEE HH:mm'}}
+      <button ng-click="editShow(value)" class="badge badge-info" data-toggle="modal" data-target="#cartModal">Ändra</button>
     </li>
     <div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
       <li class="list-group-item" ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
@@ -18,5 +17,40 @@
 
   <button type="button" class="btn" ng-click="reload()">Ny kund</button>
   <button type="button" class="btn" ng-click="pay()">Betala</button>
+  <button data-toggle="modal" data-target="#saveCustomerModal" type="button" class="btn" ng-click="">Spara kund</button>
+
+  <div id="saveCustomerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form id="category.name" ng-model="tickets">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Spara kundvagn</h4>
+          </div>
+          <div class="modal-body">
+
+            <form>
+              <div class="form-group">
+                <label for="formGroupExampleInput">Namn</label>
+                <input ng-model = "customer.name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Namn och Efternamn">
+                <label for="formGroupExampleInput2">Email?</label>
+                <input ng-model = "customer.email" type="text" class="form-control" id="formGroupExampleInput2" placeholder="mailadress">
+              </div>
+            </form>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Avbryt</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="saveCustomer()">Spara kund</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
 
 </div>
