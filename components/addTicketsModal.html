@@ -27,8 +27,9 @@
                   {{ getPrice(rate.id, category.id).price}} kr
                 </td>
                 <td ng-repeat-end>
-                  <select ng-change="ticketAdded()"ng-show="getPrice(rate.id, category.id) !=null" ng-options="i for i in [0,1,2,3,4,5,6,7,8,9]"
+                  <select ng-if="true" ng-change="ticketAdded()" ng-show="getPrice(rate.id, category.id) !=null" ng-options="i for i in [0,1,2,3,4,5,6,7,8,9]"
                     ng-model="getPrice(rate.id, category.id).count"></select>
+                  <input type="number" ng-model = "getPrice(rate.id, category.id).count" style="width: 40px;"></input>
 
               </tr>
             </tbody>
