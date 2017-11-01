@@ -16,7 +16,7 @@
   <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
 
   <button type="button" class="btn" ng-click="reload()">Ny kund</button>
-  <button type="button" class="btn" ng-click="pay()">Betala</button>
+  <button data-toggle="modal" data-target="#payModal" type="button" class="btn">Betala</button>
   <button data-toggle="modal" data-target="#saveCustomerModal" type="button" class="btn" ng-click="">Spara kund</button>
 
   <div id="saveCustomerModal" class="modal fade" role="dialog">
@@ -34,9 +34,15 @@
             <form>
               <div class="form-group">
                 <label for="formGroupExampleInput">Namn</label>
-                <input ng-model = "customer.name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Namn och Efternamn">
-                <label for="formGroupExampleInput2">Email?</label>
-                <input ng-model = "customer.email" type="text" class="form-control" id="formGroupExampleInput2" placeholder="mailadress">
+                <input ng-model="customer.name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Namn och Efternamn">
+                <label for="formGroupExampleInput2">Mailadress</label>
+                <input ng-model="customer.email" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Mailadress">
+                <label for="formGroupExampleInput2">Företag</label>
+                <input ng-model="customer.company" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Företag">
+                <label for="formGroupExampleInput2">Telefonnummer</label>
+                <input ng-model="customer.phone" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Telefonnummer">
+                <label for="formGroupExampleInput2">Kontaktperson i karnevalen</label>
+                <input ng-model="customer.contactPerson" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Namn och Efternamn">
               </div>
             </form>
 
@@ -52,5 +58,38 @@
     </div>
   </div>
 
+  <div id="payModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-</div>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Välj betalningsmetod</h4>
+        </div>
+        <div class="modal-body">
+
+            <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false">Tillbaka</button>
+
+          <div ng-hide="cash || swish || card">
+            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block disable" ng-click="swish=true">Swish</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block"ng-click="card=true">Kort</button>
+          </div>
+
+          <div ng-if="cash">
+            <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Jag lovar att jag tagit betalt</button>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Avbryt</button>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
