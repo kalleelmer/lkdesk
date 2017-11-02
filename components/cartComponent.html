@@ -3,7 +3,7 @@
   <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
   <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
-      {{value[0].show_name}} - {{value[0].performance_start | timestamp | date : 'EEE HH:mm'}}
+      {{value[0].show_name}} - {{value[0].performance_start | date : 'EEE HH:mm'}}
       <button ng-click="editShow(value)" class="badge badge-info" data-toggle="modal" data-target="#cartModal">Ändra</button>
     </li>
     <div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
@@ -49,7 +49,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Avbryt</button>
+            <button type="button" class="btn btn-default btn-abort" data-dismiss="modal" ng-click="">Avbryt</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="saveCustomer()">Spara kund</button>
           </div>
         </form>
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-body">
 
-            <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false">Tillbaka</button>
+            <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Byt betalningsmetod</button>
 
           <div ng-hide="cash || swish || card">
             <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
@@ -77,15 +77,14 @@
             <button type="button" class="btn btn-secondary btn-lg btn-block"ng-click="card=true" disabled>Kort</button>
           </div>
 
-          <div ng-if="cash">
-            <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
-
+          <div ng-if="cash" id="price-label">
+            <h1 style="color: #000" >{{$ctrl.cart.totalPrice}} kr</h1>
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
+          <button type="button" class="btn btn-default btn-abort" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
           <button ng-if="cash" type="button" class="btn btn-default" data-dismiss="modal" ng-click="pay()">Jag lovar att jag tagit betalt</button>
         </div>
       </div>

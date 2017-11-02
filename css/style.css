@@ -86,3 +86,11 @@ html,body {
     border-radius: 0 !important;
     background-image: none;
 }
+
+.btn-abort {
+	float: left;
+}
+
+#price-label {
+	text-align: center;
+}

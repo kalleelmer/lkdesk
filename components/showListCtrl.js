@@ -74,9 +74,13 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
     Core.get("/admin/shows/" + $attrs.sid + "/performances").then(
       function(response) {
         var dates = {};
+        console.log("Data: ");
+        console.log(response.data);
         for (var i in response.data) { // Group by date
           var show = response.data[i];
-          var key = show.start.substring(0, 10);
+          //var key = show.start.substring(0, 10);
+          var key = new Date(show.start).toISOString().substring(0, 10);
+
           dates[key] = dates[key] ? dates[key] : [];
           dates[key].push(show);
         }
