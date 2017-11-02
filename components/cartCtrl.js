@@ -16,7 +16,6 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
   }
 
   $scope.pay = function() {
-    alert("Betalt och klart!");
     $location.path("/");
   }
 

@@ -73,19 +73,20 @@
 
           <div ng-hide="cash || swish || card">
             <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block disable" ng-click="swish=true">Swish</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block"ng-click="card=true">Kort</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="swish=true" disabled>Swish</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block"ng-click="card=true" disabled>Kort</button>
           </div>
 
           <div ng-if="cash">
             <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Jag lovar att jag tagit betalt</button>
+
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="">Avbryt</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
+          <button ng-if="cash" type="button" class="btn btn-default" data-dismiss="modal" ng-click="pay()">Jag lovar att jag tagit betalt</button>
         </div>
       </div>
 
