@@ -26,6 +26,7 @@
     border-radius: 0px;
     color:white;
     height: 80px;
+		z-index: 2;
 }
 
 .nav li {
@@ -86,4 +87,26 @@
 }
 .level-one .user-display{
 	margin-top: 0px !important;
+}
+.user-display{
+	min-width: 160px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.dropdown-menu{
+	color: #000;
+}
+.dropdown-menu li{
+	text-align: left;
+}
+.menu-item{
+	margin-top:0px !important;
+	padding:15px !important;
+}
+.menu-item:hover{
+	background-color: #f0f0f0;
+}
+
+.navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
 }
