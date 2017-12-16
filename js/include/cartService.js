@@ -50,7 +50,7 @@ module.factory('cartService', function(Core, $routeParams, $location) {
   }
 
   return {
-    addTicket: function(ticket) {
+    addTicket: function(ticket, callback) {
 
       var sendToServer = {
         category_id: ticket.category_id,
@@ -62,9 +62,10 @@ module.factory('cartService', function(Core, $routeParams, $location) {
       Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 
         addTicketsToCart(response.data);
+        callback(true);
 
       }, function(error) {
-        alert("fel i skickning av biljett: " + error.status);
+        callback(error);
       });
 
     },

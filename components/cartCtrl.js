@@ -17,6 +17,36 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
     $location.path("/");
   }
 
+  $scope.disableButton = false;
+
+  $scope.addTicket = function(ticket) {
+
+    console.log(ticket);
+
+    var ticket = {
+      category_id: ticket.category_id,
+      performance:{id: ticket.performance_id},
+      rate_id: ticket.rate_id,
+      count: 1
+    }
+
+    $scope.disableButton = true;
+
+    cartService.addTicket(ticket, function(response) {
+      $scope.disableButton = false;
+      if (response == true) {
+
+      } else {
+        console.log(response);
+        alert("Tyvärr fanns det inte fler biljetter: " + response.status)
+      }
+    })
+  }
+
+  $scope.removeTicket = function() {
+
+  }
+
   $scope.pay = function() {
 
     Core.post("/" + $ctrl.cart.cartObject.id + "/payments", {method: "cash"}).then(function() {

@@ -4,11 +4,16 @@
   <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
       {{value[0].show_name}} - {{value[0].performance_start | date : 'EEE HH:mm'}}
-      <button ng-click="editShow(value)" class="badge badge-info" data-toggle="modal" data-target="#cartModal">Ändra</button>
     </li>
     <div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
       <li class="list-group-item" ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
         {{value3[0].rate_name}} - {{value3[0].category_name}} - {{value3.length}}x{{value3[0].price}}
+        <button type="button" class="btn btn-default btn-lg" ng-click = "removeTicket(value[0])" ng-disabled = "disableButton">
+  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+</button>
+        <button type="button" class="btn btn-default btn-lg" ng-click = "addTicket(value3[0])" ng-disabled = "disableButton">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+</button>
       </li>
     </div>
   </ul>
@@ -69,16 +74,16 @@
         </div>
         <div class="modal-body">
 
-            <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Byt betalningsmetod</button>
+          <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Byt betalningsmetod</button>
 
           <div ng-hide="cash || swish || card">
             <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
             <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="swish=true" disabled>Swish</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block"ng-click="card=true" disabled>Kort</button>
+            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="card=true" disabled>Kort</button>
           </div>
 
           <div ng-if="cash" id="price-label">
-            <h1 style="color: #000" >{{$ctrl.cart.totalPrice}} kr</h1>
+            <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
           </div>
 
         </div>
