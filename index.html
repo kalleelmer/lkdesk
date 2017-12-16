@@ -81,12 +81,12 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav" ng-if="userStatus('LOGGED_IN')">
-                        <li><i class="fa fa-fw" aria-hidden="true" title="Copy to use calendar-o"></i><br />Föreställningar</li>
-                        <li><i class="fa fa-fw" aria-hidden="true" title="Copy to use ticket"></i><br />Reservationer</li>
-                        <li><i class="fa fa-fw" aria-hidden="true" title="Copy to use users"></i><br />Kunder</li>
-                        <li><i class="fa fa-fw" aria-hidden="true" title="Copy to use file-text-o"></i><br />Rapporter</li>
-                        <li><i class="fa fa-fw" aria-hidden="true" title="Copy to use gear"></i><br />Inställningar</li>
+                    <ul class="menu-link nav navbar-nav" ng-if="userStatus('LOGGED_IN')">
+                        <li><a href="#"><i class="fa fa-fw" aria-hidden="true" title="Copy to use calendar-o"></i><br />Föreställningar</a></li>
+                        <li><a href="#"><i class="fa fa-fw" aria-hidden="true" title="Copy to use ticket"></i><br />Reservationer</a></li>
+                        <li><a href="#"><i class="fa fa-fw" aria-hidden="true" title="Copy to use users"></i><br />Kunder</a></li>
+                        <li><a href="#"><i class="fa fa-fw" aria-hidden="true" title="Copy to use file-text-o"></i><br />Rapporter</a></li>
+                        <li><a href="#"><i class="fa fa-fw" aria-hidden="true" title="Copy to use gear"></i><br />Inställningar</a></li>
                     </ul>
                     <form class="navbar-form navbar-left" ng-if="userStatus('LOGGED_IN')">
                         <div class="form-group">
@@ -99,7 +99,7 @@
 													class="fa fa-lg fa-warning"></i></li>
 												<li class="level-one" ng-show="userStatus('WORKING')"><i
 													class="fa fa-lg fa-spin fa-refresh"></i></li>
-												<li class="level-one user-display"
+												<li class="boxed-link level-one user-display"
 													ng-show="userStatus('LOGGED_IN')"><img
 													class="user-picture-small" ng-src="{{user().picture}}" /> <a
 													class="clickable dropdown-toggle" data-toggle="dropdown">{{user().name
@@ -110,7 +110,7 @@
 														<li class="clickable menu-item" ng-click="logout()"><i
 															class="fa fa-sign-out"></i> Logga ut</li>
 													</ul></li>
-												<li class="level-one login-button"
+												<li class="boxed-link level-one login-button"
 													ng-show="userStatus('LOGGED_OUT')"><a href="{{loginURL()}}"
 													role="button">Logga in</a></li>
 											</ul>

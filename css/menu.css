@@ -67,17 +67,19 @@
     text-shadow: none !important;
     border-color: #95C2BF !important;
 }
-
-.nav > li > a{
-    background-color: #57bb95 !important;
-		color: #FFF !important;
-		margin-top: -5px;
+/* Boxed menu links */
+.boxed-link a{
+	background-color: #57bb95 !important;
+	color: #FFF !important;
+	margin-top: -5px;
 }
-
-.nav > li > a:hover, .nav > li > a:focus{
+.boxed-link a:hover, .boxed-link a:focus{
 		background-color: #469a7a !important;
 }
-
+.boxed-link{
+	    margin-top: 19px!important;
+}
+/* Login button/ Change user / logout */
 .navbar-brand {
     padding: 10px 10px;
 }
@@ -109,4 +111,21 @@
 
 .navbar-brand, .navbar-nav > li > a {
     text-shadow: none;
+}
+
+/* Menu link items */
+.menu-link > li > a{
+	background-color: transparent !important;
+	color: #FFF !important;
+	margin-top: -5px;
+}
+.menu-link > li > a:hover, .menu-link > li > a:focus{
+		background-color: transparent !important;
+		color: #1f7353 !important;
+}
+.menu-link > li > a {
+    padding: 5px 8px;
+}
+.menu-link > li{
+    margin-top: 17px;
 }
