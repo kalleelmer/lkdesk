@@ -24,7 +24,7 @@
                     <input ng-model="customer.company" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Företag">
                     <label for="formGroupExampleInput2">Telefonnummer</label>
                     <input ng-model="customer.phone" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Telefonnummer">
-                    <label for="formGroupExampleInput2">Kontaktperson i karnevalen</label>
+                    <label for="formGroupExampleInput2">Kontaktperson i Lundakarnevalen</label>
                     <input ng-model="customer.contactPerson" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Namn och Efternamn">
                   </div>
                 </form>
@@ -48,7 +48,7 @@
           <p class="title-item" style="float: left;">Telefonnummer: {{selectedCustomer.phone}}</p>
           <p class="title-item">Mail: {{selectedCustomer.email}}</p>
           <h3 class="title-item">Bokningar</h3>
-          <button href="" class="list-group-item order-item" ng-click="selectOrder(order.id)" ng-repeat="order in selectedCustomer.orders">Ref: {{order.identifier}} Skapad: {{order.created | date : 'EEEE d MMMM yyyy'}}</button>
+          <button href="" class="list-group-item order-item" ng-click="selectOrder(order.id)" ng-repeat="order in selectedCustomer.orders">Ref: {{order.identifier}} | Skapad: {{order.created | date : "dd/MM/yyyy"}}</button>
     </div>
     <div id="cart" class="col-sm-3 full-height-item scrollableInY">
       <h2>Kundvagn</h2>
