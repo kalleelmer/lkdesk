@@ -11,8 +11,11 @@ module.factory('cartService', function(Core, $routeParams, $location) {
   function createNewCart() {
 
     Core.get("/desk/orders/create").then(function(response) {
+
       cart.cartObject = response.data;
       localStorage.cartId = response.data.id;
+      cart.tickets = [];
+      cart.totalPrice = 0;
 
     }, function(response) {
       alert("fel: " + response.status);
@@ -82,6 +85,9 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     },
     reloadCart: function() {
       getCartFromServer();
+    },
+    createNewCart: function() {
+      createNewCart();
     }
   }
 });

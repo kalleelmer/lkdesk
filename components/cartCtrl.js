@@ -1,7 +1,7 @@
 var module = angular.module("lkticket.admin");
 var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
   var $ctrl = this;
-  $ctrl.cart = cartService.getCart();
+  $scope.cart = cartService.getCart();
 
   $scope.selectedPerformance = {};
   $scope.modaldata = {
@@ -43,10 +43,16 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 
   }
 
+  $scope.createNewCart = function() {
+    cartService.createNewCart();
+  }
+
   $scope.pay = function() {
 
-    Core.post("/" + $ctrl.cart.cartObject.id + "/payments", {method: "cash"}).then(function() {
-      $location.path("/");
+    $scope.createNewCart();
+
+    Core.post("/" + $scope.cart.cartObject.id + "/payments", {method: "cash"}).then(function() {
+
     }, function(error) {
       console.log(error.status);
     });

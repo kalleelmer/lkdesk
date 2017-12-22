@@ -1,7 +1,7 @@
 <div>
   <add-tickets-modal uid="cartModal" modaldata="modaldata" prices="prices" selectedperformance="selectedPerformance" showname="show"></add-tickets-modal>
   <!--<span>{{$ctrl.cart.cartObject.identifier}}</span>-->
-  <ul class="list-group" ng-repeat="(key, value) in $ctrl.cart.tickets | groupBy: 'performance_id'">
+  <ul class="list-group" ng-repeat="(key, value) in cart.tickets | groupBy: 'performance_id'">
     <li class="list-group-item active">
       {{value[0].show_name}} - {{value[0].performance_start | date : 'EEE HH:mm'}}
     </li>
@@ -18,9 +18,9 @@
     </div>
   </ul>
 
-  <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
+  <h1 style="color: #000">{{cart.totalPrice}} kr</h1>
 
-  <button type="button" class="btn" ng-click="reload()">Ny kund</button>
+  <button type="button" class="btn" ng-click="createNewCart()">Ny kund</button>
   <button data-toggle="modal" data-target="#payModal" type="button" class="btn">Betala</button>
   <button data-toggle="modal" data-target="#saveCustomerModal" type="button" class="btn" ng-click="">Spara kund</button>
 
@@ -83,7 +83,7 @@
           </div>
 
           <div ng-if="cash" id="price-label">
-            <h1 style="color: #000">{{$ctrl.cart.totalPrice}} kr</h1>
+            <h1 style="color: #000">{{cart.totalPrice}} kr</h1>
           </div>
 
         </div>
