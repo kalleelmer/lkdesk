@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-module.factory('cartService', function(Core, $routeParams, $location) {
+module.factory('cartService', function(Core, $routeParams, $location, clippyService) {
 
   var cart = {
     totalPrice: 0,
@@ -93,7 +93,8 @@ module.factory('cartService', function(Core, $routeParams, $location) {
         callback(true);
 
       }, function(error) {
-        callback(error);
+        clippyService.say("Biljetterna är slutsålda!!!");
+        //callback(error);
       });
 
     },
@@ -121,6 +122,19 @@ module.factory('cartService', function(Core, $routeParams, $location) {
         });
         callback();
       }, function(error) {});
+    },
+    removeAllTickets: function() {
+
+      clippyService.play("EmptyTrash");
+
+      _.forEach(cart.tickets, function(ticket){
+        Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+          cart.totalPrice = cart.totalPrice - ticket.price;
+          cart.tickets = cart.tickets.filter(function(obj) {
+            return obj.id != ticket.id;
+          });
+        }, function(error) {});
+      });
     }
   }
 });

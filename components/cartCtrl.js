@@ -51,8 +51,8 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
     });
   }
 
-  $scope.createNewCart = function() {
-    cartService.createNewCart();
+  $scope.emptyCart = function() {
+    cartService.removeAllTickets();
   }
 
   $scope.pay = function() {
