@@ -6,6 +6,9 @@
 	float: right;
 	margin-top: 5px;
 }
+.simpletext{
+	padding: 10px 15px;
+}
 
 /*  - - - - - MENU - - - - - */
 
@@ -95,4 +98,61 @@ html,body {
 
 #price-label {
 	text-align: center;
+}
+
+/* CUSTOMER */
+
+#customer-list{
+	background-color: #d999fa;
+	color: #FFF;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.customer-item{
+	background-color: #d999fa;
+	border-color: #cc88ef;
+	color: #FFF !important;
+}
+a.customer-item:hover, button.customer-item:hover, a.customer-item:focus, button.customer-item:focus {
+  color: #FFF;
+  text-decoration: none;
+  background-color: #cc88ef;
+}
+#order-list{
+	background-color: #FBBCC0;
+	color: #FFF;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.order-item{
+	background-color: #FBBCC0;
+	border-color: #f9aaaf;
+	color: #FFF !important;
+}
+a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-item:focus {
+  color: #FFF;
+  text-decoration: none;
+  background-color: #f9aaaf;
+}
+.customer-name{
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+	margin-top: 0px;
+}
+/* Skapa ny kund */
+#create-customer-item{
+	background-color: #d38bf9;
+	border-color: #cc88ef;
+	color: #FFF !important;
+}
+a#create-customer-item:hover, button#create-customer-item:hover, a#create-customer-item:focus, button#create-customer-item:focus {
+  color: #FFF;
+  text-decoration: none;
+  background-color: #c57dec;
+}
+#createCustomerModal{
+	color:#000;
+}
+#createCustomerModal label{
+	margin: 10px 0px;
 }
