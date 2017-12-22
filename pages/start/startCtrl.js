@@ -4,8 +4,6 @@ var StartCtrl = function($filter, cartService, $scope, $http, User, $routeParams
 
   $scope.selected = 1;
 
-  cartService.reloadCart();
-
   $scope.selectShow = function(selected) {
     $scope.selected = selected;
   }

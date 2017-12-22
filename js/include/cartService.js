@@ -8,21 +8,6 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     cartObject: {},
   };
 
-  function createNewCart() {
-
-    Core.get("/desk/orders/create").then(function(response) {
-
-      cart.cartObject = response.data;
-      localStorage.cartId = response.data.id;
-      cart.tickets = [];
-      cart.totalPrice = 0;
-
-    }, function(response) {
-      alert("fel: " + response.status);
-    });
-
-  }
-
   function getCartFromServer() {
 
     if (!localStorage.cartId) {
@@ -51,6 +36,23 @@ module.factory('cartService', function(Core, $routeParams, $location) {
         alert("fel: " + response.status);
       });
     }
+  }
+
+  getCartFromServer();
+
+  function createNewCart() {
+
+    Core.get("/desk/orders/create").then(function(response) {
+
+      cart.cartObject = response.data;
+      localStorage.cartId = response.data.id;
+      cart.tickets = [];
+      cart.totalPrice = 0;
+
+    }, function(response) {
+      alert("fel: " + response.status);
+    });
+
   }
 
   function addTicketsToCart(ticketsToAdd) {
@@ -83,7 +85,7 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     getCart: function() {
       return cart;
     },
-    reloadCart: function() {
+    updateCart: function() {
       getCartFromServer();
     },
     createNewCart: function() {
