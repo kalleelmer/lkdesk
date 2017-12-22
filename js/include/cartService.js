@@ -10,9 +10,9 @@ module.factory('cartService', function(Core, $routeParams, $location) {
 
   var history = JSON.parse(localStorage.history || null);
 
-  function addToHistory(){
+  function addToHistory() {
 
-    if(!localStorage.history){
+    if (!localStorage.history) {
       localStorage.history = JSON.stringify([sessionStorage.cartId]);
     } else {
       history.push(sessionStorage.cartId);
@@ -113,6 +113,14 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     },
     getHistory: function() {
       return history;
+    },
+    removeTicket: function(ticket, callback) {
+      Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+        cart.tickets = cart.tickets.filter(function(obj) {
+          return obj.id != ticket.id;
+        });
+        callback();
+      }, function(error) {});
     }
   }
 });

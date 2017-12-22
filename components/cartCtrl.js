@@ -17,7 +17,6 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
   $scope.disableButton = false;
 
   $scope.changeCart = function(id) {
-    console.log("HEJHEJ");
     cartService.getCartById(id);
   }
 
@@ -45,8 +44,11 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
     })
   }
 
-  $scope.removeTicket = function() {
-
+  $scope.removeTicket = function(ticket) {
+    $scope.disableButton = true;
+    cartService.removeTicket(ticket, function() {
+      $scope.disableButton = false;
+    });
   }
 
   $scope.createNewCart = function() {
