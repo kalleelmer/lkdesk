@@ -22,7 +22,7 @@
 }
 
 .navbar-green {
-    background-color: #4fa685;
+    background-color: #F4376D;
     border-radius: 0px;
     color:white;
     height: 80px;
@@ -46,13 +46,13 @@
 
 
 .rightMenu {
-    background-color: #da8a82;
+    background-color: #FBBCC0;
     color:white;
     /*#95C2BF;*/
 }
 
 .rightMenu .list-group .list-group-item{
-        background-color: #da8a82;
+        background-color: #FBBCC0;
         color: white;
         /*#95C2BF;*/
     }
@@ -69,12 +69,12 @@
 }
 /* Boxed menu links */
 .boxed-link a{
-	background-color: #57bb95 !important;
+	background-color: #8A4797 !important;
 	color: #FFF !important;
 	margin-top: -5px;
 }
 .boxed-link a:hover, .boxed-link a:focus{
-		background-color: #469a7a !important;
+		background-color: #8A4797 !important;
 }
 .boxed-link{
 	    margin-top: 19px!important;
@@ -121,7 +121,7 @@
 }
 .menu-link > li > a:hover, .menu-link > li > a:focus{
 		background-color: transparent !important;
-		color: #1f7353 !important;
+		color: #8A4797 !important;
 }
 .menu-link > li > a {
     padding: 5px 8px;
