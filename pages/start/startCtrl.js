@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var ShowCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce, $location) {
+var StartCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce, $location) {
 
   $scope.selected = 1;
 
@@ -13,4 +13,4 @@ var ShowCtrl = function($filter, cartService, $scope, $http, User, $routeParams,
 
 }
 
-module.controller("StartCtrl", ShowCtrl);
+module.controller("StartCtrl", StartCtrl);

@@ -38,9 +38,13 @@ var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location
 	$scope.addTicketsToCart = function() {
 		var tickets = _.filter($scope.prices, function(o) {return o.count > 0});
 
+			console.log(tickets);
+
 		_.forEach(tickets, function(ticket) {
 			ticket.performance = $ctrl.selectedperformance;
-			cartService.addTicket(ticket);
+			cartService.addTicket(ticket, function(response) {
+
+			});
 		});
 
 		$scope.prices = angular.copy($ctrl.prices);

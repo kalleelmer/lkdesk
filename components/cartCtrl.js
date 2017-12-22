@@ -13,10 +13,6 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
     name: ""
   };
 
-  $scope.reload = function() {
-    $location.path("/");
-  }
-
   $scope.disableButton = false;
 
   $scope.addTicket = function(ticket) {
