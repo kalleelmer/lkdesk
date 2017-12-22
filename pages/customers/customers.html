@@ -44,9 +44,9 @@
     </div>
     <div id="order-list" class="col-sm-6 full-height-item">
           <h2 class="title-item">Kundinformation</h2>
-          <h3 class="title-item customer-name">{{selectedCustomer.name}}</h3>
-          <p class="title-item" style="float: left;">Telefonnummer: {{selectedCustomer.phone}}</p>
-          <p class="title-item">Mail: {{selectedCustomer.email}}</p>
+          <h3 class="title-item customer-name">{{selectedCustomer.name || "Ingen kund vald"}}</h3>
+          <p class="title-item" style="float: left;">Telefonnummer: {{selectedCustomer.phone || ""}}</p>
+          <p class="title-item">Mail: {{selectedCustomer.email || ""}}</p>
           <h3 class="title-item">Bokningar</h3>
           <button href="" class="list-group-item order-item" ng-click="selectOrder(order.id)" ng-repeat="order in selectedCustomer.orders">Ref: {{order.identifier}} | Skapad: {{order.created | date : "dd/MM/yyyy"}}</button>
     </div>
