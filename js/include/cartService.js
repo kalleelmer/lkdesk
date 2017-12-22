@@ -8,19 +8,30 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     cartObject: {},
   };
 
+  var history = JSON.parse(localStorage.history || null);
+
+  function addToHistory(){
+
+    if(!localStorage.history){
+      localStorage.history = JSON.stringify([sessionStorage.cartId]);
+    } else {
+      history.push(sessionStorage.cartId);
+      localStorage.history = JSON.stringify(history);
+    }
+
+    console.log(history);
+
+  }
+
   function getCartFromServer() {
 
-    if (!localStorage.cartId) {
+    if (!sessionStorage.cartId) {
       createNewCart();
     } else {
 
-      var cartId = localStorage.cartId;
-
-      cart = {
-        totalPrice: 0,
-        tickets: [],
-        cartObject: {},
-      };
+      var cartId = sessionStorage.cartId;
+      cart.tickets = [];
+      cart.totalPrice = 0;
 
       Core.get("/desk/orders/" + cartId).then(function(response) {
         cart.cartObject = response.data
@@ -42,10 +53,14 @@ module.factory('cartService', function(Core, $routeParams, $location) {
 
   function createNewCart() {
 
+    if (sessionStorage.cartId) {
+      addToHistory();
+    }
+
     Core.get("/desk/orders/create").then(function(response) {
 
       cart.cartObject = response.data;
-      localStorage.cartId = response.data.id;
+      sessionStorage.cartId = response.data.id;
       cart.tickets = [];
       cart.totalPrice = 0;
 
@@ -90,6 +105,14 @@ module.factory('cartService', function(Core, $routeParams, $location) {
     },
     createNewCart: function() {
       createNewCart();
+    },
+    getCartById: function(id) {
+      addToHistory();
+      sessionStorage.cartId = id;
+      getCartFromServer();
+    },
+    getHistory: function() {
+      return history;
     }
   }
 });

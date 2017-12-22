@@ -2,6 +2,7 @@ var module = angular.module("lkticket.admin");
 var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
   var $ctrl = this;
   $scope.cart = cartService.getCart();
+  $scope.history = cartService.getHistory();
 
   $scope.selectedPerformance = {};
   $scope.modaldata = {
@@ -14,6 +15,11 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
   };
 
   $scope.disableButton = false;
+
+  $scope.changeCart = function(id) {
+    console.log("HEJHEJ");
+    cartService.getCartById(id);
+  }
 
   $scope.addTicket = function(ticket) {
 
