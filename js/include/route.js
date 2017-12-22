@@ -6,9 +6,25 @@ module.config([ '$locationProvider', function($locationProvider) {
 
 module.config([ "$routeProvider", function($routeProvider) {
 	console.log("Route: " + $routeProvider);
-	$routeProvider.when("/:id?", {
+	$routeProvider.when("/", {
 		templateUrl : "/pages/start/start.html",
 		controller: "StartCtrl"
+	});
+	$routeProvider.when("/customers", {
+		templateUrl : "/pages/customers/customers.html",
+		controller: "CustomersCtrl"
+	});
+	$routeProvider.when("/reservations", {
+		templateUrl : "/pages/reservations/reservations.html",
+		controller: "ReservationsCtrl"
+	});
+	$routeProvider.when("/reports", {
+		templateUrl : "/pages/reports/reports.html",
+		controller: "ReportsCtrl"
+	});
+	$routeProvider.when("/settings", {
+		templateUrl : "/pages/settings/settings.html",
+		controller: "SettingsCtrl"
 	});
 	$routeProvider.otherwise({
 		redirectTo : "/"
