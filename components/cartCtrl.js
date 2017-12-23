@@ -3,6 +3,7 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 	var $ctrl = this;
 	$scope.cart = Cart.getCart();
 	$scope.history = Cart.getHistory();
+
 	$scope.customer = function() {
 		return Cart.customer;
 	}
