@@ -1,7 +1,7 @@
 var module = angular.module("lkticket.admin");
 
 var CustomersCtrl = function($filter, Cart, $scope, $http, User,
-	$routeParams, Core, $sce, $location) {
+	$routeParams, Core, $sce, $location, Clippy) {
 
 	Core.get("/desk/customers").then(function(response) {
 		$scope.customers = response.data;
@@ -30,7 +30,7 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
 				$scope.customers.push(response.data);
       },
       function(error) {
-
+				Clippy.say("Fel i skapning av kund: " + error.status)
       }
     )};
 

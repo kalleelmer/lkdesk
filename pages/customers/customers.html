@@ -52,7 +52,7 @@
 		<div class="list-group">
 			<button href="" class="list-group-item customer-item"
 				ng-click="getCustomer(customer.id)"
-				ng-repeat="customer in customers">{{customer.name}}</button>
+				ng-repeat="customer in customers | orderBy:'name'">{{customer.name}}</button>
 		</div>
 	</div>
 	<div id="order-list" class="col-sm-6 full-height-item">
