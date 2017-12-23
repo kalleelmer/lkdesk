@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-module.factory('clippyService', function() {
+module.factory('Clippy', function() {
 
 	var clip = 0;
 

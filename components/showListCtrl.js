@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var ShowListCtrl = function($filter, $scope, Core, $attrs, cartService) {
+var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
   var $ctrl = this;
 
   console.log($attrs.sid);

@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-module.factory('cartService', function(Core, $routeParams, $location, clippyService) {
+module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
   var cart = {
     totalPrice: 0,
@@ -93,7 +93,7 @@ module.factory('cartService', function(Core, $routeParams, $location, clippyServ
         callback(true);
 
       }, function(error) {
-        clippyService.say("Biljetterna är slutsålda!!!");
+        Clippy.say("Biljetterna är slutsålda!!!");
         //callback(error);
       });
 
@@ -125,7 +125,7 @@ module.factory('cartService', function(Core, $routeParams, $location, clippyServ
     },
     removeAllTickets: function() {
 
-      clippyService.play("EmptyTrash");
+      Clippy.play("EmptyTrash");
 
       _.forEach(cart.tickets, function(ticket){
         Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {

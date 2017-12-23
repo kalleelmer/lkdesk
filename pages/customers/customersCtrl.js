@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var CustomersCtrl = function($filter, cartService, $scope, $http, User,
+var CustomersCtrl = function($filter, Cart, $scope, $http, User,
 	$routeParams, Core, $sce, $location) {
 
 	Core.get("/desk/customers").then(function(response) {
@@ -25,7 +25,7 @@ var CustomersCtrl = function($filter, cartService, $scope, $http, User,
 	}
 
 	$scope.selectOrder = function(order) {
-		cartService.getCartById(order);
+		Cart.getCartById(order);
 	}
 
 }

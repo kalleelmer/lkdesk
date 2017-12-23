@@ -1,8 +1,8 @@
 var module = angular.module("lkticket.admin");
-var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
+var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 	var $ctrl = this;
-	$scope.cart = cartService.getCart();
-	$scope.history = cartService.getHistory();
+	$scope.cart = Cart.getCart();
+	$scope.history = Cart.getHistory();
 
 	$scope.selectedPerformance = {};
 	$scope.modaldata = {
@@ -17,7 +17,7 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 	$scope.disableButton = false;
 
 	$scope.changeCart = function(id) {
-		cartService.getCartById(id);
+		Cart.getCartById(id);
 	}
 
 	$scope.addTicket = function(ticket) {
@@ -35,7 +35,7 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 
 		$scope.disableButton = true;
 
-		cartService.addTicket(ticket, function(response) {
+		Cart.addTicket(ticket, function(response) {
 			$scope.disableButton = false;
 			if (response == true) {
 
@@ -49,13 +49,13 @@ var cartCtrl = function($filter, $scope, Core, $attrs, cartService, $location) {
 
 	$scope.removeTicket = function(ticket) {
 		$scope.disableButton = true;
-		cartService.removeTicket(ticket, function() {
+		Cart.removeTicket(ticket, function() {
 			$scope.disableButton = false;
 		});
 	}
 
 	$scope.emptyCart = function() {
-		cartService.removeAllTickets();
+		Cart.removeAllTickets();
 	}
 
 	$scope.pay = function() {
