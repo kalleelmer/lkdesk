@@ -1,108 +1,143 @@
 <div>
-  <h2 class="title-item">Kundvagn - {{cart.cartObject.id}}</h2>
-  <add-tickets-modal uid="cartModal" modaldata="modaldata" prices="prices" selectedperformance="selectedPerformance" showname="show"></add-tickets-modal>
+	<h2 class="title-item" ng-show="cart.cartObject.customer_id == 0">Kundvagn
+		{{cart.cartObject.id}}</h2>
+	<h2 class="title-item" ng-show="cart.cartObject.customer_id > 0">Bokning
+		{{cart.cartObject.identifier}}</h2>
+	<add-tickets-modal uid="cartModal" modaldata="modaldata"
+		prices="prices" selectedperformance="selectedPerformance"
+		showname="show"></add-tickets-modal>
 
-  <div class="dropdown" ng-hide = "true">
-   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tidigare
-   <span class="caret"></span></button>
-   <ul class="dropdown-menu">
-       <li ng-repeat = "id in history track by $index"><button class="dropdown-item" type="button" ng-click = "changeCart(id)">{{id}}</button></li>
-   </ul>
-  </div>
-  <ul class="list-group" ng-repeat="(key, value) in cart.tickets | groupBy: 'performance_id'">
-    <li class="list-group-item active">
-      {{value[0].show_name}} - {{value[0].performance_start | date : 'EEE HH:mm'}}
-    </li>
-    <div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
-      <li class="list-group-item" ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
-        {{value3[0].rate_name}} - {{value3[0].category_name}} - {{value3.length}}x{{value3[0].price}}
-        <button type="button" class="btn btn-default btn-lg" ng-click = "removeTicket(value[0])" ng-disabled = "disableButton">
-  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-</button>
-        <button type="button" class="btn btn-default btn-lg" ng-click = "addTicket(value3[0])" ng-disabled = "disableButton">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button>
-      </li>
-    </div>
-  </ul>
+	<div class="dropdown" ng-hide="true">
+		<button class="btn btn-primary dropdown-toggle" type="button"
+			data-toggle="dropdown">
+			Tidigare <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li ng-repeat="id in history track by $index"><button
+					class="dropdown-item" type="button" ng-click="changeCart(id)">{{id}}</button></li>
+		</ul>
+	</div>
+	<ul class="list-group"
+		ng-repeat="(key, value) in cart.tickets | groupBy: 'performance_id'">
+		<li class="list-group-item active">{{value[0].show_name}} -
+			{{value[0].performance_start | date : 'EEE HH:mm'}}</li>
+		<div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
+			<li class="list-group-item"
+				ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
+				{{value3[0].rate_name}} - {{value3[0].category_name}} -
+				{{value3.length}}x{{value3[0].price}}
+				<button type="button" class="btn btn-default btn-lg"
+					ng-click="removeTicket(value[0])" ng-disabled="disableButton">
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-default btn-lg"
+					ng-click="addTicket(value3[0])" ng-disabled="disableButton">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</li>
+		</div>
+	</ul>
 
-  <h1 class="title-item" style="color: #000">{{cart.totalPrice}} kr</h1>
+	<h1 class="title-item" style="color: #000">{{cart.totalPrice}} kr</h1>
 
-  <button type="button" class="btn" ng-click="emptyCart()">Töm kundvagn</button>
-  <button data-toggle="modal" data-target="#payModal" type="button" class="btn">Betala</button>
-  <button data-toggle="modal" data-target="#saveCustomerModal" type="button" class="btn" ng-click="">Spara kund</button>
+	<button type="button" class="btn" ng-click="emptyCart()">Töm
+		kundvagn</button>
+	<button data-toggle="modal" data-target="#payModal" type="button"
+		class="btn">Betala</button>
+	<button data-toggle="modal" data-target="#saveCustomerModal"
+		type="button" class="btn" ng-click="">Spara kund</button>
 
-  <div id="saveCustomerModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+	<div id="saveCustomerModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <form id="category.name" ng-model="tickets">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Spara kundvagn</h4>
-          </div>
-          <div class="modal-body">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<form id="category.name" ng-model="tickets">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Spara kundvagn</h4>
+					</div>
+					<div class="modal-body">
 
-            <form>
-              <div class="form-group">
-                <label for="formGroupExampleInput">Namn</label>
-                <input ng-model="customer.name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Namn och Efternamn">
-                <label for="formGroupExampleInput2">Mailadress</label>
-                <input ng-model="customer.email" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Mailadress">
-                <label for="formGroupExampleInput2">Företag</label>
-                <input ng-model="customer.company" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Företag">
-                <label for="formGroupExampleInput2">Telefonnummer</label>
-                <input ng-model="customer.phone" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Telefonnummer">
-                <label for="formGroupExampleInput2">Kontaktperson i karnevalen</label>
-                <input ng-model="customer.contactPerson" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Namn och Efternamn">
-              </div>
-            </form>
+						<form>
+							<div class="form-group">
+								<label for="formGroupExampleInput">Namn</label> <input
+									ng-model="customer.name" type="text" class="form-control"
+									id="formGroupExampleInput" placeholder="Namn och Efternamn">
+								<label for="formGroupExampleInput2">Mailadress</label> <input
+									ng-model="customer.email" type="text" class="form-control"
+									id="formGroupExampleInput2" placeholder="Mailadress"> <label
+									for="formGroupExampleInput2">Företag</label> <input
+									ng-model="customer.company" type="text" class="form-control"
+									id="formGroupExampleInput2" placeholder="Företag"> <label
+									for="formGroupExampleInput2">Telefonnummer</label> <input
+									ng-model="customer.phone" type="text" class="form-control"
+									id="formGroupExampleInput2" placeholder="Telefonnummer">
+								<label for="formGroupExampleInput2">Kontaktperson i
+									karnevalen</label> <input ng-model="customer.contactPerson" type="text"
+									class="form-control" id="formGroupExampleInput2"
+									placeholder="Namn och Efternamn">
+							</div>
+						</form>
 
-          </div>
+					</div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default btn-abort" data-dismiss="modal" ng-click="">Avbryt</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="saveCustomer()">Spara kund</button>
-          </div>
-        </form>
-      </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default btn-abort"
+							data-dismiss="modal" ng-click="">Avbryt</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="saveCustomer()">Spara kund</button>
+					</div>
+				</form>
+			</div>
 
-    </div>
-  </div>
+		</div>
+	</div>
 
-  <div id="payModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+	<div id="payModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Välj betalningsmetod</h4>
-        </div>
-        <div class="modal-body">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Välj betalningsmetod</h4>
+				</div>
+				<div class="modal-body">
 
-          <button ng-show="cash || swish || card" type="button" class="btn btn-primary" ng-click="cash= false; swish= false; card = false"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Byt betalningsmetod</button>
+					<button ng-show="cash || swish || card" type="button"
+						class="btn btn-primary"
+						ng-click="cash= false; swish= false; card = false">
+						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+						Byt betalningsmetod
+					</button>
 
-          <div ng-hide="cash || swish || card">
-            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="swish=true" disabled>Swish</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="card=true" disabled>Kort</button>
-          </div>
+					<div ng-hide="cash || swish || card">
+						<button type="button" class="btn btn-secondary btn-lg btn-block"
+							ng-click="cash=true">Kontant</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block"
+							ng-click="swish=true" disabled>Swish</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block"
+							ng-click="card=true" disabled>Kort</button>
+					</div>
 
-          <div ng-if="cash" id="price-label">
-            <h1 style="color: #000">{{cart.totalPrice}} kr</h1>
-          </div>
+					<div ng-if="cash" id="price-label">
+						<h1 style="color: #000">{{cart.totalPrice}} kr</h1>
+					</div>
 
-        </div>
+				</div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-abort" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
-          <button ng-if="cash" type="button" class="btn btn-default" data-dismiss="modal" ng-click="pay()">Jag lovar att jag tagit betalt</button>
-        </div>
-      </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-abort"
+						data-dismiss="modal"
+						ng-click="cash= false; swish= false; card = false">Avbryt</button>
+					<button ng-if="cash" type="button" class="btn btn-default"
+						data-dismiss="modal" ng-click="pay()">Jag lovar att jag
+						tagit betalt</button>
+				</div>
+			</div>
 
-    </div>
+		</div>
 
 
-  </div>
+	</div>
