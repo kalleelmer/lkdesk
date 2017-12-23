@@ -2,11 +2,15 @@ var module = angular.module("lkticket.admin");
 
 module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
+  var Cart = {};
+
   var cart = {
     totalPrice: 0,
     tickets: [],
-    cartObject: {},
+    cartObject: {}
   };
+
+  Cart.customer = {};
 
   var history = JSON.parse(localStorage.history || null);
 
@@ -23,6 +27,16 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
   }
 
+  function getCustomer(id) {
+    Core.get("/desk/customers/" + id).then(
+      function(response) {
+        Cart.customer = response.data;
+      },
+      function(response) {
+        Clippy("Kunde inte hämta kund: " + response.status);
+      });
+  }
+
   function getCartFromServer() {
 
     if (!sessionStorage.cartId) {
@@ -35,6 +49,10 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
       Core.get("/desk/orders/" + cartId).then(function(response) {
         cart.cartObject = response.data
+
+        if (cart.cartObject.customer_id > 0) {
+          getCustomer(cart.cartObject.customer_id);
+        }
 
         Core.get("/desk/orders/" + cartId + "/tickets").then(function(response2) {
 
@@ -77,64 +95,72 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
     }
   }
 
-  return {
-    addTicket: function(ticket, callback) {
+  Cart.addTicket = function(ticket, callback) {
 
-      var sendToServer = {
-        category_id: ticket.category_id,
-        performance_id: ticket.performance.id,
-        rate_id: ticket.rate_id,
-        count: parseInt(ticket.count)
-      }
+    var sendToServer = {
+      category_id: ticket.category_id,
+      performance_id: ticket.performance.id,
+      rate_id: ticket.rate_id,
+      count: parseInt(ticket.count)
+    }
 
-      Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
+    Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 
-        addTicketsToCart(response.data);
-        callback(true);
+      addTicketsToCart(response.data);
+      callback(true);
 
-      }, function(error) {
-        Clippy.say("Biljetterna är slutsålda!!!");
-        //callback(error);
+    }, function(error) {
+      Clippy.say("Biljetterna är slutsålda!!!");
+      //callback(error);
+    });
+
+  }
+
+  Cart.getCart = function() {
+    return cart;
+  }
+
+  Cart.updateCart = function() {
+    getCartFromServer();
+  }
+
+  Cart.createNewCart = function() {
+    createNewCart();
+  }
+
+  Cart.getCartById = function(id) {
+    addToHistory();
+    sessionStorage.cartId = id;
+    getCartFromServer();
+  }
+
+  Cart.getHistory = function() {
+    return history;
+  }
+
+  Cart.removeTicket = function(ticket, callback) {
+    Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+      cart.tickets = cart.tickets.filter(function(obj) {
+        return obj.id != ticket.id;
       });
+      callback();
+    }, function(error) {});
+  }
 
-    },
-    getCart: function() {
-      return cart;
-    },
-    updateCart: function() {
-      getCartFromServer();
-    },
-    createNewCart: function() {
-      createNewCart();
-    },
-    getCartById: function(id) {
-      addToHistory();
-      sessionStorage.cartId = id;
-      getCartFromServer();
-    },
-    getHistory: function() {
-      return history;
-    },
-    removeTicket: function(ticket, callback) {
+  Cart.removeAllTickets = function() {
+
+    Clippy.play("EmptyTrash");
+
+    _.forEach(cart.tickets, function(ticket) {
       Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+        cart.totalPrice = cart.totalPrice - ticket.price;
         cart.tickets = cart.tickets.filter(function(obj) {
           return obj.id != ticket.id;
         });
-        callback();
       }, function(error) {});
-    },
-    removeAllTickets: function() {
-
-      Clippy.play("EmptyTrash");
-
-      _.forEach(cart.tickets, function(ticket){
-        Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
-          cart.totalPrice = cart.totalPrice - ticket.price;
-          cart.tickets = cart.tickets.filter(function(obj) {
-            return obj.id != ticket.id;
-          });
-        }, function(error) {});
-      });
-    }
+    });
   }
+
+  return Cart;
+
 });

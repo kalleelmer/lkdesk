@@ -1,8 +1,9 @@
 <div>
-	<h2 class="title-item" ng-show="cart.cartObject.customer_id == 0">Kundvagn
-		{{cart.cartObject.id}}</h2>
-	<h2 class="title-item" ng-show="cart.cartObject.customer_id > 0">Bokning
-		{{cart.cartObject.identifier}}</h2>
+	<h3 class="title-item" ng-show="cart.cartObject.customer_id == 0">Kundvagn
+		{{cart.cartObject.id}}</h3>
+	<h3 class="title-item" ng-show="cart.cartObject.customer_id > 0">Bokning
+		{{cart.cartObject.identifier}}</h3>
+		<h5 class="title-item" ng-show="cart.cartObject.customer_id > 0">{{customer().name}}</h5> 
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
