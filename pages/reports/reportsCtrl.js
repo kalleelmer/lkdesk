@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var reportsCtrl = function($filter, cartService, $scope, $http, User,
+var reportsCtrl = function($filter, Cart, $scope, $http, User,
 	$routeParams, Core, $sce, $location) {
 
 }

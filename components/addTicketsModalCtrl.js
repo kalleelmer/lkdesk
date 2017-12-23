@@ -1,5 +1,5 @@
 var module = angular.module("lkticket.admin");
-var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location, $attrs) {
+var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location, $attrs) {
 	var $ctrl = this
 	$scope.uid = $attrs.uid;
 
@@ -40,7 +40,7 @@ var addTicketsModalCtrl = function($filter, $scope, Core, cartService, $location
 
 		_.forEach(tickets, function(ticket) {
 			ticket.performance = $ctrl.selectedperformance;
-			cartService.addTicket(ticket, function(response) {
+			Cart.addTicket(ticket, function(response) {
 				if (response == true) {
 
 				} else {
