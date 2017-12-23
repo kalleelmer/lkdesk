@@ -1,16 +1,16 @@
 var module = angular.module("lkticket.admin");
 
-var StartCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce, $location, clippyService) {
+var StartCtrl = function($filter, cartService, $scope, $http, User,
+	$routeParams, Core, $sce, $location, clippyService) {
 
-  $scope.selected = 1;
-  $scope.cartId = cartService.getCart();
+	$scope.selected = 1;
+	$scope.cartId = cartService.getCart();
 
-  console.log($scope.cartId);
+	console.log($scope.cartId);
 
-  $scope.selectShow = function(selected) {
-    $scope.selected = selected;
-  }
-
+	$scope.selectShow = function(selected) {
+		$scope.selected = selected;
+	}
 
 }
 

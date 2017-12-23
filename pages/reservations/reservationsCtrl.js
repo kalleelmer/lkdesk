@@ -1,7 +1,7 @@
 var module = angular.module("lkticket.admin");
 
-var reservationsCtrl = function($filter, cartService, $scope, $http, User, $routeParams, Core, $sce, $location) {
-
+var reservationsCtrl = function($filter, cartService, $scope, $http, User,
+	$routeParams, Core, $sce, $location) {
 
 }
 

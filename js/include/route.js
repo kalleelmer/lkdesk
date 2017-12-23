@@ -8,23 +8,23 @@ module.config([ "$routeProvider", function($routeProvider) {
 	console.log("Route: " + $routeProvider);
 	$routeProvider.when("/", {
 		templateUrl : "/pages/start/start.html",
-		controller: "StartCtrl"
+		controller : "StartCtrl"
 	});
 	$routeProvider.when("/customers", {
 		templateUrl : "/pages/customers/customers.html",
-		controller: "CustomersCtrl"
+		controller : "CustomersCtrl"
 	});
 	$routeProvider.when("/reservations", {
 		templateUrl : "/pages/reservations/reservations.html",
-		controller: "ReservationsCtrl"
+		controller : "ReservationsCtrl"
 	});
 	$routeProvider.when("/reports", {
 		templateUrl : "/pages/reports/reports.html",
-		controller: "ReportsCtrl"
+		controller : "ReportsCtrl"
 	});
 	$routeProvider.when("/settings", {
 		templateUrl : "/pages/settings/settings.html",
-		controller: "SettingsCtrl"
+		controller : "SettingsCtrl"
 	});
 	$routeProvider.otherwise({
 		redirectTo : "/"
