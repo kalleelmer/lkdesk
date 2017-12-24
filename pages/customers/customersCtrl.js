@@ -38,6 +38,13 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
 		Cart.getCartById(order);
 	}
 
+	$scope.cart = Cart.getCart();
+
+	$scope.createNewCartToCustomer = function() {
+		Cart.createNewCart();
+		Cart.assignCartToCustomer($scope.selectedCustomer.id);
+	}
+
 }
 
 module.controller("CustomersCtrl", CustomersCtrl);

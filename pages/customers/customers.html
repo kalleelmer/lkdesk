@@ -62,6 +62,10 @@
 		<p class="title-item" style="float: left;">Telefonnummer:
 			{{selectedCustomer.phone || ""}}</p>
 		<p class="title-item">Mail: {{selectedCustomer.email || ""}}</p>
+		<button class = "btn btn-secondary btn-lg btn-block" type="button"
+			name="button" ng-if = "selectedCustomer" ng-click="createNewCartToCustomer()">Skapa ny bokning åt kund</button>
+		<button class = "btn btn-secondary btn-lg btn-block" type="button"
+			name="button" ng-if = "selectedCustomer" ng-disabled = "cart.cartObject.customer_id > 0">Koppla nuvarande bokning åt kund</button>
 		<h3 class="title-item">Bokningar</h3>
 		<button href="" class="list-group-item order-item"
 			ng-click="selectOrder(order.id)"

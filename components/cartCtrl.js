@@ -62,6 +62,10 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 		Cart.removeAllTickets();
 	}
 
+	$scope.createNewCart = function() {
+		Cart.createNewCart();
+	}
+
 	$scope.pay = function() {
 
 		$scope.createNewCart();

@@ -161,6 +161,16 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
     });
   }
 
+  Cart.assignCartToCustomer = function(customerId) {
+    Core.put("/desk/orders/" + cart.cartObject.id + "/customers", {id: customerId}).then(function(response) {
+      console.log(response.data);
+
+    }, function(error) {
+      Clippy.say("Biljetterna är slutsålda!!!");
+      //callback(error);
+    });
+  }
+
   return Cart;
 
 });
