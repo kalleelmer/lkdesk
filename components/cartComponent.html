@@ -3,7 +3,7 @@
 		{{cart.cartObject.id}}</h3>
 	<h3 class="title-item" ng-show="cart.cartObject.customer_id > 0">Bokning
 		{{cart.cartObject.identifier}}</h3>
-		<h5 class="title-item" ng-show="cart.cartObject.customer_id > 0">{{customer().name}}</h5>
+	<h5 class="title-item" ng-show="cart.cartObject.customer_id > 0">{{customer().name}}</h5>
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
@@ -47,6 +47,8 @@
 		class="btn">Betala</button>
 	<button data-toggle="modal" data-target="#saveCustomerModal"
 		type="button" class="btn" ng-click="">Spara kund</button>
+	<button type="button" class="btn" ng-click="printTickets()">Skriv
+		ut</button>
 
 	<div id="saveCustomerModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">

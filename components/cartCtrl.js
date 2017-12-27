@@ -61,6 +61,10 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 	$scope.emptyCart = function() {
 		Cart.removeAllTickets();
 	}
+	
+	$scope.printTickets = function() {
+		Cart.printAllTickets();
+	}
 
 	$scope.pay = function() {
 

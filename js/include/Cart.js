@@ -2,165 +2,192 @@ var module = angular.module("lkticket.admin");
 
 module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
-  var Cart = {};
+	var Cart = {};
 
-  var cart = {
-    totalPrice: 0,
-    tickets: [],
-    cartObject: {}
-  };
+	var cart = {
+		totalPrice: 0,
+		tickets: [],
+		cartObject: {}
+	};
 
-  Cart.customer = {};
+	Cart.customer = {};
 
-  var history = JSON.parse(localStorage.history || null);
+	var history = JSON.parse(localStorage.history || null);
 
-  function addToHistory() {
+	function addToHistory() {
 
-    if (!localStorage.history) {
-      localStorage.history = JSON.stringify([sessionStorage.cartId]);
-    } else {
-      history.push(sessionStorage.cartId);
-      localStorage.history = JSON.stringify(history);
-    }
+		if (!localStorage.history) {
+			localStorage.history = JSON.stringify([sessionStorage.cartId]);
+		} else {
+			history.push(sessionStorage.cartId);
+			localStorage.history = JSON.stringify(history);
+		}
 
-    console.log(history);
+		console.log(history);
 
-  }
+	}
 
-  function getCustomer(id) {
-    Core.get("/desk/customers/" + id).then(
-      function(response) {
-        Cart.customer = response.data;
-      },
-      function(response) {
-        Clippy("Kunde inte hämta kund: " + response.status);
-      });
-  }
+	function getCustomer(id) {
+		Core.get("/desk/customers/" + id).then(
+			function(response) {
+				Cart.customer = response.data;
+			},
+			function(response) {
+				Clippy("Kunde inte hämta kund: " + response.status);
+			});
+	}
 
-  function getCartFromServer() {
+	function getCartFromServer() {
 
-    if (!sessionStorage.cartId) {
-      createNewCart();
-    } else {
+		if (!sessionStorage.cartId) {
+			createNewCart();
+		} else {
 
-      var cartId = sessionStorage.cartId;
-      cart.tickets = [];
-      cart.totalPrice = 0;
+			var cartId = sessionStorage.cartId;
+			cart.tickets = [];
+			cart.totalPrice = 0;
 
-      Core.get("/desk/orders/" + cartId).then(function(response) {
-        cart.cartObject = response.data
+			Core.get("/desk/orders/" + cartId).then(function(response) {
+				cart.cartObject = response.data
 
-        if (cart.cartObject.customer_id > 0) {
-          getCustomer(cart.cartObject.customer_id);
-        }
+				if (cart.cartObject.customer_id > 0) {
+					getCustomer(cart.cartObject.customer_id);
+				}
 
-        Core.get("/desk/orders/" + cartId + "/tickets").then(function(response2) {
+				Core.get("/desk/orders/" + cartId + "/tickets").then(function(response2) {
 
-          addTicketsToCart(response2.data);
-        }, function(response) {
-          alert("fel: " + response.status);
-        });
+					addTicketsToCart(response2.data);
+				}, function(response) {
+					alert("fel: " + response.status);
+				});
 
-      }, function(response) {
-        alert("fel: " + response.status);
-      });
-    }
-  }
+			}, function(response) {
+				alert("fel: " + response.status);
+			});
+		}
+	}
 
-  getCartFromServer();
+	getCartFromServer();
 
-  function createNewCart() {
+	function createNewCart() {
 
-    if (sessionStorage.cartId) {
-      addToHistory();
-    }
+		if (sessionStorage.cartId) {
+			addToHistory();
+		}
 
-    Core.get("/desk/orders/create").then(function(response) {
+		Core.get("/desk/orders/create").then(function(response) {
 
-      cart.cartObject = response.data;
-      sessionStorage.cartId = response.data.id;
-      cart.tickets = [];
-      cart.totalPrice = 0;
+			cart.cartObject = response.data;
+			sessionStorage.cartId = response.data.id;
+			cart.tickets = [];
+			cart.totalPrice = 0;
 
-    }, function(response) {
-      alert("fel: " + response.status);
-    });
+		}, function(response) {
+			alert("fel: " + response.status);
+		});
 
-  }
+	}
 
-  function addTicketsToCart(ticketsToAdd) {
-    for (var i = 0; i < ticketsToAdd.length; i++) {
-      cart.tickets.push(ticketsToAdd[i]);
-      cart.totalPrice = cart.totalPrice + ticketsToAdd[i].price;
-    }
-  }
+	function addTicketsToCart(ticketsToAdd) {
+		for (var i = 0; i < ticketsToAdd.length; i++) {
+			cart.tickets.push(ticketsToAdd[i]);
+			cart.totalPrice = cart.totalPrice + ticketsToAdd[i].price;
+		}
+	}
 
-  Cart.addTicket = function(ticket, callback) {
+	Cart.addTicket = function(ticket, callback) {
 
-    var sendToServer = {
-      category_id: ticket.category_id,
-      performance_id: ticket.performance.id,
-      rate_id: ticket.rate_id,
-      count: parseInt(ticket.count)
-    }
+		var sendToServer = {
+			category_id: ticket.category_id,
+			performance_id: ticket.performance.id,
+			rate_id: ticket.rate_id,
+			count: parseInt(ticket.count)
+		}
 
-    Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
+		Core.post("/desk/orders/" + cart.cartObject.id + "/tickets", sendToServer).then(function(response) {
 
-      addTicketsToCart(response.data);
-      callback(true);
+			addTicketsToCart(response.data);
+			callback(true);
 
-    }, function(error) {
-      Clippy.say("Biljetterna är slutsålda!!!");
-      //callback(error);
-    });
+		}, function(error) {
+			Clippy.say("Biljetterna är slutsålda!!!");
+			// callback(error);
+		});
 
-  }
+	}
 
-  Cart.getCart = function() {
-    return cart;
-  }
+	Cart.getCart = function() {
+		return cart;
+	}
 
-  Cart.updateCart = function() {
-    getCartFromServer();
-  }
+	Cart.updateCart = function() {
+		getCartFromServer();
+	}
 
-  Cart.createNewCart = function() {
-    createNewCart();
-  }
+	Cart.createNewCart = function() {
+		createNewCart();
+	}
 
-  Cart.getCartById = function(id) {
-    addToHistory();
-    sessionStorage.cartId = id;
-    getCartFromServer();
-  }
+	Cart.getCartById = function(id) {
+		addToHistory();
+		sessionStorage.cartId = id;
+		getCartFromServer();
+	}
 
-  Cart.getHistory = function() {
-    return history;
-  }
+	Cart.getHistory = function() {
+		return history;
+	}
+	
+	Cart.printAllTickets = function() {
+		var data = {tickets:[]};
+		for(var i = 0; i < cart.tickets.length; i++) {
+			var ticket = cart.tickets[i];
+			if(!ticket.printed) {
+				data.tickets.push(ticket.id);
+			}
+		}
+		if(data.tickets.length == 0) {
+			Clippy.say("Biljetterna är redan utskrivna.");
+			return;
+		}
+		Core.post("/desk/printers/1/print", data).then(function(response){
+			for(var i = 0; i < cart.tickets.length; i++) {
+				var ticket = cart.tickets[i];
+				if(!ticket.printed) {
+					ticket.printed = 1;
+				}
+			}
+			Clippy.play("Print");
+		},function(response) {
+			Clippy.say("Utskriften misslyckades: " + response.status);
+		});
+		console.log("Ticket list is " + data.tickets);
+		
+	}
 
-  Cart.removeTicket = function(ticket, callback) {
-    Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
-      cart.tickets = cart.tickets.filter(function(obj) {
-        return obj.id != ticket.id;
-      });
-      callback();
-    }, function(error) {});
-  }
+	Cart.removeTicket = function(ticket, callback) {
+		Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+			cart.tickets = cart.tickets.filter(function(obj) {
+				return obj.id != ticket.id;
+			});
+			callback();
+		}, function(error) {});
+	}
 
-  Cart.removeAllTickets = function() {
+	Cart.removeAllTickets = function() {
 
-    Clippy.play("EmptyTrash");
+		Clippy.play("EmptyTrash");
 
-    _.forEach(cart.tickets, function(ticket) {
-      Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
-        cart.totalPrice = cart.totalPrice - ticket.price;
-        cart.tickets = cart.tickets.filter(function(obj) {
-          return obj.id != ticket.id;
-        });
-      }, function(error) {});
-    });
-  }
+		_.forEach(cart.tickets, function(ticket) {
+			Core.delete("/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id).then(function(response) {
+				cart.totalPrice = cart.totalPrice - ticket.price;
+				cart.tickets = cart.tickets.filter(function(obj) {
+					return obj.id != ticket.id;
+				});
+			}, function(error) {});
+		});
+	}
 
-  return Cart;
+	return Cart;
 
 });
