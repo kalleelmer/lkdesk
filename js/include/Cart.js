@@ -12,21 +12,6 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 
 	Cart.customer = {};
 
-	var history = JSON.parse(localStorage.history || null);
-
-	function addToHistory() {
-
-		if (!localStorage.history) {
-			localStorage.history = JSON.stringify([sessionStorage.cartId]);
-		} else {
-			history.push(sessionStorage.cartId);
-			localStorage.history = JSON.stringify(history);
-		}
-
-		console.log(history);
-
-	}
-
 	function getCustomer(id) {
 		Core.get("/desk/customers/" + id).then(
 			function(response) {
@@ -70,10 +55,6 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 	getCartFromServer();
 
 	function createNewCart() {
-
-		if (sessionStorage.cartId) {
-			addToHistory();
-		}
 
 		Core.get("/desk/orders/create").then(function(response) {
 
@@ -129,15 +110,10 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 	}
 
 	Cart.getCartById = function(id) {
-		addToHistory();
 		sessionStorage.cartId = id;
 		getCartFromServer();
 	}
 
-	Cart.getHistory = function() {
-		return history;
-	}
-	
 	Cart.printAllTickets = function() {
 		var data = {tickets:[]};
 		for(var i = 0; i < cart.tickets.length; i++) {
@@ -162,7 +138,7 @@ module.factory('Cart', function(Core, $routeParams, $location, Clippy) {
 			Clippy.say("Utskriften misslyckades: " + response.status);
 		});
 		console.log("Ticket list is " + data.tickets);
-		
+
 	}
 
 	Cart.removeTicket = function(ticket, callback) {
