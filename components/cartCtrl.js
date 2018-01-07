@@ -75,7 +75,7 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 
 		$scope.createNewCart();
 
-		Core.post("/" + $scope.cart.cartObject.id + "/payments", {
+		Core.post("/" + $scope.cart.id + "/payments", {
 			method : "cash"
 		}).then(function() {
 

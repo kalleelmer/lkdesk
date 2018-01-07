@@ -1,10 +1,10 @@
-<loading-screen value="{{cart().cartObject.id}}"></loading-screen>
-<div ng-show="cart().cartObject.id">
-	<h3 class="title-item" ng-show="cart().cartObject.customer_id == 0">Kundvagn
-		{{cart().cartObject.id}}</h3>
-	<h3 class="title-item" ng-show="cart().cartObject.customer_id > 0">Bokning
-		{{cart().cartObject.identifier}}</h3>
-	<h5 class="title-item" ng-show="cart().cartObject.customer_id > 0">{{cart().customer.name}}</h5>
+<loading-screen value="{{cart().id}}"></loading-screen>
+<div ng-show="cart().id">
+	<h3 class="title-item" ng-show="cart().customer_id == 0">Kundvagn
+		{{cart().id}}</h3>
+	<h3 class="title-item" ng-show="cart().customer_id > 0">Bokning
+		{{cart().identifier}}</h3>
+	<h5 class="title-item" ng-show="cart().customer_id > 0">{{cart().customer.name}}</h5>
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
@@ -33,11 +33,10 @@
 	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
 	<button type="button" class="btn" ng-click="emptyCart()"
-		ng-if="cart().cartObject.customer_id == 0">Töm kundvagn</button>
+		ng-if="cart().customer_id == 0">Töm kundvagn</button>
 
-	<button type="button" class="btn"
-		ng-if="cart().cartObject.customer_id > 0" ng-click="createNewCart()">Ny
-		kundvagn</button>
+	<button type="button" class="btn" ng-if="cart().customer_id > 0"
+		ng-click="createNewCart()">Ny kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"
 		class="btn">Betala</button>

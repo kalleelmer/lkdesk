@@ -4,18 +4,15 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 
 	var Cart = {};
 
-	var cart = {
-		tickets : [],
-		cartObject : {},
-		customer : {}
-	};
+	var cart = {};
 
-	function getCustomer(id) {
-		Core.get("/desk/customers/" + id).then(function(response) {
-			cart.customer = response.data;
-		}, function(response) {
-			Clippy("Kunde inte hämta kund: " + response.status);
-		});
+	function getCustomer() {
+		Core.get("/desk/customers/" + cart.customer_id).then(
+			function(response) {
+				cart.customer = response.data;
+			}, function(response) {
+				Clippy.say("Kunde inte hämta kund: " + response.status);
+			});
 	}
 
 	function getCartFromServer() {
@@ -25,20 +22,20 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 		} else {
 
 			var cartId = sessionStorage.cartId;
-			cart.tickets = [];
+			cart = {};
 
 			Core.get("/desk/orders/" + cartId).then(
 				function(response) {
-					cart.cartObject = response.data
+					cart = response.data;
 
-					if (cart.cartObject.customer_id > 0) {
-						getCustomer(cart.cartObject.customer_id);
+					if (cart.customer_id > 0) {
+						getCustomer();
 					}
 
 					Core.get("/desk/orders/" + cartId + "/tickets").then(
-						function(response2) {
+						function(response) {
 
-							addTicketsToCart(response2.data);
+							cart.tickets = response.data;
 						}, function(response) {
 							alert("fel: " + response.status);
 						});
@@ -55,7 +52,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 
 		Core.get("/desk/orders/create").then(function(response) {
 
-			cart.cartObject = response.data;
+			cart = response.data;
 			sessionStorage.cartId = response.data.id;
 			cart.tickets = [];
 
@@ -80,16 +77,16 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 			count : parseInt(ticket.count)
 		}
 
-		Core.post("/desk/orders/" + cart.cartObject.id + "/tickets",
-			sendToServer).then(function(response) {
+		Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
+			function(response) {
 
-			addTicketsToCart(response.data);
-			callback(true);
+				addTicketsToCart(response.data);
+				callback(true);
 
-		}, function(error) {
-			Clippy.say("Biljetterna är slutsålda!!!");
-			// callback(error);
-		});
+			}, function(error) {
+				Clippy.say("Biljetterna är slutsålda!!!");
+				// callback(error);
+			});
 
 	}
 
@@ -148,9 +145,8 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	}
 
 	Cart.removeTicket = function(ticket, callback) {
-		Core.deleet(
-			"/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id)
-			.then(function(response) {
+		Core.deleet("/desk/orders/" + cart.id + "/tickets/" + ticket.id).then(
+			function(response) {
 				cart.tickets = cart.tickets.filter(function(obj) {
 					return obj.id != ticket.id;
 				});
@@ -160,9 +156,8 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	}
 
 	Cart.assignCartToCustomer = function(customerId, callback) {
-		Core
-			.put("/desk/orders/" + cart.cartObject.id + "/customer", customerId)
-			.then(function(response) {
+		Core.put("/desk/orders/" + cart.id + "/customer", customerId).then(
+			function(response) {
 				// cart.customer = response.data;
 				getCartFromServer();
 				callback();
@@ -176,8 +171,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 		Clippy.play("EmptyTrash");
 
 		_.forEach(cart.tickets, function(ticket) {
-			Core.deleet(
-				"/desk/orders/" + cart.cartObject.id + "/tickets/" + ticket.id)
+			Core.deleet("/desk/orders/" + cart.id + "/tickets/" + ticket.id)
 				.then(function(response) {
 					cart.tickets = cart.tickets.filter(function(obj) {
 						return obj.id != ticket.id;
