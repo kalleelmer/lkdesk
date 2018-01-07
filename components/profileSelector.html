@@ -1,0 +1,4 @@
+<div class="profile-selector">
+	<select ng-options="p as p.name for p in profiles()" ng-model="profile"
+		class="div-control" ng-change="setProfile()"></select>
+</div>

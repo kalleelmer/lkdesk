@@ -1,12 +1,15 @@
 var module = angular.module("lkticket.admin");
 
-var CartFactory = function(Core, $routeParams, $location, Clippy) {
+var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 
 	var Cart = {};
 
 	var cart = {};
 
-	function getCustomer() {
+	function loadCustomer() {
+		if (!cart.customer_id) {
+			return;
+		}
 		Core.get("/desk/customers/" + cart.customer_id).then(
 			function(response) {
 				cart.customer = response.data;
@@ -16,11 +19,9 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	}
 
 	function getCartFromServer() {
-
 		if (!sessionStorage.cartId) {
 			createNewCart();
 		} else {
-
 			var cartId = sessionStorage.cartId;
 			cart = {};
 
@@ -28,9 +29,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 				function(response) {
 					cart = response.data;
 
-					if (cart.customer_id > 0) {
-						getCustomer();
-					}
+					loadCustomer();
 
 					Core.get("/desk/orders/" + cartId + "/tickets").then(
 						function(response) {
@@ -49,7 +48,6 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	getCartFromServer();
 
 	function createNewCart() {
-
 		Core.get("/desk/orders/create").then(function(response) {
 
 			cart = response.data;
@@ -59,7 +57,6 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 		}, function(response) {
 			alert("fel: " + response.status);
 		});
-
 	}
 
 	function addTicketsToCart(ticketsToAdd) {
@@ -69,12 +66,12 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	}
 
 	Cart.addTicket = function(ticket, callback) {
-
 		var sendToServer = {
 			category_id : ticket.category_id,
 			performance_id : ticket.performance.id,
 			rate_id : ticket.rate_id,
-			count : parseInt(ticket.count)
+			count : parseInt(ticket.count),
+			profile_id : User.profileID()
 		}
 
 		Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
@@ -87,10 +84,12 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 				Clippy.say("Biljetterna är slutsålda!!!");
 				// callback(error);
 			});
-
 	}
 
 	Cart.getSum = function() {
+		if (!cart.tickets) {
+			return 0;
+		}
 		var sum = 0;
 		for (var i = 0; i < cart.tickets.length; i++) {
 			sum += cart.tickets[i].price;
@@ -140,8 +139,6 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 		}, function(response) {
 			Clippy.say("Utskriften misslyckades: " + response.status);
 		});
-		console.log("Ticket list is " + data.tickets);
-
 	}
 
 	Cart.removeTicket = function(ticket, callback) {
@@ -182,6 +179,5 @@ var CartFactory = function(Core, $routeParams, $location, Clippy) {
 	}
 
 	return Cart;
-
 }
 module.factory('Cart', CartFactory);

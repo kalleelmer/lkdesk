@@ -25,3 +25,9 @@ module.component("addTicketsModal", {
 	},
 	controller : "AddTicketsModalCtrl"
 });
+
+module.component("profileSelector", {
+	templateUrl : '/components/profileSelector.html',
+	bindings : {},
+	controller : "ProfileSelectorCtrl"
+});
