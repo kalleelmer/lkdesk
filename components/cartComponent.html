@@ -1,16 +1,16 @@
-<loading-screen value="{{cart.cartObject.id}}"></loading-screen>
-<div ng-show="cart.cartObject.id">
-	<h3 class="title-item" ng-show="cart.cartObject.customer_id == 0">Kundvagn
-		{{cart.cartObject.id}}</h3>
-	<h3 class="title-item" ng-show="cart.cartObject.customer_id > 0">Bokning
-		{{cart.cartObject.identifier}}</h3>
-	<h5 class="title-item" ng-show="cart.cartObject.customer_id > 0">{{cart.customer.name}}</h5>
+<loading-screen value="{{cart().cartObject.id}}"></loading-screen>
+<div ng-show="cart().cartObject.id">
+	<h3 class="title-item" ng-show="cart().cartObject.customer_id == 0">Kundvagn
+		{{cart().cartObject.id}}</h3>
+	<h3 class="title-item" ng-show="cart().cartObject.customer_id > 0">Bokning
+		{{cart().cartObject.identifier}}</h3>
+	<h5 class="title-item" ng-show="cart().cartObject.customer_id > 0">{{cart().customer.name}}</h5>
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
 
 	<ul class="list-group"
-		ng-repeat="(key, value) in cart.tickets | groupBy: 'performance_id'">
+		ng-repeat="(key, value) in cart().tickets | groupBy: 'performance_id'">
 		<li class="list-group-item active">{{value[0].show_name}} -
 			{{value[0].performance_start | date : 'EEE HH:mm'}}</li>
 		<div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
@@ -30,13 +30,13 @@
 		</div>
 	</ul>
 
-	<h1 class="title-item" style="color: #000">{{cart.totalPrice}} kr</h1>
+	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
 	<button type="button" class="btn" ng-click="emptyCart()"
-		ng-if="cart.cartObject.customer_id == 0">Töm kundvagn</button>
+		ng-if="cart().cartObject.customer_id == 0">Töm kundvagn</button>
 
 	<button type="button" class="btn"
-		ng-if="cart.cartObject.customer_id > 0" ng-click="createNewCart()">Ny
+		ng-if="cart().cartObject.customer_id > 0" ng-click="createNewCart()">Ny
 		kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"
@@ -119,7 +119,7 @@
 					</div>
 
 					<div ng-if="cash" id="price-label">
-						<h1 style="color: #000">{{cart.totalPrice}} kr</h1>
+						<h1 style="color: #000">{{totalPrice()}} kr</h1>
 					</div>
 
 				</div>

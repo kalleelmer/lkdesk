@@ -1,7 +1,9 @@
 var module = angular.module("lkticket.admin");
 var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 	var $ctrl = this;
-	$scope.cart = Cart.getCart();
+	$scope.cart = function() {
+		return Cart.getCart();
+	}
 
 	$scope.customer = function() {
 		return Cart.customer;
@@ -21,6 +23,10 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 
 	$scope.changeCart = function(id) {
 		Cart.getCartById(id);
+	}
+
+	$scope.totalPrice = function() {
+		return Cart.getSum();
 	}
 
 	$scope.addTicket = function(ticket) {
