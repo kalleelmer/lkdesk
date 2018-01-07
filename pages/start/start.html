@@ -3,6 +3,7 @@
 	<div id="shows" class="col-sm-2 full-height-item rightMenu"
 		ng-controller="ShowsCtrl as showCtrl">
 		<h2 class="title-item">Föreställningar</h2>
+		<loading-screen value="{{shows}}"></loading-screen>
 		<div class="list-group">
 			<button href="" class="list-group-item"
 				ng-click="selectShow(show.id)" ng-repeat="show in shows">{{show.name}}</button>
