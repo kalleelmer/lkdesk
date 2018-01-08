@@ -4,6 +4,7 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
   $routeParams, Core, $sce, $location, Clippy) {
 
   $scope.cart = Cart.getCart();
+  console.log($scope.cart);
 
   Core.get("/desk/customers").then(function(response) {
     $scope.customers = response.data;

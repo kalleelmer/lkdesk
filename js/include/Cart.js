@@ -2,6 +2,17 @@ var module = angular.module("lkticket.admin");
 
 var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 
+	var replaceObject = function(objectToReplace, object) {
+		_.forEach(objectToReplace, function(val) {
+			obj = undefined;
+		});
+
+		_.forEach(object, function(val, key) {
+			objectToReplace[key] = val;
+		});
+
+	}
+
 	var Cart = {};
 
 	var cart = {};
@@ -27,7 +38,8 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 
 			Core.get("/desk/orders/" + cartId).then(
 				function(response) {
-					cart = response.data;
+
+					replaceObject(cart, response.data);
 
 					loadCustomer();
 
@@ -50,7 +62,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 	function createNewCart() {
 		Core.get("/desk/orders/create").then(function(response) {
 
-			cart = response.data;
+			replaceObject(cart, response.data);
 			sessionStorage.cartId = response.data.id;
 			cart.tickets = [];
 
