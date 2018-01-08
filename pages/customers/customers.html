@@ -65,9 +65,21 @@
 		<h3 class="title-item">Bokningar</h3>
 		<button href="" class="list-group-item order-item"
 			ng-click="selectOrder(order.id)"
-			ng-repeat="order in selectedCustomer.orders">Ref:
-			{{order.identifier}} | Skapad: {{order.created | date :
-			"dd/MM/yyyy"}}</button>
+			ng-repeat="order in selectedCustomer.orders">
+
+			<div class="row">
+				<div class="col-sm-10">
+					Ref:
+					{{order.identifier}} | Skapad: {{order.created | date :
+					"dd/MM/yyyy"}}
+				</div>
+
+				<div class="col-sm-2">
+					<span ng-class = "{'paid' : order.payment_id > 0}"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span></span>
+				</div>
+			</div>
+
+		</button>
 			<button class = "btn btn-secondary btn-lg btn-block" type="button"
 					name="button" ng-if = "selectedCustomer" ng-click="" ng-hide ="true">Skapa ny bokning åt kund</button>
 				<button class = "btn btn-secondary btn-lg btn-block" type="button"

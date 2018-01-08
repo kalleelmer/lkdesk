@@ -156,3 +156,7 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 #createCustomerModal label{
 	margin: 10px 0px;
 }
+
+.paid {
+	color: green;
+}

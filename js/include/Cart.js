@@ -190,6 +190,20 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 		});
 	}
 
+	Cart.pay = function(method) {
+
+				Core.post("/desk/orders/" + cart.id + "/payments", {
+					method : method,
+					amount : Cart.getSum(),
+					reference: "Kristoffer",
+					profile_id: User.profileID()
+				}).then(function(response) {
+					cart.payment_id = response.data.id;
+				}, function(error) {
+					console.log(error.status);
+				});
+	}
+
 	return Cart;
 }
 module.factory('Cart', CartFactory);

@@ -71,18 +71,8 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 		Cart.printAllTickets();
 	}
 
-	$scope.pay = function() {
-
-		$scope.createNewCart();
-
-		Core.post("/" + $scope.cart.id + "/payments", {
-			method : "cash"
-		}).then(function() {
-
-		}, function(error) {
-			console.log(error.status);
-		});
-
+	$scope.pay = function(method) {
+		Cart.pay(method);
 	}
 
 	$scope.saveCustomer = function() {
