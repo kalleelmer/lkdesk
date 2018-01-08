@@ -4,7 +4,6 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
   $routeParams, Core, $sce, $location, Clippy) {
 
   $scope.cart = Cart.getCart();
-  console.log($scope.cart);
 
   Core.get("/desk/customers").then(function(response) {
     $scope.customers = response.data;
@@ -49,6 +48,11 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
     	$scope.getCustomer($scope.selectedCustomer.id);
     });
   }
+
+
+    if ($scope.cart.customer_id > 0) {
+      $scope.getCustomer($scope.cart.customer_id);
+    }
 
 }
 
