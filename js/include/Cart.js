@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
+var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer) {
 
 	var replaceObject = function(objectToReplace, object) {
 		_.forEach(objectToReplace, function(val) {
@@ -127,30 +127,37 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User) {
 	}
 
 	Cart.printAllTickets = function() {
-		var data = {
-			tickets : []
-		};
-		for (var i = 0; i < cart.tickets.length; i++) {
-			var ticket = cart.tickets[i];
-			if (!ticket.printed) {
-				data.tickets.push(ticket.id);
-			}
-		}
-		if (data.tickets.length == 0) {
-			Clippy.say("Biljetterna är redan utskrivna.");
-			return;
-		}
-		Core.post("/desk/printers/1/print", data).then(function(response) {
+
+		if (Printer.getSelectedPrinter()) {
+
+			var data = {
+				tickets : []
+			};
 			for (var i = 0; i < cart.tickets.length; i++) {
 				var ticket = cart.tickets[i];
 				if (!ticket.printed) {
-					ticket.printed = 1;
+					data.tickets.push(ticket.id);
 				}
 			}
-			Clippy.play("Print");
-		}, function(response) {
-			Clippy.say("Utskriften misslyckades: " + response.status);
-		});
+			if (data.tickets.length == 0) {
+				Clippy.say("Biljetterna är redan utskrivna.");
+				return;
+			}
+			Core.post("/desk/printers/" + Printer.getSelectedPrinter().id +"/print", data).then(function(response) {
+				for (var i = 0; i < cart.tickets.length; i++) {
+					var ticket = cart.tickets[i];
+					if (!ticket.printed) {
+						ticket.printed = 1;
+					}
+				}
+				Clippy.play("Print");
+			}, function(response) {
+				Clippy.say("Utskriften misslyckades: " + response.status);
+			});
+		} else {
+			Clippy.say("Du måste välja en skrivare!");
+		}
+
 	}
 
 	Cart.removeTicket = function(ticket, callback) {

@@ -1,12 +1,16 @@
 var module = angular.module("lkticket.admin");
 
-var LoginCtrl = function($scope, User, $route, Core) {
+var LoginCtrl = function($scope, User, $route, Core, Printer) {
 	var ctrl = this;
 
 	console.log("Loading LoginCtrl");
 
 	$scope.userStatus = function(status) {
 		return Core.STATE == status;
+	}
+
+	$scope.selectedPrinter = function() {
+		return Printer.getSelectedPrinter();
 	}
 
 	$scope.loginURL = function() {

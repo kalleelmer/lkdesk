@@ -1,2 +1,11 @@
-<div class="container-fluid full-screen-container">
-	Inställningar!!</div>
+<div class="container-fluid full-screen-container row">
+
+	<div class="col-md-4">
+		<div class="list-group">
+			<a href="#" class="list-group-item list-group-item-action active">
+	    Skrivare {{getSelectedPrinter().name}}
+	  </a>
+			<button ng-repeat="printer in printers()" ng-click="setSelectedPrinter(printer.id)" class="list-group-item list-group-item-action" ><span ng-class = "{'paid' : printer.alive > 0}">{{printer.name}} - {{printer.alive | date:'medium'}}</span></button>
+		</div>
+	</div>
+</div>
