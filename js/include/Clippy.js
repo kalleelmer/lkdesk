@@ -21,8 +21,8 @@ module.factory('Clippy', function() {
 
 	return {
 		setMascot : function functionName(n) {
-			clip.hide();
 			localStorage.mascot = n;
+			clip.hide();
 			load();
 		},
 		say : function(say) {
