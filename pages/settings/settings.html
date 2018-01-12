@@ -1,11 +1,38 @@
-<div class="container-fluid full-screen-container row">
+<div class="container-fluid full-screen-container">
+
+	<h3>Skrivare</h3>
 
 	<div class="col-md-4">
-		<div class="list-group">
-			<a href="#" class="list-group-item list-group-item-action active">
-	    Skrivare {{getSelectedPrinter().name}}
-	  </a>
-			<button ng-repeat="printer in printers()" ng-click="setSelectedPrinter(printer.id)" class="list-group-item list-group-item-action" ><span ng-class = "{'paid' : printer.alive > 0}">{{printer.name}} - {{printer.alive | date:'medium'}}</span></button>
+		<table class="table table-hover table-dark">
+
+			<thead>
+				<tr class="active">
+					<td scope="col">Namn</td>
+					<td scope="col">Senaste aktiv</td>
+					<td scope="col">Vald</td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="printer in printers()" ng-class="{'success' : getSelectedPrinter().id == printer.id}" ng-click="setSelectedPrinter(printer.id)">
+					<td>{{printer.name}}</td>
+					<td>{{printer.alive | date:'short'}}</td>
+					<td><span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="getSelectedPrinter().id == printer.id"></span></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<div class="col-md-2">
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Maskot
+ <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a ng-click="setMascot('Clippy')" ng-class="{'active' : getSelectedMascot() == 'Clippy'}">Clippy</a></li>
+				<li><a ng-click="setMascot('Merling')" ng-class="{'active' : getSelectedMascot() == 'Merlin'}">Merlin</a></li>
+				<li><a ng-click="setMascot('Rover')" ng-class="{'active' : getSelectedMascot() == 'Rover'}">Rover</a></li>
+				<li><a ng-click="setMascot('Links')" ng-class="{'active' : getSelectedMascot() == 'Links'}">Links</a></li>
+			</ul>
 		</div>
 	</div>
 </div>

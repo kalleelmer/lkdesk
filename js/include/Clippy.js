@@ -4,18 +4,27 @@ module.factory('Clippy', function() {
 
 	var clip = 0;
 
-	clippy.load('Clippy', function(agent) {
-		// Do anything with the loaded agent
-		agent.show();
-		agent.speak("IMAGINAL!!")
+	var load = function () {
+		clippy.load(localStorage.mascot || 'Clippy', function(agent) {
+			// Do anything with the loaded agent
+			agent.show();
+			agent.speak("IMAGINAL!!")
 
-		clip = agent;
+			clip = agent;
 
-		clip.speak("HEJ!");
+			clip.speak("HEJ!");
 
-	});
+		});
+	}
+
+	load();
 
 	return {
+		setMascot : function functionName(n) {
+			clip.hide();
+			localStorage.mascot = n;
+			load();
+		},
 		say : function(say) {
 			console.log(clip);
 			clip.speak(say);
