@@ -1,88 +1,98 @@
 var module = angular.module("lkticket.admin");
 var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
-	var $ctrl = this;
-	$scope.cart = function() {
-		return Cart.getCart();
-	}
+  var $ctrl = this;
+  $scope.cart = function() {
+    return Cart.getCart();
+  }
 
-	$scope.customer = function() {
-		return Cart.customer;
-	}
+  $scope.customer = function() {
+    return Cart.customer;
+  }
 
-	$scope.selectedPerformance = {};
-	$scope.modaldata = {
-		categories : {},
-		rates : {}
-	};
-	$scope.prices = [];
-	$scope.show = {
-		name : ""
-	};
+  $scope.selectedPerformance = {};
+  $scope.modaldata = {
+    categories: {},
+    rates: {}
+  };
+  $scope.prices = [];
+  $scope.show = {
+    name: ""
+  };
 
-	$scope.disableButton = false;
+  $scope.disableButton = false;
 
-	$scope.changeCart = function(id) {
-		Cart.getCartById(id);
-	}
+  $scope.changeCart = function(id) {
+    Cart.getCartById(id);
+  }
 
-	$scope.totalPrice = function() {
-		return Cart.getSum();
-	}
+  $scope.totalPrice = function() {
+    return Cart.getSum();
+  }
 
-	$scope.addTicket = function(ticket) {
+  $scope.addTicket = function(ticket) {
 
-		console.log(ticket);
+    console.log(ticket);
 
-		var ticket = {
-			category_id : ticket.category_id,
-			performance : {
-				id : ticket.performance_id
-			},
-			rate_id : ticket.rate_id,
-			count : 1
+    var ticket = {
+      category_id: ticket.category_id,
+      performance: {
+        id: ticket.performance_id
+      },
+      rate_id: ticket.rate_id,
+      count: 1
+    }
+
+    $scope.disableButton = true;
+
+    Cart.addTicket(ticket, function(response) {
+      $scope.disableButton = false;
+      if (response == true) {
+
+      } else {
+        console.log(response);
+        alert("Tyvärr fanns det inte fler biljetter: " +
+          response.status)
+      }
+    })
+  }
+
+  $scope.removeTicket = function(ticket) {
+    $scope.disableButton = true;
+    Cart.removeTicket(ticket, function() {
+      $scope.disableButton = false;
+    });
+  }
+
+  $scope.emptyCart = function() {
+    Cart.removeAllTickets();
+  }
+
+  $scope.printTickets = function() {
+    Cart.printAllTickets();
+  }
+
+  $scope.pay = function(method) {
+    Cart.pay(method);
+  }
+
+  $scope.saveCustomer = function() {
+    console.log($scope.customer);
+    $scope.customer = angular.copy({});
+  }
+
+  $scope.createNewCart = function() {
+    Cart.createNewCart();
+  }
+
+  $scope.valueGroupBY = function(group) {
+
+		if (group.printed) {
+			return true;
+		} else {
+			return false;
 		}
 
-		$scope.disableButton = true;
-
-		Cart.addTicket(ticket, function(response) {
-			$scope.disableButton = false;
-			if (response == true) {
-
-			} else {
-				console.log(response);
-				alert("Tyvärr fanns det inte fler biljetter: "
-					+ response.status)
-			}
-		})
-	}
-
-	$scope.removeTicket = function(ticket) {
-		$scope.disableButton = true;
-		Cart.removeTicket(ticket, function() {
-			$scope.disableButton = false;
-		});
-	}
-
-	$scope.emptyCart = function() {
-		Cart.removeAllTickets();
-	}
-
-	$scope.printTickets = function() {
-		Cart.printAllTickets();
-	}
-
-	$scope.pay = function(method) {
-		Cart.pay(method);
-	}
-
-	$scope.saveCustomer = function() {
-		console.log($scope.customer);
-		$scope.customer = angular.copy({});
-	}
-
-	$scope.createNewCart = function() {
-		Cart.createNewCart();
-	}
+  }
 
 }
 

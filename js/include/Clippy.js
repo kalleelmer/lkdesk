@@ -27,7 +27,11 @@ module.factory('Clippy', function() {
 		},
 		say : function(say) {
 			console.log(clip);
-			clip.speak(say);
+			if (clip) {
+				clip.speak(say);
+			} else {
+				console.log("Clippy har inte vaknat än: " + say);
+			}
 		},
 		play : function(animation) {
 			clip.play(animation);
