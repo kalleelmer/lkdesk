@@ -11,32 +11,36 @@
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
 
-	<ul class="list-group"
-		ng-repeat="(key, value) in cart().tickets | groupBy: 'performance_id'">
-		<li class="list-group-item active">{{value[0].show_name}} -
-			{{value[0].performance_start | date : 'EEE HH:mm'}}</li>
-		<div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
-			<li class="list-group-item"
-				ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
-				<div class="row">
-					<div class="col-sm-7">
-						{{value3[0].rate_name}} - {{value3[0].category_name}} -
-						{{value3.length}}x{{value3[0].price}}
+	<div ng-repeat="(status, tickets) in cart().tickets | groupBy:valueGroupBY">
+		<h5 ng-if = "status == 'true'">Utskrivna</h5>
+		<h5 ng-if = "status == 'false'">Ej utskrivna</h5>
+		<ul class="list-group"
+			ng-repeat="(key, value) in tickets | groupBy: 'performance_id'">
+			<li class="list-group-item active">{{value[0].show_name}} -
+				{{value[0].performance_start | date : 'EEE HH:mm'}}</li>
+			<div ng-repeat="(key2, value2) in value | groupBy: 'category_id'">
+				<li class="list-group-item"
+					ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
+					<div class="row">
+						<div class="col-sm-7">
+							{{value3[0].rate_name}} - {{value3[0].category_name}} -
+							{{value3.length}}x{{value3[0].price}}
+						</div>
+						<div class="col-sm-5">
+							<button type="button" class="btn btn-default btn-lg"
+								ng-click="removeTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0" ng-hide = "status == 'true'">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+							<button type="button" class="btn btn-default btn-lg"
+								ng-click="addTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0" ng-hide = "status == 'true'">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
 					</div>
-					<div class="col-sm-5">
-						<button type="button" class="btn btn-default btn-lg"
-							ng-click="removeTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0">
-							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-						</button>
-						<button type="button" class="btn btn-default btn-lg"
-							ng-click="addTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						</button>
-					</div>
-				</div>
-			</li>
-		</div>
-	</ul>
+				</li>
+			</div>
+		</ul>
+	</div>
 
 	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
@@ -122,10 +126,10 @@
 						<button type="button" class="btn btn-secondary btn-lg btn-block"
 							ng-click="swish=true" disabled>Swish</button>
 						<button type="button" class="btn btn-secondary btn-lg btn-block"
-							ng-click="card=true" disabled>Kort</button>
+							ng-click="card=true">Kort</button>
 					</div>
 
-					<div ng-if="cash" id="price-label">
+					<div ng-if="cash || card" id="price-label">
 						<h1 style="color: #000">{{totalPrice()}} kr</h1>
 					</div>
 
@@ -137,7 +141,10 @@
 						ng-click="cash= false; swish= false; card = false">Avbryt</button>
 					<button ng-if="cash" type="button" class="btn btn-default"
 						data-dismiss="modal" ng-click="pay('cash')">Jag lovar att jag
-						tagit betalt</button>
+						tagit betalt med kontanter</button>
+						<button ng-if="card" type="button" class="btn btn-default"
+							data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
+							tagit betalt med kort</button>
 				</div>
 			</div>
 
