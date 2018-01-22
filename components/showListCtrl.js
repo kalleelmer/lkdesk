@@ -27,7 +27,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 		console.log($attrs.sid);
 
 		if ($attrs.sid != "{{selected}}") {
-			Core.get("/admin/shows/" + $attrs.sid).then(function(response) {
+			Core.get("/desk/shows/" + $attrs.sid).then(function(response) {
 				$scope.show = response.data;
 				$ctrl.loadShowData();
 				$ctrl.getRateAndCategories();
@@ -35,7 +35,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 				alert("Kunde inte hämta nöje: " + response.status);
 			});
 		} else {
-			Core.get("/admin/shows/1").then(function(response) {
+			Core.get("/desk/shows/1").then(function(response) {
 				$scope.show = response.data;
 				$ctrl.loadShowData();
 				$ctrl.getRateAndCategories();
@@ -47,14 +47,14 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 
 	$ctrl.getRateAndCategories = function() {
 
-		Core.get("/admin/shows/" + $attrs.sid + "/rates").then(
+		Core.get("/desk/shows/" + $attrs.sid + "/rates").then(
 			function(response) {
 				$scope.modaldata.rates = response.data;
 			}, function(response) {
 				alert("Kunde inte hämta rates: " + response.status);
 			});
 
-		Core.get("/admin/shows/" + $attrs.sid + "/categories").then(
+		Core.get("/desk/shows/" + $attrs.sid + "/categories").then(
 			function(response) {
 				$scope.modaldata.categories = response.data;
 
@@ -77,7 +77,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 	}
 
 	$ctrl.loadShowData = function() {
-		Core.get("/admin/shows/" + $attrs.sid + "/performances").then(
+		Core.get("/desk/shows/" + $attrs.sid + "/performances").then(
 			function(response) {
 				var dates = {};
 				console.log("Data: ");
