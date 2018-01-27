@@ -45,9 +45,9 @@
 	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
 	<button type="button" class="btn" ng-click="emptyCart()"
-		ng-if="cart().customer_id == 0">Töm kundvagn</button>
+		ng-if="cart().customer_id == 0 && !(cart().payment_id > 0)">Töm kundvagn</button>
 
-	<button type="button" class="btn" ng-if="cart().customer_id > 0"
+	<button type="button" class="btn" ng-if="cart().customer_id > 0 || cart().payment_id > 0"
 		ng-click="createNewCart()">Ny kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"

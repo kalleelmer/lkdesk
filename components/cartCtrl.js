@@ -1,6 +1,7 @@
 var module = angular.module("lkticket.admin");
 var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
   var $ctrl = this;
+
   $scope.cart = function() {
     return Cart.getCart();
   }

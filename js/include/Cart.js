@@ -60,6 +60,14 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 	getCartFromServer();
 
 	function createNewCart() {
+
+		if (cart.tickets.filter(function(ticket) {
+			return ticket.printed == null;
+		}).length > 0 && !(cart.customer_id > 0)) {
+			Clippy.say("Du har outskrivna biljetter");
+			return;
+		}
+
 		Core.get("/desk/orders/create").then(function(response) {
 
 			replaceObject(cart, response.data);
@@ -78,24 +86,29 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 	}
 
 	Cart.addTicket = function(ticket, callback) {
-		var sendToServer = {
-			category_id : ticket.category_id,
-			performance_id : ticket.performance.id,
-			rate_id : ticket.rate_id,
-			count : parseInt(ticket.count),
-			profile_id : User.profileID()
+
+		if (cart.payment_id > 0) {
+			Clippy.say("Kundvagnen är redan betald och går inte att ändra");
+		} else {
+			var sendToServer = {
+				category_id : ticket.category_id,
+				performance_id : ticket.performance.id,
+				rate_id : ticket.rate_id,
+				count : parseInt(ticket.count),
+				profile_id : User.profileID()
+			}
+
+			Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
+				function(response) {
+
+					addTicketsToCart(response.data);
+					callback(true);
+
+				}, function(error) {
+					Clippy.say("Biljetterna är slutsålda!!!");
+					// callback(error);
+				});
 		}
-
-		Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
-			function(response) {
-
-				addTicketsToCart(response.data);
-				callback(true);
-
-			}, function(error) {
-				Clippy.say("Biljetterna är slutsålda!!!");
-				// callback(error);
-			});
 	}
 
 	Cart.getSum = function() {
@@ -131,38 +144,40 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 		if (!Printer.getSelectedPrinter()) {
 			Clippy.say("Du måste välja en skrivare!");
 			return;
-		}
-
-		Printer.refreshCurrentPrinter(function(printer) {
-			if (Date.now() - printer.alive < 60000) {
-				var data = {
-					tickets : []
-				};
-				for (var i = 0; i < cart.tickets.length; i++) {
-					var ticket = cart.tickets[i];
-					if (!ticket.printed) {
-						data.tickets.push(ticket.id);
-					}
-				}
-				if (data.tickets.length == 0) {
-					Clippy.say("Biljetterna är redan utskrivna.");
-					return;
-				}
-				Core.post("/desk/printers/" + Printer.getSelectedPrinter().id +"/print", data).then(function(response) {
+		} else if (cart.payment_id > 0){
+			Printer.refreshCurrentPrinter(function(printer) {
+				if (Date.now() - printer.alive < 60000) {
+					var data = {
+						tickets : []
+					};
 					for (var i = 0; i < cart.tickets.length; i++) {
 						var ticket = cart.tickets[i];
 						if (!ticket.printed) {
-							ticket.printed = 1;
+							data.tickets.push(ticket.id);
 						}
 					}
-					Clippy.play("Print");
-				}, function(response) {
-					Clippy.say("Utskriften misslyckades: " + response.status);
-				});
-			} else {
-				Clippy.say("Skrivaren är offline!");
-			}
-		});
+					if (data.tickets.length == 0) {
+						Clippy.say("Biljetterna är redan utskrivna.");
+						return;
+					}
+					Core.post("/desk/printers/" + Printer.getSelectedPrinter().id +"/print", data).then(function(response) {
+						for (var i = 0; i < cart.tickets.length; i++) {
+							var ticket = cart.tickets[i];
+							if (!ticket.printed) {
+								ticket.printed = 1;
+							}
+						}
+						Clippy.play("Print");
+					}, function(response) {
+						Clippy.say("Utskriften misslyckades: " + response.status);
+					});
+				} else {
+					Clippy.say("Skrivaren är offline!");
+				}
+			});
+		} else {
+			Clippy.say("Du måste ta betalt innan du kan skriva ut biljetter!");
+		}
 
 	}
 
@@ -211,10 +226,12 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 					reference: "Kristoffer",
 					profile_id: User.profileID()
 				}).then(function(response) {
+					console.log(response.data.id);
 					cart.payment_id = response.data.id;
 				}, function(error) {
 					console.log(error.status);
 				});
+
 	}
 
 	return Cart;
