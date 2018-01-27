@@ -135,6 +135,14 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 	}
 
 	Cart.getCartById = function(id) {
+
+		if (cart.tickets.filter(function(ticket) {
+			return ticket.printed == null;
+		}).length > 0 && !(cart.customer_id > 0)) {
+			Clippy.say("Du har outskrivna biljetter");
+			return;
+		}
+
 		sessionStorage.cartId = id;
 		getCartFromServer();
 	}
