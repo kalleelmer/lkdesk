@@ -17,6 +17,8 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 
 	var cart = {};
 
+	cart.tickets = {};
+
 	function loadCustomer() {
 		if (!cart.customer_id) {
 			return;
