@@ -1,5 +1,5 @@
 <div id="{{uid}}" class="modal fade" role="dialog">
-	<div class="modal-dialog">
+	<div id="ticket-modal" class="modal-dialog">
 
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -29,13 +29,13 @@
                   || "X"}}</button>--> {{ getPrice(rate.id,
 									category.id).price}} kr
 								</td>
-								<td ng-repeat-end><select ng-if="true"
+								<td ng-repeat-end><select class="styled-select" ng-if="true"
 									ng-change="ticketAdded()"
 									ng-show="getPrice(rate.id, category.id) !=null"
 									ng-options="i for i in [0,1,2,3,4,5,6,7,8,9]"
 									ng-model="getPrice(rate.id, category.id).count"></select> <input
 									type="number" min="0" ng-model="getPrice(rate.id, category.id).count"
-									style="width: 40px;"></input></td> 
+									style="width: 40px;"></input></td>
 							</tr>
 						</tbody>
 					</table>

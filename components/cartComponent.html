@@ -44,15 +44,15 @@
 
 	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
-	<button type="button" class="cart-btn btn" ng-click="emptyCart()"
+	<button type="button" class="material-btn cart-btn btn" ng-click="emptyCart()"
 		ng-if="cart().customer_id == 0 && !(cart().payment_id > 0)">Töm kundvagn</button>
 
-	<button type="button" class="cart-btn btn" ng-if="cart().customer_id > 0 || cart().payment_id > 0"
+	<button type="button" class="material-btn cart-btn btn" ng-if="cart().customer_id > 0 || cart().payment_id > 0"
 		ng-click="createNewCart()">Ny kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"
-		class="cart-btn btn" ng-if="cart().payment_id == 0">Betala</button>
-	<button type="button" class="cart-btn btn" ng-click="printTickets()">Skriv
+		class="material-btn cart-btn btn" ng-if="cart().payment_id == 0">Betala</button>
+	<button type="button" class="material-btn cart-btn btn" ng-click="printTickets()">Skriv
 		ut</button>
 
 	<div id="saveCustomerModal" class="modal fade" role="dialog">
@@ -114,7 +114,7 @@
 				<div class="modal-body">
 
 					<button ng-show="cash || swish || card" type="button"
-						class="btn btn-primary"
+						class="material-btn btn btn-primary"
 						ng-click="cash= false; swish= false; card = false">
 						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 						Byt betalningsmetod
@@ -136,13 +136,13 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default btn-abort"
+					<button type="button" class="material-btn btn btn-default btn-abort"
 						data-dismiss="modal"
 						ng-click="cash= false; swish= false; card = false">Avbryt</button>
-					<button ng-if="cash" type="button" class="btn btn-default"
+					<button ng-if="cash" type="button" class="material-btn btn btn-default"
 						data-dismiss="modal" ng-click="pay('cash')">Jag lovar att jag
 						tagit betalt med kontanter</button>
-						<button ng-if="card" type="button" class="btn btn-default"
+						<button ng-if="card" type="button" class="material-btn btn btn-default"
 							data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
 							tagit betalt med kort</button>
 				</div>

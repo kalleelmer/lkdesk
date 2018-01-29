@@ -40,8 +40,33 @@ div#shows{
 	box-shadow: none;
 	border: none;
 }
+.material-btn:hover{
+	background-color: #e0e0e0;
+}
 .btn{
 	background-color: #f0f0f0;
+}
+.btn-primary{
+	background-color: #8a4797;
+}
+.btn-primary:hover{
+	background-color: #662972;
+}
+.btn-primary:active{
+    background-color: #662972;
+    border-color: #662972;
+}
+.btn-primary:active:hover{
+    background-color: #662972;
+    border-color: #662972;
+}
+.btn-primary:active:focus{
+    background-color: #662972;
+    border-color: #662972;
+}
+.btn-primary:focus{
+	background-color: #5a1f66;
+	border-color: #5a1f66;
 }
 
 .navbar-green {
@@ -99,6 +124,9 @@ div#shows{
     background-image: none !important;
 		background-color: #f9c6c8!important;
 		color: #FFF!important;
+		border: none;
+		border-top:1px solid #FFF;
+		border-bottom: 1px solid #FFF;
 }
 .show-marker:hover{
 		background-color: #fbbdc0!important;

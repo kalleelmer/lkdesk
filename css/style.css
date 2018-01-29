@@ -137,6 +137,9 @@ a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-it
   text-decoration: none;
   background-color: #f9aaaf;
 }
+.link-order-button{
+	margin-top: 25px !important;
+}
 .customer-name{
 	border-top: 1px solid #FFF;
 	border-bottom: 1px solid #FFF;
@@ -162,4 +165,43 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 
 .paid {
 	color: green;
+}
+
+/* Ticket matrix */
+#ticket-modal{
+	width:800px;
+}
+#ticket-modal select, #ticket-modal input {
+	border: 1px solid #ddd;
+	height: 26px;
+	-moz-appearance: none;
+	text-align: left;
+}
+.table-bordered,
+.table > thead:first-child > tr:first-child > th,
+.table-bordered > tbody > tr > td{
+	border: none;
+}
+.table-bordered > thead > tr,
+.table-bordered > tbody > tr,
+.table-bordered > tbody > tr > th{
+	border:none;
+  border-bottom: 1px solid #d0d0d0!important;
+}
+.styled-select {
+   background: url(images/arrow.png) no-repeat 96% 0;
+   overflow: hidden;
+   width: 40px;
+	 border: 1px solid #d0d0d0;
+}
+/* Profile selector */
+#profile-select select{
+	border: none;
+	background: url(images/arrow.png) no-repeat 96% 0;
+	background-color: #8a4797;
+	height: 30px;
+	width: 80px;
+	padding: 5px;
+	-moz-appearance: none;
+	text-align: left;
 }
