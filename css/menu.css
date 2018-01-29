@@ -31,11 +31,17 @@ div#shows{
 /* Cart buttons */
 .ticket-btn{
 	padding: 4px 8px;
-	background-image: none;
-	box-shadow:none;
 }
 .cart-btn{
 	margin-bottom: 20px;
+}
+.material-btn{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+}
+.btn{
+	background-color: #f0f0f0;
 }
 
 .navbar-green {
