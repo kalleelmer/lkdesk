@@ -27,6 +27,10 @@ div#cart {
 div#shows{
 	max-height: 100%;
 }
+div#timetable{
+	max-height: 100%;
+}
+
 
 /* Cart buttons */
 .ticket-btn{
