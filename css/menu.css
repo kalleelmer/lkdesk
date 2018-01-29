@@ -17,8 +17,23 @@
 	min-width: 200px;
 }
 
+/* Scrollable cart*/
+div#cart {
+  max-height: 100%;
+}
 .scrollableInY {
 	overflow-y: scroll;
+}
+div#shows{
+	max-height: 100%;
+}
+
+/* Cart buttons */
+.ticket-btn{
+	padding: 4px 8px;
+}
+.cart-btn{
+	margin-bottom: 20px;
 }
 
 .navbar-green {
@@ -51,20 +66,35 @@
 }
 
 .rightMenu .list-group .list-group-item {
-	background-color: #FBBCC0;
+	/*background-color: #FBBCC0;*/
 	color: white;
 	/*#95C2BF;*/
 }
-
+/*
 .rightMenu .list-group .list-group-item : hover {
 	background-color: #4fa685;
 	color: black;
 }
 
+/* Föreställningar titel */
 .active {
-	background-color: #95C2BF !important;
+	background-color: #8a4797 !important;
 	text-shadow: none !important;
-	border-color: #95C2BF !important;
+	border-color: #8a4797 !important;
+}
+.list-group-item.active.ng-binding {
+    background-image: none;
+}
+
+/* Show button */
+.show-marker{
+    background-image: none !important;
+		background-color: #f9c6c8!important;
+		color: #FFF!important;
+}
+.show-marker:hover{
+		background-color: #fbbdc0!important;
+		color: #FFF!important;
 }
 /* Boxed menu links */
 .boxed-link a {

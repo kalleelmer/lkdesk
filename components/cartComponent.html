@@ -1,19 +1,19 @@
 <loading-screen value="{{cart().id}}"></loading-screen>
 <div ng-show="cart().id">
-	<h3 class="title-item" ng-show="cart().customer_id == 0">Kundvagn
+	<h3 ng-show="cart().customer_id == 0">Kundvagn
 		{{cart().id}}</h3>
-	<h3 class="title-item" ng-show="cart().customer_id > 0">Bokning
+	<h3 ng-show="cart().customer_id > 0">Bokning
 		{{cart().identifier}}</h3>
-	<h5 class="title-item" ng-show="cart().customer_id > 0">{{cart().customer.name}}</h5>
-	<h5 class="title-item" ng-show="cart().payment_id > 0" style="Color: red">Betald</h5>
+	<h4 class="title-item" ng-show="cart().customer_id > 0">{{cart().customer.name}}</h5>
+	<h5 class="title-item" ng-show="cart().payment_id > 0" style="Color: green">Betald</h5>
 
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"
 		prices="prices" selectedperformance="selectedPerformance"
 		showname="show"></add-tickets-modal>
 
 	<div ng-repeat="(status, tickets) in cart().tickets | groupBy:valueGroupBY">
-		<h5 ng-if = "status == 'true'">Utskrivna</h5>
-		<h5 ng-if = "status == 'false'">Ej utskrivna</h5>
+		<h5 class="title-item" ng-if = "status == 'true'" style="Color: green">Utskrivna</h5>
+		<h5 class="title-item" ng-if = "status == 'false'">Ej utskrivna</h5>
 		<ul class="list-group"
 			ng-repeat="(key, value) in tickets | groupBy: 'performance_id'">
 			<li class="list-group-item active">{{value[0].show_name}} -
@@ -27,11 +27,11 @@
 							{{value3.length}}x{{value3[0].price}}
 						</div>
 						<div class="col-sm-5">
-							<button type="button" class="btn btn-default btn-lg"
+							<button type="button" class="ticket-btn btn btn-default btn-lg"
 								ng-click="removeTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0" ng-hide = "status == 'true'">
 								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 							</button>
-							<button type="button" class="btn btn-default btn-lg"
+							<button type="button" class="ticket-btn btn btn-default btn-lg"
 								ng-click="addTicket(value3[0])" ng-disabled="disableButton || cart().payment_id > 0" ng-hide = "status == 'true'">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</button>
@@ -44,15 +44,15 @@
 
 	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
 
-	<button type="button" class="btn" ng-click="emptyCart()"
+	<button type="button" class="cart-btn btn" ng-click="emptyCart()"
 		ng-if="cart().customer_id == 0 && !(cart().payment_id > 0)">Töm kundvagn</button>
 
-	<button type="button" class="btn" ng-if="cart().customer_id > 0 || cart().payment_id > 0"
+	<button type="button" class="cart-btn btn" ng-if="cart().customer_id > 0 || cart().payment_id > 0"
 		ng-click="createNewCart()">Ny kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"
-		class="btn" ng-if="cart().payment_id == 0">Betala</button>
-	<button type="button" class="btn" ng-click="printTickets()">Skriv
+		class="cart-btn btn" ng-if="cart().payment_id == 0">Betala</button>
+	<button type="button" class="cart-btn btn" ng-click="printTickets()">Skriv
 		ut</button>
 
 	<div id="saveCustomerModal" class="modal fade" role="dialog">
