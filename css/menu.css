@@ -31,6 +31,8 @@ div#shows{
 /* Cart buttons */
 .ticket-btn{
 	padding: 4px 8px;
+	background-image: none;
+	box-shadow:none;
 }
 .cart-btn{
 	margin-bottom: 20px;
