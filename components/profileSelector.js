@@ -3,6 +3,8 @@ var module = angular.module("lkticket.admin");
 var ProfileSelectorCtrl = function($scope, User) {
 	var $ctrl = this;
 
+	$scope.profile = User.getUser().profile;
+
 	$scope.profiles = function() {
 		return User.getUser().profiles;
 	}
