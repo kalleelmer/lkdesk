@@ -1,5 +1,5 @@
 var module = angular.module("lkticket.admin");
-var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
+var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location, Printer, User) {
   var $ctrl = this;
 
   $scope.cart = function() {
@@ -8,6 +8,10 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location) {
 
   $scope.customer = function() {
     return Cart.customer;
+  }
+
+  if (!Printer.getSelectedPrinter() && !User.getUser().profile) {
+    $("#setPrinter").modal()
   }
 
   $scope.selectedPerformance = {};

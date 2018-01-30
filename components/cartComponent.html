@@ -55,7 +55,7 @@
 	<button type="button" class="material-btn cart-btn btn" ng-click="printTickets()">Skriv
 		ut</button>
 
-	<div id="saveCustomerModal" class="modal fade" role="dialog">
+	<div id="setPrinter" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -63,38 +63,15 @@
 				<form id="category.name" ng-model="tickets">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Spara kundvagn</h4>
+						<h4 class="modal-title">Wehej!</h4>
 					</div>
 					<div class="modal-body">
-
-						<form>
-							<div class="form-group">
-								<label for="formGroupExampleInput">Namn</label> <input
-									ng-model="customer.name" type="text" class="form-control"
-									id="formGroupExampleInput" placeholder="Namn och Efternamn">
-								<label for="formGroupExampleInput2">Mailadress</label> <input
-									ng-model="customer.email" type="text" class="form-control"
-									id="formGroupExampleInput2" placeholder="Mailadress"> <label
-									for="formGroupExampleInput2">Företag</label> <input
-									ng-model="customer.company" type="text" class="form-control"
-									id="formGroupExampleInput2" placeholder="Företag"> <label
-									for="formGroupExampleInput2">Telefonnummer</label> <input
-									ng-model="customer.phone" type="text" class="form-control"
-									id="formGroupExampleInput2" placeholder="Telefonnummer">
-								<label for="formGroupExampleInput2">Kontaktperson i
-									karnevalen</label> <input ng-model="customer.contactPerson" type="text"
-									class="form-control" id="formGroupExampleInput2"
-									placeholder="Namn och Efternamn">
-							</div>
-						</form>
-
+						Välj profil: <profile-selector></profile-selector>
+						Välj skrivare: <printer-selector></printer-selector>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-abort"
-							data-dismiss="modal" ng-click="">Avbryt</button>
-						<button data-toggle="modal" +		type="button" class="btn"
-							ng-click="createNewCart()">Ny kundvagn</button>
+						<button data-dismiss="modal" type="button" class="btn">Börja sälja biljetter!</button>
 					</div>
 				</form>
 			</div>

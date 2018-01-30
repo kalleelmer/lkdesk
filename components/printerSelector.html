@@ -1,0 +1,4 @@
+<div id="profile-select">
+	<select ng-options="p as p.name for p in printers()" ng-model="printer"
+		class="div-control" ng-change="setPrinter()"></select>
+</div>

@@ -31,3 +31,9 @@ module.component("profileSelector", {
 	bindings : {},
 	controller : "ProfileSelectorCtrl"
 });
+
+module.component("printerSelector", {
+	templateUrl : '/components/printerSelector.html',
+	bindings : {},
+	controller : "PrinterSelectorCtrl"
+});
