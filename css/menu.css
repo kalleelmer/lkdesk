@@ -52,6 +52,7 @@ div#timetable{
 }
 .btn-primary{
 	background-color: #8a4797;
+	background-image: none;
 }
 .btn-primary:hover{
 	background-color: #662972;
