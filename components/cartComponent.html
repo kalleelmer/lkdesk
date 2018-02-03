@@ -23,7 +23,8 @@
 					ng-repeat="(key3, value3) in value2 | groupBy: 'rate_id'">
 					<div class="row">
 						<div class="col-sm-7">
-							{{value3[0].rate_name}} - {{value3[0].category_name}} -
+							{{value3[0].rate_name}} </br>
+							{{value3[0].category_name}} </br>
 							{{value3.length}}x{{value3[0].price}}
 						</div>
 						<div class="col-sm-5">

@@ -199,6 +199,7 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 	border: none;
 	background: url(images/arrow.png) no-repeat 96% 0;
 	background-color: #8a4797;
+	color: white;
 	height: 30px;
 	width: 80px;
 	padding: 5px;
