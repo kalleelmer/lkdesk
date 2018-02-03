@@ -26,6 +26,10 @@ module.config([ "$routeProvider", function($routeProvider) {
 		templateUrl : "/pages/settings/settings.html",
 		controller : "SettingsCtrl"
 	});
+	$routeProvider.when("/favorites", {
+		templateUrl : "/pages/favorites/favorites.html",
+		controller : "FavCtrl"
+	});
 	$routeProvider.otherwise({
 		redirectTo : "/"
 	});

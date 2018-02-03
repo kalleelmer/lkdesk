@@ -126,7 +126,7 @@ div#timetable{
 	text-shadow: none !important;
 	border-color: #8a4797 !important;
 }
-.list-group-item.active.ng-binding {
+.list-group-item.active {
     background-image: none;
 }
 
