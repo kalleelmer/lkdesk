@@ -34,8 +34,13 @@ div#timetable{
 
 
 /* Cart buttons */
+.ticket-btn-box{
+	height: 60px;
+}
 .ticket-btn{
 	padding: 4px 8px;
+	margin-top: 12px;
+	margin-right: 10px;
 }
 .cart-btn{
 	margin-bottom: 20px;
