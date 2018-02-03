@@ -87,24 +87,24 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Välj betalningsmetod</h4>
+					<h4 class="modal-title" ng-hide="cash || swish || card">Välj betalningsmetod</h4>
+					<h4><span class="modal-title" ng-show="cash || swish || card">Nuvarande betalningsmetod:</span>
+						<span ng-show="card">Kort</span>
+						<span ng-show="swish">Swish</span>
+						<span ng-show="cash">Kontant</span>
+					</h4>
 				</div>
 				<div class="modal-body">
 
-					<button ng-show="cash || swish || card" type="button"
-						class="material-btn btn btn-primary"
-						ng-click="cash= false; swish= false; card = false">
-						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-						Byt betalningsmetod
-					</button>
+					<button ng-show="cash || swish || card" type="button" class="material-btn btn btn-primary" ng-click="cash= false; swish= false; card = false" ng-init="card=true" ng-hide="true">
+							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+							Byt betalningsmetod -
+						</button>
 
 					<div ng-hide="cash || swish || card">
-						<button type="button" class="btn btn-secondary btn-lg btn-block"
-							ng-click="cash=true">Kontant</button>
-						<button type="button" class="btn btn-secondary btn-lg btn-block"
-							ng-click="swish=true" disabled>Swish</button>
-						<button type="button" class="btn btn-secondary btn-lg btn-block"
-							ng-click="card=true">Kort</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="swish=true" disabled>Swish</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="card=true">Kort</button>
 					</div>
 
 					<div ng-if="cash || card" id="price-label">
@@ -114,15 +114,11 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="material-btn btn btn-default btn-abort"
-						data-dismiss="modal"
-						ng-click="cash= false; swish= false; card = false">Avbryt</button>
-					<button ng-if="cash" type="button" class="material-btn btn btn-default"
-						data-dismiss="modal" ng-click="pay('cash')">Jag lovar att jag
-						tagit betalt med kontanter</button>
-						<button ng-if="card" type="button" class="material-btn btn btn-default"
-							data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
-							tagit betalt med kort</button>
+					<button type="button" class="material-btn btn btn-default btn-abort" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
+					<button ng-if="cash" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('cash')">Jag lovar att jag
+							tagit betalt med kontanter</button>
+					<button ng-if="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
+								tagit betalt med kort</button>
 				</div>
 			</div>
 
