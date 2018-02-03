@@ -26,6 +26,7 @@ div#cart {
 }
 div#shows{
 	max-height: 100%;
+	background-color: #F7a021;
 }
 div#timetable{
 	max-height: 100%;
@@ -97,19 +98,19 @@ div#timetable{
 	height: 80px;
 }
 
-.rightMenu {
-	background-color: #FBBCC0;
+.showMenu {
+	background-color: #F7a021;
 	color: white;
 	/*#95C2BF;*/
 }
 
-.rightMenu .list-group .list-group-item {
+.showMenu .list-group .list-group-item {
 	/*background-color: #FBBCC0;*/
 	color: white;
 	/*#95C2BF;*/
 }
 /*
-.rightMenu .list-group .list-group-item : hover {
+.showMenu .list-group .list-group-item : hover {
 	background-color: #4fa685;
 	color: black;
 }
@@ -127,14 +128,14 @@ div#timetable{
 /* Show button */
 .show-marker{
     background-image: none !important;
-		background-color: #f9c6c8!important;
+		background-color: #ffad36!important;
 		color: #FFF!important;
 		border: none;
 		border-top:1px solid #FFF;
 		border-bottom: 1px solid #FFF;
 }
 .show-marker:hover{
-		background-color: #fbbdc0!important;
+		background-color: #F7a021!important;
 		color: #FFF!important;
 }
 /* Boxed menu links */
