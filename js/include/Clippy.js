@@ -9,6 +9,7 @@ module.factory('Clippy', function() {
 			// Do anything with the loaded agent
 			agent.show();
 			agent.speak("IMAGINAL!!")
+			agent.moveTo(500,500)
 
 			clip = agent;
 

@@ -6,7 +6,7 @@
 		<loading-screen value="{{shows}}"></loading-screen>
 		<div class="list-group">
 			<button href="" class="show-marker list-group-item"
-				ng-click="selectShow(show.id)" ng-repeat="show in shows">{{show.name}}</button>
+				ng-click="selectShow(show.id)" ng-repeat="show in shows | orderBy: 'name'">{{show.name}}</button>
 		</div>
 	</div>
 	<div id="timetable" class="scrollableInY col-sm-7 full-height-item">
