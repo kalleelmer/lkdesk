@@ -129,7 +129,9 @@ div#timetable{
 .list-group-item.active {
     background-image: none;
 }
-
+.list-group-item.active:hover{
+	background-image: none;
+}
 /* Show button */
 .show-marker{
     background-image: none !important;
