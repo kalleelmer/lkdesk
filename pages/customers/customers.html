@@ -57,11 +57,18 @@
 	</div>
 	<div id="order-list" class="col-sm-6 full-height-item">
 		<h2 class="title-item">Kundinformation</h2>
-		<h3 class="title-item customer-name">{{selectedCustomer.name ||
-			"Ingen kund vald"}}</h3>
-		<p class="title-item" style="float: left;">Telefonnummer:
-			{{selectedCustomer.phone || ""}}</p>
-		<p class="title-item">Mail: {{selectedCustomer.email || ""}}</p>
+		<div class="col-sm-12 customer-name">
+			<div id="customer-name-box" class="col-sm-6">
+				<h3>{{selectedCustomer.name ||
+				"Ingen kund vald"}}</h3>
+			</div>
+			<div id="edit-customer" class="col-sm-6"><h4><a href="#">Redigera kund</a></h4></div>
+		</div>
+		<div style="margin-top: 90px;">
+		<span class="title-item">Telefonnummer:
+			{{selectedCustomer.phone || ""}}</span>
+		<span class="title-item">Mail: {{selectedCustomer.email || ""}}</span>
+		</div>
 		<h3 class="title-item">Bokningar</h3>
 		<button href="" class="list-group-item order-item"
 			ng-click="selectOrder(order.id)"

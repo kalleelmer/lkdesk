@@ -4,11 +4,12 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
   $routeParams, Core, $sce, $location, Clippy) {
 
   $scope.cart = Cart.getCart();
+  $scope.profile = User.getUser().profile;
 
-  Core.get("/desk/customers").then(function(response) {
+  Core.get("/desk/profiles/" + $scope.profile.id + "/customers/").then(function(response) {
     $scope.customers = response.data;
   }, function(response) {
-    alert("Kunde inte hämta kunder: " + response.status);
+    alert("Kunde inte hämta kunder : " + response.status);
   });
 
   $scope.getCustomer = function(id) {
@@ -29,6 +30,7 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
   }
 
   $scope.createCustomer = function(customer) {
+    customer.profile_id = $scope.profile.id;
     Core.post("/desk/customers/", customer).then(
       function(response) {
         $scope.customers.push(response.data);
