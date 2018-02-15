@@ -1,3 +1,10 @@
+body{
+	background-color: #390444;
+}
+table {
+    background-color: #fff;
+}
+
 .main-menu li {
 	padding: 20px 20px 10px 20px;
 	font-size: 18px;
@@ -22,7 +29,7 @@ div#cart {
   max-height: 100%;
 }
 .scrollableInY {
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 div#shows{
 	max-height: 100%;
@@ -31,7 +38,6 @@ div#shows{
 div#timetable{
 	max-height: 100%;
 }
-
 
 /* Cart buttons */
 .ticket-btn-box{
@@ -81,7 +87,7 @@ div#timetable{
 }
 
 .navbar-green {
-	background-color: #F4376D;
+	background-color: #f4376d;
 	border-radius: 0px;
 	color: white;
 	height: 80px;
@@ -138,8 +144,8 @@ div#timetable{
 		background-color: #ffad36!important;
 		color: #FFF!important;
 		border: none;
-		border-top:1px solid #FFF;
-		border-bottom: 1px solid #FFF;
+		border-top:1px solid #f7a020;
+		border-bottom: 1px solid #f7a020;
 }
 .show-marker:hover{
 		background-color: #F7a021!important;
@@ -209,7 +215,7 @@ div#timetable{
 
 .menu-link>li>a:hover, .menu-link>li>a:focus {
 	background-color: transparent !important;
-	color: #8A4797 !important;
+	color: #B60B3C !important;
 }
 
 .menu-link>li>a {

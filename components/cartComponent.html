@@ -1,8 +1,8 @@
 <loading-screen value="{{cart().id}}"></loading-screen>
 <div ng-show="cart().id">
-	<h3 ng-show="cart().customer_id == 0">Kundvagn
+	<h2 ng-show="cart().customer_id == 0">Kundvagn
 		{{cart().id}}</h3>
-	<h3 ng-show="cart().customer_id > 0">Bokning
+	<h2 ng-show="cart().customer_id > 0">Bokning
 		{{cart().identifier}}</h3>
 	<h4 class="title-item" ng-show="cart().customer_id > 0">{{cart().customer.name}}</h5>
 	<h5 class="title-item" ng-show="cart().payment_id > 0" style="Color: green">Betald</h5>
@@ -43,7 +43,7 @@
 		</ul>
 	</div>
 
-	<h1 class="title-item" style="color: #000">{{totalPrice()}} kr</h1>
+	<h1 class="title-item">{{totalPrice()}} kr</h1>
 
 	<button type="button" class="material-btn cart-btn btn" ng-click="emptyCart()"
 		ng-if="cart().customer_id == 0 && !(cart().payment_id > 0)">Töm kundvagn</button>
