@@ -169,6 +169,10 @@ div#timetable{
 .navbar-brand {
 	padding: 10px 10px;
 }
+.navbar-brand img{
+	height: 50px;
+	margin-top: 5px;
+}
 
 .navbar-form {
 	margin-top: 23px;
