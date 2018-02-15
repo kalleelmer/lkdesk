@@ -41,6 +41,17 @@ var CustomersCtrl = function($filter, Cart, $scope, $http, User,
     )
   };
 
+  $scope.updateCustomer = function() {
+    // Core.put("/desk/customers/" + $scope.selectedCustomer.id, $scope.selectedCustomer).then(
+    //   function(response) {
+    //
+    //   },
+    //   function(error) {
+    //     Clippy.say("Fel i uppdatering av kund: " + error.status)
+    //   }
+    // )
+  }
+
   $scope.selectOrder = function(order) {
     Cart.getCartById(order);
   }

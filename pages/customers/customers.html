@@ -59,15 +59,15 @@
 		<h2 class="title-item">Kundinformation</h2>
 		<div class="col-sm-12 customer-name">
 			<div id="customer-name-box" class="col-sm-6">
-				<h3>{{selectedCustomer.name ||
-				"Ingen kund vald"}}</h3>
+				<a href="#" editable-text="selectedCustomer.name" onaftersave="updateCustomer()"><h3>{{selectedCustomer.name ||
+				"Ingen kund vald"}}</h3></a>
 			</div>
 			<div id="edit-customer" class="col-sm-6"><h4><a href="#">Redigera kund</a></h4></div>
 		</div>
 		<div style="margin-top: 90px;">
 		<span class="title-item">Telefonnummer:
-			{{selectedCustomer.phone || ""}}</span>
-		<span class="title-item">Mail: {{selectedCustomer.email || ""}}</span>
+			<a href="#" editable-text="selectedCustomer.phone" onaftersave="updateCustomer()">{{selectedCustomer.phone || ""}}</a></span>
+		<span class="title-item">Mail: <a href="#" editable-text="selectedCustomer.email" onaftersave="updateCustomer()">{{selectedCustomer.email || ""}}</a></span>
 		</div>
 		<h3 class="title-item">Bokningar</h3>
 		<button href="" class="list-group-item order-item"
