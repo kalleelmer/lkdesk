@@ -50,9 +50,10 @@
 			</div>
 		</div>
 		<div class="list-group">
+			<input class="form-control" placeholder="Sök" ng-model="search"></input><br>
 			<button href="" class="list-group-item customer-item"
 				ng-click="getCustomer(customer.id)"
-				ng-repeat="customer in customers | orderBy:'name'">{{customer.name}}</button>
+				ng-repeat="customer in customers | orderBy:'name' | filter: search">{{customer.name}}</button>
 		</div>
 	</div>
 	<div id="order-list" class="col-sm-6 full-height-item">
