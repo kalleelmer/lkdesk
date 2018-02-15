@@ -18,10 +18,6 @@ module.config([ "$routeProvider", function($routeProvider) {
 		templateUrl : "/pages/reservations/reservations.html",
 		controller : "ReservationsCtrl"
 	});
-	$routeProvider.when("/reports", {
-		templateUrl : "/pages/reports/reports.html",
-		controller : "ReportsCtrl"
-	});
 	$routeProvider.when("/settings", {
 		templateUrl : "/pages/settings/settings.html",
 		controller : "SettingsCtrl"

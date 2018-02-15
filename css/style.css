@@ -8,8 +8,10 @@
 }
 .simpletext{
 	padding: 10px 15px;
-}
-
+}/*
+::-webkit-scrollbar {
+    width: 0px;
+}*/
 /*  - - - - - MENU - - - - - */
 
 #shows{
@@ -31,6 +33,10 @@
 #timetable{
 	padding-left: 10px;
 	padding-right: 10px;
+	background-color: #390444;
+}
+#timetable h2{
+	color: #FFF;
 }
 #timetable .row {
 	margin-right: 0px;
@@ -40,6 +46,13 @@
 	padding-left: 15px;
 }
 
+/* - - - - - CART - - - - - */
+#cart{
+	background-color: #390444;
+}
+#cart h1, h2, h3, h4, h5 {
+	color: #FFF;
+}
 /*  - - - - - FULL SCREEN LAYOUT - - - - - */
 html,body {
   min-height: 100%;
@@ -106,30 +119,37 @@ html,body {
 /* CUSTOMER */
 
 #customer-list{
-	background-color: #d999fa;
+	/* Karnevalistfärg */
+	background-color: #f7629c;
+
+	/*background-color: #d999fa;*/
 	color: #FFF;
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
 .customer-item{
-	background-color: #d999fa;
-	border-color: #cc88ef;
+	background-color: #ff74aa;
+	border-color: #f7629c;
 	color: #FFF !important;
 }
 a.customer-item:hover, button.customer-item:hover, a.customer-item:focus, button.customer-item:focus {
   color: #FFF;
   text-decoration: none;
-  background-color: #cc88ef;
+  background-color: #f35d98;
 }
+.form-control{
+	height: 42px;
+}
+/* ORDERS */
 #order-list{
-	background-color: #FBBCC0;
+	background-color: #f78fb0;
 	color: #FFF;
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
 .order-item{
-	background-color: #FBBCC0;
-	border-color: #f9aaaf;
+	background-color: #ff74aa;
+	border-color: #f78fb0;
 	color: #FFF !important;
 }
 a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-item:focus {
@@ -162,20 +182,25 @@ a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-it
 }
 /* Skapa ny kund */
 #create-customer-item{
-	background-color: #d38bf9;
-	border-color: #cc88ef;
+	background-color: #f15894;
+	border-color: #de4984;
 	color: #FFF !important;
 }
 a#create-customer-item:hover, button#create-customer-item:hover, a#create-customer-item:focus, button#create-customer-item:focus {
   color: #FFF;
   text-decoration: none;
-  background-color: #c57dec;
+  background-color: #e64f8a;
 }
 #createCustomerModal{
 	color:#000;
 }
 #createCustomerModal label{
 	margin: 10px 0px;
+}
+
+/* Greetings modal */
+.modal-header h4, h5{
+	color: #000;
 }
 
 .paid {
