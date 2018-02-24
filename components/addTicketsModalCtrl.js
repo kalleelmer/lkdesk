@@ -10,8 +10,13 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 
 	}
 
-	$scope.ticketAdded = function() {
-
+	$scope.addTickets = function(rate_id, category_id, delta) {
+		var price = $scope.getPrice(rate_id, category_id);
+		if (!price.count) {
+			price.count = 0;
+		}
+		price.count = parseInt(price.count) + delta;
+		price.count = Math.max(0, price.count);
 	}
 
 	$scope.getNumberOfTickets = function() {
