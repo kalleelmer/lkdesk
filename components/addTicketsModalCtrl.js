@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
-	$attrs) {
+	$attrs, Notification) {
 	var $ctrl = this
 	$scope.uid = $attrs.uid;
 
@@ -60,13 +60,21 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 
 		_.forEach(tickets, function(ticket) {
 			ticket.performance = $ctrl.selectedperformance;
-			Cart.addTicket(ticket, function(response) {
-				if (response == true) {
-
-				} else {
-					alert("Biljetterna är slut...");
-				}
-			});
+			Notification.primary("Lägger till biljetter...");
+			Cart.addTicket(ticket).then(
+				function(response) {
+					Notification.success("Biljetterna har lagts till");
+				},
+				function(failure) {
+					switch (failure.status) {
+					case 409:
+						Notification.error("Biljetterna är slutsålda");
+						break;
+					default:
+						Notification.error("Kunde inte lägga till biljetter: "
+							+ failure.status);
+					}
+				});
 		});
 
 		$scope.prices = angular.copy($ctrl.prices);

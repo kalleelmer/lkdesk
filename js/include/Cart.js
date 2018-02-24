@@ -1,6 +1,7 @@
 var module = angular.module("lkticket.admin");
 
-var CartFactory = function(Core, $routeParams, $location, Notification, User, Printer) {
+var CartFactory = function(Core, $routeParams, $location, Notification, User,
+	Printer) {
 
 	var replaceObject = function(objectToReplace, object) {
 		_.forEach(objectToReplace, function(val) {
@@ -23,12 +24,15 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 		if (!cart.customer_id) {
 			return;
 		}
-		Core.get("/desk/customers/" + cart.customer_id).then(
-			function(response) {
-				cart.customer = response.data;
-			}, function(response) {
-				Notification.error("Kunde inte hämta kund: " + response.status);
-			});
+		Core.get("/desk/customers/" + cart.customer_id)
+			.then(
+				function(response) {
+					cart.customer = response.data;
+				},
+				function(response) {
+					Notification.error("Kunde inte hämta kund: "
+						+ response.status);
+				});
 	}
 
 	function getCartFromServer() {
@@ -87,7 +91,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 		}
 	}
 
-	Cart.addTicket = function(ticket, callback) {
+	Cart.addTicket = function(ticket) {
 
 		if (cart.payment_id > 0) {
 			Notification.error("En betald kundvagn kan inte ändras");
@@ -100,13 +104,13 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 				profile_id : User.profileID()
 			}
 
-			Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
-				function(response) {
-					addTicketsToCart(response.data);
-					callback(true);
-				}, function(error) {
-					Notification.error("Biljetterna är slutsålda");
-				});
+			var req = Core.post("/desk/orders/" + cart.id + "/tickets",
+				sendToServer);
+			req.then(function(response) {
+				addTicketsToCart(response.data);
+			}, function(error) {
+			});
+			return req;
 		}
 	}
 
@@ -151,7 +155,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 		if (!Printer.getSelectedPrinter()) {
 			Notification.error("Du måste välja en skrivare!");
 			return;
-		} else if (cart.payment_id > 0){
+		} else if (cart.payment_id > 0) {
 			Printer.refreshCurrentPrinter(function(printer) {
 				if (Date.now() - printer.alive < 60000) {
 					var data = {
@@ -167,17 +171,22 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 						Notification.error("Biljetterna är redan utskrivna.");
 						return;
 					}
-					Core.post("/desk/printers/" + Printer.getSelectedPrinter().id +"/print", data).then(function(response) {
-						for (var i = 0; i < cart.tickets.length; i++) {
-							var ticket = cart.tickets[i];
-							if (!ticket.printed) {
-								ticket.printed = 1;
+					Core.post(
+						"/desk/printers/" + Printer.getSelectedPrinter().id
+							+ "/print", data).then(
+						function(response) {
+							for (var i = 0; i < cart.tickets.length; i++) {
+								var ticket = cart.tickets[i];
+								if (!ticket.printed) {
+									ticket.printed = 1;
+								}
 							}
-						}
-						Notification.success("Utskrift påbörjad");
-					}, function(response) {
-						Notification.error("Utskriften misslyckades: " + response.status);
-					});
+							Notification.success("Utskrift påbörjad");
+						},
+						function(response) {
+							Notification.error("Utskriften misslyckades: "
+								+ response.status);
+						});
 				} else {
 					Notification.error("Skrivaren är offline!");
 				}
@@ -227,17 +236,17 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User, Pr
 
 	Cart.pay = function(method) {
 
-				Core.post("/desk/orders/" + cart.id + "/payments", {
-					method : method,
-					amount : Cart.getSum(),
-					reference: "Kristoffer",
-					profile_id: User.profileID()
-				}).then(function(response) {
-					console.log(response.data.id);
-					cart.payment_id = response.data.id;
-				}, function(error) {
-					console.log(error.status);
-				});
+		Core.post("/desk/orders/" + cart.id + "/payments", {
+			method : method,
+			amount : Cart.getSum(),
+			reference : "Kristoffer",
+			profile_id : User.profileID()
+		}).then(function(response) {
+			console.log(response.data.id);
+			cart.payment_id = response.data.id;
+		}, function(error) {
+			console.log(error.status);
+		});
 
 	}
 
