@@ -23,20 +23,22 @@
 								<td ng-repeat-start="category in $ctrl.modaldata.categories">
 									{{calculatePrice(getPrice(rate.id, category.id).price)}} kr</td>
 								<td ng-repeat-end>
-									<button type="button"
-										class="material-btn ticket-btn btn btn-default btn-lg"
-										ng-click="addTickets(rate.id, category.id, -1)"
+									<div class="input-group ticket-count"
 										ng-if="getPrice(rate.id, category.id)">
-										<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-									</button> <input type="text"
-									ng-model="getPrice(rate.id, category.id).count"
-									style="width: 40px;"></input>
-									<button type="button"
-										class="material-btn ticket-btn btn btn-default btn-lg"
-										ng-click="addTickets(rate.id, category.id, 1)"
-										ng-if="getPrice(rate.id, category.id)">
-										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-									</button>
+										<span class="input-group-btn">
+											<button class="btn btn-secondary" type="button"
+												ng-click="addTickets(rate.id, category.id, -1)">
+												<i class="fa fa-minus"></i>
+											</button>
+										</span> <input type="text" class="form-control" placeholder="0"
+											ng-model="getPrice(rate.id, category.id).count"> <span
+											class="input-group-btn">
+											<button class="btn btn-secondary" type="button"
+												ng-click="addTickets(rate.id, category.id, 1)">
+												<i class="fa fa-plus"></i>
+											</button>
+										</span>
+									</div>
 								</td>
 							</tr>
 						</tbody>
