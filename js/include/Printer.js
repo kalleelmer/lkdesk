@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var PrinterFactory = function(Core, $routeParams, $location, Clippy, User, $interval) {
+var PrinterFactory = function(Core, $routeParams, $location, User, $interval, Notification) {
 
   var Printer = {};
 
@@ -13,13 +13,13 @@ var PrinterFactory = function(Core, $routeParams, $location, Clippy, User, $inte
 
         if (sessionStorage.selectedPrinter) {
           if (Date.now() - Printer.getSelectedPrinter().alive > 60000) {
-            Clippy.say("Den valda skrivaren är offline");
+            Notification.warning("Den valda skrivaren är offline");
           }
         }
 
       },
       function(response) {
-        Clippy.say("Kunde inte uppdatera skrivare: " + response.status);
+        Notification.error("Kunde inte uppdatera skrivare: " + response.status);
       });
   };
 
@@ -45,7 +45,7 @@ var PrinterFactory = function(Core, $routeParams, $location, Clippy, User, $inte
         callback(response.data);
       },
       function(response) {
-        Clippy.say("Kunde inte uppdatera skrivare: " + response.status);
+        Notification.error("Kunde inte uppdatera skrivare: " + response.status);
       });
   }
 

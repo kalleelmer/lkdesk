@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var UserFactory = function(Core, Clippy) {
+var UserFactory = function(Core, Notification) {
 	var User = {};
 	var user = {
 		profiles : null,
@@ -12,7 +12,7 @@ var UserFactory = function(Core, Clippy) {
 			user.profiles = response.data;
 			restoreProfile();
 		}, function(response) {
-			Clippy.say("Kunde inte hämta profiler: " + response.status);
+			Notification.error("Kunde inte hämta profiler: " + response.status);
 		});
 	}
 
@@ -42,7 +42,7 @@ var UserFactory = function(Core, Clippy) {
 	User.setProfile = function(profile) {
 		user.profile = profile;
 		sessionStorage.profile_id = profile.id;
-		Clippy.say("Din profil är " + profile.name + " (" + profile.id + ")");
+		Notification.info("Din profil är " + profile.name + " (" + profile.id + ")");
 	}
 
 	loadProfiles();

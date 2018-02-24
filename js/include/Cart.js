@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer) {
+var CartFactory = function(Core, $routeParams, $location, Notification, User, Printer) {
 
 	var replaceObject = function(objectToReplace, object) {
 		_.forEach(objectToReplace, function(val) {
@@ -27,7 +27,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 			function(response) {
 				cart.customer = response.data;
 			}, function(response) {
-				Clippy.say("Kunde inte hämta kund: " + response.status);
+				Notification.error("Kunde inte hämta kund: " + response.status);
 			});
 	}
 
@@ -66,7 +66,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 		if (cart.tickets.filter(function(ticket) {
 			return ticket.printed == null;
 		}).length > 0 && !(cart.customer_id > 0)) {
-			Clippy.say("Du har outskrivna biljetter");
+			Notification.error("Du har outskrivna biljetter");
 			return;
 		}
 
@@ -90,7 +90,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 	Cart.addTicket = function(ticket, callback) {
 
 		if (cart.payment_id > 0) {
-			Clippy.say("Kundvagnen är redan betald och går inte att ändra");
+			Notification.error("En betald kundvagn kan inte ändras");
 		} else {
 			var sendToServer = {
 				category_id : ticket.category_id,
@@ -102,13 +102,10 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 
 			Core.post("/desk/orders/" + cart.id + "/tickets", sendToServer).then(
 				function(response) {
-
 					addTicketsToCart(response.data);
 					callback(true);
-
 				}, function(error) {
-					Clippy.say("Biljetterna är slutsålda!!!");
-					// callback(error);
+					Notification.error("Biljetterna är slutsålda");
 				});
 		}
 	}
@@ -141,7 +138,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 		if (cart.tickets.filter(function(ticket) {
 			return ticket.printed == null;
 		}).length > 0 && !(cart.customer_id > 0)) {
-			Clippy.say("Du har outskrivna biljetter");
+			Notification.error("Du har outskrivna biljetter");
 			return;
 		}
 
@@ -152,7 +149,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 	Cart.printAllTickets = function() {
 
 		if (!Printer.getSelectedPrinter()) {
-			Clippy.say("Du måste välja en skrivare!");
+			Notification.error("Du måste välja en skrivare!");
 			return;
 		} else if (cart.payment_id > 0){
 			Printer.refreshCurrentPrinter(function(printer) {
@@ -167,7 +164,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 						}
 					}
 					if (data.tickets.length == 0) {
-						Clippy.say("Biljetterna är redan utskrivna.");
+						Notification.error("Biljetterna är redan utskrivna.");
 						return;
 					}
 					Core.post("/desk/printers/" + Printer.getSelectedPrinter().id +"/print", data).then(function(response) {
@@ -177,16 +174,16 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 								ticket.printed = 1;
 							}
 						}
-						Clippy.play("Print");
+						Notification.success("Utskrift påbörjad");
 					}, function(response) {
-						Clippy.say("Utskriften misslyckades: " + response.status);
+						Notification.error("Utskriften misslyckades: " + response.status);
 					});
 				} else {
-					Clippy.say("Skrivaren är offline!");
+					Notification.error("Skrivaren är offline!");
 				}
 			});
 		} else {
-			Clippy.say("Du måste ta betalt innan du kan skriva ut biljetter!");
+			Notification.erro("Obetalda biljetter kan inte skrivas ut");
 		}
 
 	}
@@ -215,7 +212,7 @@ var CartFactory = function(Core, $routeParams, $location, Clippy, User, Printer)
 
 	Cart.removeAllTickets = function() {
 
-		Clippy.play("EmptyTrash");
+		Notification.success("Kundvagn tömd");
 
 		_.forEach(cart.tickets, function(ticket) {
 			Core.deleet("/desk/orders/" + cart.id + "/tickets/" + ticket.id)
