@@ -1,175 +1,198 @@
-body{
+body {
 	background-color: #390444;
 }
+
 table {
-    background-color: #fff;
+	background-color: #fff;
 }
 
 .clickable {
 	cursor: pointer;
 }
+
 .right {
 	float: right;
 	margin-top: 5px;
 }
-.simpletext{
+
+.simpletext {
 	padding: 10px 15px;
 }
 
 /*  - - - - - TIMETABLE - - - - - */
-#timetable{
+#timetable {
 	padding-left: 10px;
 	padding-right: 10px;
 	background-color: #390444;
 }
-#timetable h2{
+
+#timetable h2 {
 	color: #FFF;
 }
+
 #timetable .row {
 	margin-right: 0px;
 	margin-left: 0px;
 }
-.row-placement{
+
+.row-placement {
 	padding-left: 15px;
 }
 
 /* - - - - - CART - - - - - */
-#cart{
+#cart {
 	background-color: #390444;
 }
+
 #cart h1, h2, h3, h4, h5 {
 	color: #FFF;
 }
 
 /* - - - - -  Scrollable cart, shows and timetable - - - - - */
 div#cart {
-  max-height: 100%;
-}
-div#shows{
 	max-height: 100%;
 }
-div#timetable{
+
+div#shows {
 	max-height: 100%;
 }
+
+div#timetable {
+	max-height: 100%;
+}
+
 .scrollableInY {
 	overflow-y: auto;
 }
 
 /* - - - - - FULL SCREEN LAYOUT - - - - - */
-html,body {
-  min-height: 100%;
-  padding: 0;
-  margin: 0;
+html, body {
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
 }
+
 .full-screen-container {
-    /*min-height: 100%;*/
-		padding: 80px 0px 0px 0px;
-	  position: absolute;
-	  top: 0;
-	  bottom: 0;
-	  left: 0;
-	  right: 0;
+	/*min-height: 100%;*/
+	padding: 80px 0px 0px 0px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
-.full-height-item{
+
+.full-height-item {
 	min-height: 100%;
 }
 
 /* - - - - - Ticket buttons - - - - - */
-.ticket-btn-box{
+.ticket-btn-box {
 	height: 60px;
 }
-.ticket-btn{
+
+.ticket-btn {
 	padding: 4px 8px;
 	margin-top: 12px;
 	margin-right: 10px;
 }
 
 /* - - - - - Cart buttons - - - - - */
-.cart-btn{
+.cart-btn {
 	margin-bottom: 20px;
 }
 
 /*  - - - - - Show button - - - - -  */
-.show-marker{
-    background-image: none !important;
-		background-color: #ffad36!important;
-		color: #FFF!important;
-		border: none;
-		border-top:1px solid #f7a020;
-		border-bottom: 1px solid #f7a020;
+.show-marker {
+	background-image: none !important;
+	background-color: #ffad36 !important;
+	color: #FFF !important;
+	border: none;
+	border-top: 1px solid #f7a020;
+	border-bottom: 1px solid #f7a020;
 }
-.show-marker:hover{
-		background-color: #F7a021!important;
-		color: #FFF!important;
+
+.show-marker:hover {
+	background-color: #F7a021 !important;
+	color: #FFF !important;
 }
 
 /* - - - - - Ticket buttons - - - - - */
-.material-btn{
+.material-btn {
 	background-image: none;
 	box-shadow: none;
 	border: none;
 }
-.material-btn:hover{
+
+.material-btn:hover {
 	background-color: #e0e0e0;
 }
 
 /* - - - - - btn override - - - - - */
-.btn{
+.btn {
 	background-color: #f0f0f0;
 }
-.btn-primary{
+
+.btn-primary {
 	background-color: #8a4797;
 	background-image: none;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
 	background-color: #662972;
 }
-.btn-primary:active{
-    background-color: #662972;
-    border-color: #662972;
+
+.btn-primary:active {
+	background-color: #662972;
+	border-color: #662972;
 }
-.btn-primary:active:hover{
-    background-color: #662972;
-    border-color: #662972;
+
+.btn-primary:active:hover {
+	background-color: #662972;
+	border-color: #662972;
 }
-.btn-primary:active:focus{
-    background-color: #662972;
-    border-color: #662972;
+
+.btn-primary:active:focus {
+	background-color: #662972;
+	border-color: #662972;
 }
-.btn-primary:focus{
+
+.btn-primary:focus {
 	background-color: #5a1f66;
 	border-color: #5a1f66;
 }
 
-.title-item{
+.title-item {
 	padding: 10px 15px;
 }
-.list-group{
+
+.list-group {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	white-space: nowrap;
 }
+
 .list-group:last-child {
 	padding-right: 0px;
 }
 
 .container-full {
-    margin: 0 auto;
-    width: 100%;
-    /*padding-right: 0px; side jump fix*/
-    padding-left: 0px;
+	margin: 0 auto;
+	width: 100%;
+	/*padding-right: 0px; side jump fix*/
+	padding-left: 0px;
 }
 
 .list-group-item {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
 
 * {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
-    background-image: none;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+	background-image: none;
 }
 
 .btn-abort {
@@ -181,90 +204,104 @@ html,body {
 }
 
 /*  - - - - - CUSTOMER - - - - - */
-
-#customer-list{
+#customer-list {
 	/* Karnevalistfärg */
 	background-color: #f7629c;
 	color: #FFF;
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
-.customer-item{
+
+.customer-item {
 	background-color: #ff74aa;
 	border-color: #f7629c;
 	color: #FFF !important;
 }
-a.customer-item:hover, button.customer-item:hover, a.customer-item:focus, button.customer-item:focus {
-  color: #FFF;
-  text-decoration: none;
-  background-color: #f35d98;
+
+a.customer-item:hover, button.customer-item:hover, a.customer-item:focus,
+	button.customer-item:focus {
+	color: #FFF;
+	text-decoration: none;
+	background-color: #f35d98;
 }
-.form-control{
-	height: 42px;
-}
-#order-list{
+
+#order-list {
 	background-color: #f78fb0;
 	color: #FFF;
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
-.order-item{
+
+.order-item {
 	background-color: #ff74aa;
 	border-color: #f78fb0;
 	color: #FFF !important;
 }
-a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-item:focus {
-  color: #FFF;
-  text-decoration: none;
-  background-color: #f9aaaf;
+
+a.order-item:hover, button.order-item:hover, a.order-item:focus, button.order-item:focus
+	{
+	color: #FFF;
+	text-decoration: none;
+	background-color: #f9aaaf;
 }
-.link-order-button{
+
+.link-order-button {
 	margin-top: 25px !important;
 }
-.customer-name{
+
+.customer-name {
 	border-top: 1px solid #FFF;
 	border-bottom: 1px solid #FFF;
 	margin-top: 0px;
 }
-#customer-name-box{
+
+#customer-name-box {
 	padding: 0px;
 }
-#customer-name-box h3{
+
+#customer-name-box h3 {
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
-#edit-customer{
+
+#edit-customer {
 	text-align: right;
 	padding: 0px;
 }
-#edit-customer h4{
+
+#edit-customer h4 {
 	margin-top: 18px;
 	margin-bottom: 19px;
 }
 
 /*  - - - - - Skapa ny kund  - - - - - */
-#create-customer-item{
+#create-customer-item {
 	background-color: #f15894;
 	border-color: #de4984;
 	color: #FFF !important;
 }
-a#create-customer-item:hover, button#create-customer-item:hover, a#create-customer-item:focus, button#create-customer-item:focus {
-  color: #FFF;
-  text-decoration: none;
-  background-color: #e64f8a;
+
+a#create-customer-item:hover, button#create-customer-item:hover, a#create-customer-item:focus,
+	button#create-customer-item:focus {
+	color: #FFF;
+	text-decoration: none;
+	background-color: #e64f8a;
 }
-#createCustomerModal{
-	color:#000;
+
+#createCustomerModal {
+	color: #000;
 }
-#createCustomerModal label{
+
+#createCustomerModal label {
 	margin: 10px 0px;
 }
 
 /*  - - - - - Modal color correction - - - - - */
-.modal-header h4, h5{
+.modal-header h4, h5 {
 	color: #000;
 }
-.modal-body h4, h5{
+
+.modal-body h4, h5 {
 	color: #000;
 }
 
@@ -273,29 +310,32 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 }
 
 /* - - - - - Ticket matrix  - - - - - */
-#ticket-modal{
-	width:800px;
+#ticket-modal {
+	width: 800px;
 }
-#ticket-modal select, #ticket-modal input {
-	border: 1px solid #ddd;
-	height: 26px;
-	-moz-appearance: none;
-	text-align: left;
+
+#ticket-modal .ticket-count {
+	width: 120px;
 }
-.table-bordered,
-.table > thead:first-child > tr:first-child > th,
-.table-bordered > tbody > tr > td{
+
+#ticket-modal .ticket-count input {
+	text-align: center;
+}
+
+.table-bordered, .table>thead:first-child>tr:first-child>th,
+	.table-bordered>tbody>tr>td {
 	border: none;
 }
-.table-bordered > thead > tr,
-.table-bordered > tbody > tr,
-.table-bordered > tbody > tr > th{
-	border:none;
-  border-bottom: 1px solid #d0d0d0!important;
+
+.table-bordered>thead>tr, .table-bordered>tbody>tr, .table-bordered>tbody>tr>th
+	{
+	border: none;
+	border-bottom: 1px solid #d0d0d0 !important;
 }
+
 .styled-select {
-   background: url(images/arrow.png) no-repeat 96% 0;
-   overflow: hidden;
-   width: 40px;
-	 border: 1px solid #d0d0d0;
+	background: url(images/arrow.png) no-repeat 96% 0;
+	overflow: hidden;
+	width: 40px;
+	border: 1px solid #d0d0d0;
 }

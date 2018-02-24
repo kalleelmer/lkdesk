@@ -1,4 +1,4 @@
-body{
+body {
 	font-family: Lato Light, Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 1.42857143;
@@ -9,12 +9,14 @@ h1, h2, h3, h4, h5, h6 {
 	text-transform: uppercase;
 }
 
-.underrubrik{
+.underrubrik {
 	font-family: Montserrat Semibold, Helvetica, Arial, sans-serif;
 }
+
 p.multi-paragraph {
 	white-space: pre-line;
 }
+
 .capitalize {
 	text-transform: capitalize;
 }
