@@ -25,7 +25,9 @@
 							<tr ng-repeat="rate in $ctrl.modaldata.rates">
 								<th scope="row">{{rate.name}}</th>
 								<td ng-repeat-start="cat in $ctrl.modaldata.categories">
-									{{calculatePrice(getPrice(rate.id, cat.id).price)}} kr</td>
+									<div ng-if="getPrice(rate.id, cat.id)">{{calculatePrice(getPrice(rate.id,
+										cat.id).price)}} kr</div>
+								</td>
 								<td ng-repeat-end>
 									<div class="input-group ticket-count"
 										ng-if="getPrice(rate.id, cat.id)">
