@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
+var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 	var $ctrl = this;
 
 	console.log($attrs.sid);
@@ -83,13 +83,13 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 				console.log("Data: ");
 				console.log(response.data);
 				for ( var i in response.data) { // Group by date
-					var show = response.data[i];
-					// var key = show.start.substring(0, 10);
-					var key = new Date(show.start).toISOString().substring(0,
+					var perf = response.data[i];
+					var key = new Date(perf.start).toISOString().substring(0,
 						10);
 
 					dates[key] = dates[key] ? dates[key] : [];
-					dates[key].push(show);
+					dates[key].push(perf);
+					$ctrl.loadAvailability(perf)
 				}
 				$scope.show.dates = dates;
 			}, function(response) {
@@ -98,10 +98,29 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart) {
 
 	}
 
+	$ctrl.loadAvailability = function(perf) {
+		var profile_id = User.getProfile().id;
+		var req = Core.get("/desk/performances/" + perf.id + "/profiles/"
+			+ profile_id + "/availability");
+		req.then(function(response) {
+			perf.availability = response.data;
+			perf.available = 0;
+			perf.total = 0;
+			perf.tooltip = "";
+			for ( var key in perf.availability) {
+				var cat = perf.availability[key];
+				perf.available += cat.available;
+				perf.total += cat.total;
+				perf.tooltip += cat.name + ": " + cat.available + "/"
+					+ cat.total + "\n";
+			}
+			perf.tooltip = perf.tooltip.trim();
+		});
+	}
+
 	$scope.setSelectedPerformance = function(performance) {
 		$scope.selectedPerformance = performance;
 	}
-
 }
 
 module.controller("ShowListCtrl", ShowListCtrl);
