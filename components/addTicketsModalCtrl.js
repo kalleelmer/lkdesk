@@ -53,6 +53,15 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 		return Math.max(0, price + $ctrl.selectedperformance.surcharge);
 	}
 
+	$scope.available = function(category) {
+		var perf = $ctrl.selectedperformance;
+		if (!perf || !perf.availability) {
+			return 0;
+		}
+		var availability = perf.availability[category.id];
+		return availability ? availability.available : 0;
+	}
+
 	$scope.addTicketsToCart = function() {
 		var tickets = _.filter($scope.prices, function(o) {
 			return o.count > 0

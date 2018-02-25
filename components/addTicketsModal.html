@@ -14,7 +14,13 @@
 							<tr>
 								<th></th>
 								<th colspan="2"
-									ng-repeat="category in $ctrl.modaldata.categories">{{category.name}}</th>
+									ng-repeat="category in $ctrl.modaldata.categories">{{category.name}}
+									<span class="label label-danger"
+									ng-show="available(category)==0">Slut</span> <span
+									class="label" ng-show="available(category)"
+									ng-class="{
+									'label-warning':available(category)< 10,'label-success':available(category) >= 10}">{{available(category)}}</span>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
