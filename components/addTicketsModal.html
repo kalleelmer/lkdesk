@@ -1,7 +1,7 @@
 <div id="{{uid}}" class="modal fade" role="dialog">
 	<div id="ticket-modal" class="modal-dialog">
 		<div class="modal-content">
-			<form id="category.name" ng-model="tickets">
+			<form id="cat.name" ng-model="tickets">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">{{$ctrl.showname.name}} -
@@ -13,34 +13,35 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"
-									ng-repeat="category in $ctrl.modaldata.categories">{{category.name}}
-									<span class="label label-danger"
-									ng-show="available(category)==0">Slut</span> <span
-									class="label" ng-show="available(category)"
+								<th colspan="2" ng-repeat="cat in $ctrl.modaldata.categories">{{cat.name}}
+									<span class="label label-danger" ng-show="available(cat)==0">Slut</span>
+									<span class="label" ng-show="available(cat)"
 									ng-class="{
-									'label-warning':available(category)< 10,'label-success':available(category) >= 10}">{{available(category)}}</span>
+									'label-warning':available(cat)< 10,'label-success':available(cat) >= 10}">{{available(cat)}}</span>
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="rate in $ctrl.modaldata.rates">
 								<th scope="row">{{rate.name}}</th>
-								<td ng-repeat-start="category in $ctrl.modaldata.categories">
-									{{calculatePrice(getPrice(rate.id, category.id).price)}} kr</td>
+								<td ng-repeat-start="cat in $ctrl.modaldata.categories">
+									{{calculatePrice(getPrice(rate.id, cat.id).price)}} kr</td>
 								<td ng-repeat-end>
 									<div class="input-group ticket-count"
-										ng-if="getPrice(rate.id, category.id)">
+										ng-if="getPrice(rate.id, cat.id)">
 										<span class="input-group-btn">
 											<button class="btn btn-secondary" type="button"
-												ng-click="addTickets(rate.id, category.id, -1)">
+												ng-click="addTickets(rate.id, cat.id, -1)"
+												ng-disabled="available(cat)==0">
 												<i class="fa fa-minus"></i>
 											</button>
 										</span> <input type="text" class="form-control" placeholder="0"
-											ng-model="getPrice(rate.id, category.id).count"> <span
+											ng-model="getPrice(rate.id, cat.id).count"
+											ng-disabled="available(cat)==0"> <span
 											class="input-group-btn">
 											<button class="btn btn-secondary" type="button"
-												ng-click="addTickets(rate.id, category.id, 1)">
+												ng-click="addTickets(rate.id, cat.id, 1)"
+												ng-disabled="available(cat)==0">
 												<i class="fa fa-plus"></i>
 											</button>
 										</span>
