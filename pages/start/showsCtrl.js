@@ -1,13 +1,19 @@
 var module = angular.module("lkticket.admin");
 
-var ShowsCtrl = function($scope, $http, User, Core) {
+var ShowsCtrl = function($rootScope, $scope, $http, User, Core) {
 
-	Core.get("/desk/shows").then(function(response) {
-		$scope.shows = response.data;
-	}, function(response) {
-		alert("Kunde inte hämta nöjen: " + response.status);
+	var reloadShows = function() {
+		Core.get("/desk/profiles/" + User.getProfile().id + "/shows").then(
+			function(response) {
+				$scope.shows = response.data;
+			}, function(response) {
+				alert("Kunde inte hämta nöjen: " + response.status);
+			});
+	}
+
+	$rootScope.$on("PROFILE_SELECTED", function(event, data) {
+		reloadShows();
 	});
-
 }
 
 module.controller("ShowsCtrl", ShowsCtrl);
