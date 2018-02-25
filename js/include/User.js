@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var UserFactory = function(Core, Notification) {
+var UserFactory = function(Core, Notification, $rootScope) {
 	var User = {};
 	var user = {
 		profiles : null,
@@ -8,12 +8,15 @@ var UserFactory = function(Core, Notification) {
 	};
 
 	function loadProfiles() {
-		Core.get("/desk/profiles/mine").then(function(response) {
-			user.profiles = response.data;
-			restoreProfile();
-		}, function(response) {
-			Notification.error("Kunde inte hämta profiler: " + response.status);
-		});
+		Core.get("/desk/profiles/mine").then(
+			function(response) {
+				user.profiles = response.data;
+				restoreProfile();
+			},
+			function(response) {
+				Notification.error("Kunde inte hämta profiler: "
+					+ response.status);
+			});
 	}
 
 	function restoreProfile() {
@@ -39,13 +42,20 @@ var UserFactory = function(Core, Notification) {
 		return user.profile.id;
 	}
 
+	User.getProfile = function() {
+		return user.profile;
+	}
+
 	User.setProfile = function(profile) {
 		user.profile = profile;
 		sessionStorage.profile_id = profile.id;
-		Notification.info("Din profil är " + profile.name + " (" + profile.id + ")");
+		Notification.info("Din profil är " + profile.name);
+		$rootScope.$emit("PROFILE_SELECTED");
 	}
 
-	loadProfiles();
+	$rootScope.$on("LOGIN_SUCCESS", function(event, data) {
+		loadProfiles();
+	});
 
 	return User;
 }

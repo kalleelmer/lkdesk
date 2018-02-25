@@ -13,7 +13,7 @@ function findGetParameter(parameterName) {
 	return result;
 }
 
-var CoreFactory = function($http, $timeout, ENV) {
+var CoreFactory = function($rootScope, $http, $timeout, ENV) {
 	var Core = {};
 	Core.LOGIN_URL = null;
 	Core.STATE = "WORKING";
@@ -50,6 +50,7 @@ var CoreFactory = function($http, $timeout, ENV) {
 				function(response) {
 					Core.user = response.data;
 					Core.STATE = "LOGGED_IN";
+					$rootScope.$emit("LOGIN_SUCCESS");
 					$http.get(
 						ENV.CORE.BASE_URL + "/login/google/url?redirect="
 							+ encodeURIComponent(Core.LOGIN_REDIRECT)).then(
@@ -93,7 +94,7 @@ var CoreFactory = function($http, $timeout, ENV) {
 	Core.put = function(url, data) {
 		return Core.request("PUT", url, data);
 	}
-	
+
 	Core.deleet = function(url) {
 		return Core.request("DELETE", url, null);
 	}
@@ -112,6 +113,11 @@ var CoreFactory = function($http, $timeout, ENV) {
 
 	Core.switchUser = function() {
 		top.location = Core.LOGIN_URL + "&prompt=select_account";
+	}
+
+	Core.loggedIn = function() {
+		console.log("State: " + Core.STATE);
+		return Core.STATE == "LOGGED_IN";
 	}
 
 	Core.logout = function() {
