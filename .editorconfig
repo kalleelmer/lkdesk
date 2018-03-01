@@ -1,0 +1,11 @@
+root = true
+
+# Unix-style
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Everyone can choose their own indentation size
+[*.{js,html,css,sh}]
+charset = utf-8
+indent_style = tab
