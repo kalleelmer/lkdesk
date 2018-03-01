@@ -63,12 +63,16 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 	}
 
 	$scope.addTicketsToCart = function() {
+
 		var tickets = _.filter($scope.prices, function(o) {
 			return o.count > 0
 		});
 
 		_.forEach(tickets, function(ticket) {
 			ticket.performance = $ctrl.selectedperformance;
+			$ctrl.selectedperformance.availability[ticket.category_id].available -= ticket.count;
+			$ctrl.selectedperformance.available -= ticket.count;
+			console.log($ctrl.selectedperformance);
 			Notification.primary("Lägger till biljetter...");
 			Cart.addTicket(ticket).then(
 				function(response) {
@@ -88,6 +92,26 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 
 		$scope.prices = angular.copy($ctrl.prices);
 
+	}
+
+	$ctrl.loadAvailability = function(perf) {
+		var profile_id = User.getProfile().id;
+		var req = Core.get("/desk/performances/" + perf.id + "/profiles/"
+			+ profile_id + "/availability");
+		req.then(function(response) {
+			perf.availability = response.data;
+			perf.available = 0;
+			perf.total = 0;
+			perf.tooltip = "";
+			for ( var key in perf.availability) {
+				var cat = perf.availability[key];
+				perf.available += cat.available;
+				perf.total += cat.total;
+				perf.tooltip += cat.name + ": " + cat.available + "/"
+					+ cat.total + "\n";
+			}
+			perf.tooltip = perf.tooltip.trim();
+		});
 	}
 
 }
