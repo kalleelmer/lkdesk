@@ -7,23 +7,23 @@ module.config([ '$locationProvider', function($locationProvider) {
 module.config([ "$routeProvider", function($routeProvider) {
 	console.log("Route: " + $routeProvider);
 	$routeProvider.when("/", {
-		templateUrl : "/pages/start/start.html",
+		templateUrl : "/pages/start/start.html?v=BUILD_NUMBER",
 		controller : "StartCtrl"
 	});
 	$routeProvider.when("/customers", {
-		templateUrl : "/pages/customers/customers.html",
+		templateUrl : "/pages/customers/customers.html?v=BUILD_NUMBER",
 		controller : "CustomersCtrl"
 	});
 	$routeProvider.when("/reservations", {
-		templateUrl : "/pages/reservations/reservations.html",
+		templateUrl : "/pages/reservations/reservations.html?v=BUILD_NUMBER",
 		controller : "ReservationsCtrl"
 	});
 	$routeProvider.when("/settings", {
-		templateUrl : "/pages/settings/settings.html",
+		templateUrl : "/pages/settings/settings.html?v=BUILD_NUMBER",
 		controller : "SettingsCtrl"
 	});
 	$routeProvider.when("/favorites", {
-		templateUrl : "/pages/favorites/favorites.html",
+		templateUrl : "/pages/favorites/favorites.html?v=BUILD_NUMBER",
 		controller : "FavCtrl"
 	});
 	$routeProvider.otherwise({

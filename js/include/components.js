@@ -1,39 +1,39 @@
 var module = angular.module("lkticket.admin");
 
 module.component("showList", {
-	templateUrl : '/components/showList.html',
+	templateUrl : "/components/showList.html?v=BUILD_NUMBER",
 	bindings : {
-		sid : '@'
+		sid : "@"
 	},
 	controller : "ShowListCtrl"
 });
 
 module.component("cart", {
-	templateUrl : '/components/cartComponent.html',
+	templateUrl : "/components/cartComponent.html?v=BUILD_NUMBER",
 	bindings : {},
 	controller : "CartCtrl"
 });
 
 module.component("addTicketsModal", {
-	templateUrl : '/components/addTicketsModal.html',
+	templateUrl : "/components/addTicketsModal.html?v=BUILD_NUMBER",
 	bindings : {
-		modaldata : '<',
-		prices : '<',
-		selectedperformance : '<',
-		showname : '<',
-		uid : '@'
+		modaldata : "<",
+		prices : "<",
+		selectedperformance : "<",
+		showname : "<",
+		uid : "@"
 	},
 	controller : "AddTicketsModalCtrl"
 });
 
 module.component("profileSelector", {
-	templateUrl : '/components/profileSelector.html',
+	templateUrl : "/components/profileSelector.html?v=BUILD_NUMBER",
 	bindings : {},
 	controller : "ProfileSelectorCtrl"
 });
 
 module.component("printerSelector", {
-	templateUrl : '/components/printerSelector.html',
+	templateUrl : "/components/printerSelector.html?v=BUILD_NUMBER",
 	bindings : {},
 	controller : "PrinterSelectorCtrl"
 });
