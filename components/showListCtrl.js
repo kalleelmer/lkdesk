@@ -1,6 +1,6 @@
 var module = angular.module("lkticket.admin");
 
-var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
+var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User, Notification) {
 	var $ctrl = this;
 
 	console.log($attrs.sid);
@@ -32,7 +32,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 				$ctrl.loadShowData();
 				$ctrl.getRateAndCategories();
 			}, function(response) {
-				alert("Kunde inte hämta nöje: " + response.status);
+				Notification.error("Kunde inte hämta nöje: " + response.status);
 			});
 		} else {
 			Core.get("/desk/shows/1").then(function(response) {
@@ -40,7 +40,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 				$ctrl.loadShowData();
 				$ctrl.getRateAndCategories();
 			}, function(response) {
-				alert("Kunde inte hämta nöje: " + response.status);
+				Notification.error("Kunde inte hämta nöje: " + response.status);
 			});
 		}
 	}
@@ -51,7 +51,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 			function(response) {
 				$scope.modaldata.rates = response.data;
 			}, function(response) {
-				alert("Kunde inte hämta rates: " + response.status);
+				Notification.error("Kunde inte hämta priser: " + response.status);
 			});
 
 		Core.get("/desk/shows/" + $attrs.sid + "/categories").then(
@@ -71,7 +71,7 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 				}
 
 			}, function(response) {
-				alert("Kunde inte hämta kategorier: " + response.status);
+				Notification.error("Kunde inte hämta kategorier: " + response.status);
 			});
 
 	}
@@ -79,21 +79,15 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User) {
 	$ctrl.loadShowData = function() {
 		Core.get("/desk/shows/" + $attrs.sid + "/performances").then(
 			function(response) {
-				var dates = {};
-				console.log("Data: ");
-				console.log(response.data);
+				$scope.performances = response.data;
 				for ( var i in response.data) { // Group by date
 					var perf = response.data[i];
-					var key = new Date(perf.start).toISOString().substring(0,
+					perf.date = new Date(perf.start).toISOString().substring(0,
 						10);
-
-					dates[key] = dates[key] ? dates[key] : [];
-					dates[key].push(perf);
 					$ctrl.loadAvailability(perf)
 				}
-				$scope.show.dates = dates;
 			}, function(response) {
-				alert("Kunde inte hämta föreställningar: " + response.status);
+				Notification.error("Kunde inte hämta föreställningar: " + response.status);
 			});
 
 	}
