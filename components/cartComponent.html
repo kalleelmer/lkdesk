@@ -4,7 +4,8 @@
 		{{cart().id}}</h3>
 	<h2 ng-show="cart().customer_id > 0">Bokning
 		{{cart().identifier}}</h3>
-	<h4 class="title-item" ng-show="cart().customer_id > 0">{{cart().customer.name}}</h5>
+	<h4 class="title-item" ng-show="cart().customer_id > 0"><i ng-show="cartEmpty()" class="fa fa-remove clickable"
+			ng-click="removeBooking()"></i>{{cart().customer.name}}</h4>
 	<h5 class="title-item" ng-show="cart().payment_id > 0" style="Color: green">Betald</h5>
 
 	<add-tickets-modal uid="cartModal" modaldata="modaldata"

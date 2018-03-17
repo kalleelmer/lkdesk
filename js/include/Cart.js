@@ -218,6 +218,16 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				console.log(error);
 			});
 	}
+	
+	Cart.unassignCustomer = function(callback) {
+		Core.deleet("/desk/orders/" + cart.id + "/customer").then(
+			function(response) {
+				getCartFromServer();
+				callback();
+			}, function(error) {
+				console.log(error);
+			});
+	}
 
 	Cart.removeAllTickets = function() {
 
@@ -248,6 +258,10 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 			console.log(error.status);
 		});
 
+	}
+	
+	Cart.isEmpty = function() {
+		return cart.tickets && cart.tickets.length == 0;
 	}
 
 	return Cart;
