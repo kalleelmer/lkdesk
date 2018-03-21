@@ -50,6 +50,10 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 	}
 
 	$scope.calculatePrice = function(price) {
+		if (price == 0) {
+			// Complimentary tickets are not subject to surcharge
+			return 0;
+		}
 		return Math.max(0, price + $ctrl.selectedperformance.surcharge);
 	}
 
@@ -68,27 +72,31 @@ var addTicketsModalCtrl = function($filter, $scope, Core, Cart, $location,
 			return o.count > 0
 		});
 
-		_.forEach(tickets, function(ticket) {
-			ticket.performance = $ctrl.selectedperformance;
-			$ctrl.selectedperformance.availability[ticket.category_id].available -= ticket.count;
-			$ctrl.selectedperformance.available -= ticket.count;
-			console.log($ctrl.selectedperformance);
-			Notification.primary("Lägger till biljetter...");
-			Cart.addTicket(ticket).then(
-				function(response) {
-					Notification.success("Biljetterna har lagts till");
-				},
-				function(failure) {
-					switch (failure.status) {
-					case 409:
-						Notification.error("Biljetterna är slutsålda");
-						break;
-					default:
-						Notification.error("Kunde inte lägga till biljetter: "
-							+ failure.status);
-					}
+		_
+			.forEach(
+				tickets,
+				function(ticket) {
+					ticket.performance = $ctrl.selectedperformance;
+					$ctrl.selectedperformance.availability[ticket.category_id].available -= ticket.count;
+					$ctrl.selectedperformance.available -= ticket.count;
+					console.log($ctrl.selectedperformance);
+					Notification.primary("Lägger till biljetter...");
+					Cart.addTicket(ticket).then(
+						function(response) {
+							Notification.success("Biljetterna har lagts till");
+						},
+						function(failure) {
+							switch (failure.status) {
+							case 409:
+								Notification.error("Biljetterna är slutsålda");
+								break;
+							default:
+								Notification
+									.error("Kunde inte lägga till biljetter: "
+										+ failure.status);
+							}
+						});
 				});
-		});
 
 		$scope.prices = angular.copy($ctrl.prices);
 
