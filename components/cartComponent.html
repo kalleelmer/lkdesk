@@ -53,7 +53,7 @@
 		ng-click="createNewCart()">Ny kundvagn</button>
 
 	<button data-toggle="modal" data-target="#payModal" type="button"
-		class="material-btn cart-btn btn" ng-if="cart().payment_id == 0">Betala</button>
+		class="material-btn cart-btn btn" ng-if="cart().payment_id == 0 && !cartEmpty()">Betala</button>
 	<button type="button" class="material-btn cart-btn btn" ng-click="printTickets()">Skriv
 		ut</button>
 

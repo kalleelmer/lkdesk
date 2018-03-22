@@ -295,6 +295,10 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 #createCustomerModal label {
 	margin: 10px 0px;
 }
+/*  - - - - - Customer search - - - - - */
+.form-control{
+	height: 42px;
+}
 
 /*  - - - - - Modal color correction - - - - - */
 .modal-header h4, h5 {
