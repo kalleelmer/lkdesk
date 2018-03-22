@@ -65,12 +65,16 @@
 				<form id="category.name" ng-model="tickets">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Wehej och välkommen till Lundakarnevalens biljettsystem!</h4>
-						<h5>Välj din profil och din närmaste skrivare nedan. Lycka till med försäljningen!</h5>
+						<h4 class="modal-title">Välkommen till Lundakarnevalens biljettsystem!</h4>
+						<p>Välj din profil och din närmaste skrivare nedan. Lycka till med försäljningen!</p>
 					</div>
 					<div class="modal-body">
-						Välj profil: <profile-selector></profile-selector>
-						Välj skrivare: <printer-selector></printer-selector>
+						<div class="col-sm-6 centered-selector">
+							<p>Välj profil: </p><profile-selector></profile-selector>
+						</div>
+						<div class="col-sm-6 centered-selector">
+							<p>Välj skrivare: </p><printer-selector></printer-selector>
+						</div>
 					</div>
 
 					<div class="modal-footer">

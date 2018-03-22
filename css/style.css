@@ -308,6 +308,13 @@ a#create-customer-item:hover, button#create-customer-item:hover, a#create-custom
 .paid {
 	color: green;
 }
+/* - - - - - Welcome modal - - - - - */
+.modal-body{
+	min-height: 120px;
+}
+.centered-selector{
+	text-align: center;
+}
 
 /* - - - - - Ticket matrix  - - - - - */
 #ticket-modal {
