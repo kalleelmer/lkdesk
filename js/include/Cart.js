@@ -85,6 +85,26 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 		});
 	}
 
+	Cart.fetchBooking = function(identifier) {
+		var req = Core.get("/desk/orders/identifier/" + identifier);
+		req.then(function(response) {
+			replaceObject(cart, response.data);
+			loadCustomer();
+
+			Core.get("/desk/orders/" + cart.id + "/tickets").then(
+				function(response) {
+					cart.tickets = response.data;
+				}, function(response) {
+					alert("fel: " + response.status);
+				});
+
+		}, function(response) {
+			Notification.error("Bokningen kunde inte hämtas: "
+				+ response.status);
+		});
+		return req;
+	}
+
 	function addTicketsToCart(ticketsToAdd) {
 		for (var i = 0; i < ticketsToAdd.length; i++) {
 			cart.tickets.push(ticketsToAdd[i]);

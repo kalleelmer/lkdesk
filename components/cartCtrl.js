@@ -106,6 +106,15 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location,
 			Notification.success("Bokning borttagen");
 		});
 	}
+
+	$scope.fetchBooking = function() {
+		var identifier = prompt("Ange bokningsnummer");
+		Cart.fetchBooking(identifier).then(function(response) {
+			$scope.disableButton = false;
+		}, function(failure) {
+			$scope.disableButton = false;
+		});
+	}
 }
 
 module.controller("CartCtrl", cartCtrl);
