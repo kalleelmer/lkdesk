@@ -109,7 +109,8 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				sendToServer);
 			req.then(function(response) {
 				addTicketsToCart(response.data);
-			}, function(error) {
+			}, function(response) {
+				// Pass
 			});
 			return req;
 		}
@@ -219,7 +220,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				console.log(error);
 			});
 	}
-	
+
 	Cart.unassignCustomer = function(callback) {
 		Core.deleet("/desk/orders/" + cart.id + "/customer").then(
 			function(response) {
@@ -260,7 +261,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 		});
 
 	}
-	
+
 	Cart.isEmpty = function() {
 		return cart.tickets && cart.tickets.length == 0;
 	}

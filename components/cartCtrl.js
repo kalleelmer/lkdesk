@@ -50,16 +50,13 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location,
 
 		$scope.disableButton = true;
 
-		Cart.addTicket(ticket, function(response) {
+		Cart.addTicket(ticket).then(function(response) {
 			$scope.disableButton = false;
-			if (response == true) {
-
-			} else {
-				console.log(response);
-				alert("Tyvärr fanns det inte fler biljetter: "
-					+ response.status)
-			}
-		})
+			Notification.success("Biljetten har lagts till");
+		}, function(failure) {
+			$scope.disableButton = false;
+			Notification.error("Platserna är slut");
+		});
 	}
 
 	$scope.removeTicket = function(ticket) {
@@ -103,7 +100,7 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location,
 	$scope.cartEmpty = function() {
 		return Cart.isEmpty();
 	}
-	
+
 	$scope.removeBooking = function() {
 		Cart.unassignCustomer(function() {
 			Notification.success("Bokning borttagen");
