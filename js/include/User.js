@@ -18,7 +18,7 @@ var UserFactory = function(Core, Notification, $rootScope) {
 					+ response.status);
 			});
 	}
-	
+
 	function loadLocations() {
 		Core.get("/desk/locations").then(
 			function(response) {
@@ -37,6 +37,7 @@ var UserFactory = function(Core, Notification, $rootScope) {
 			for (var i = 0; i < user.profiles.length; i++) {
 				if (user.profiles[i].id == sessionStorage.profile_id) {
 					User.setProfile(user.profiles[i]);
+					$rootScope.$emit("PROFILE_RESTORED");
 					return;
 				}
 			}
@@ -54,7 +55,6 @@ var UserFactory = function(Core, Notification, $rootScope) {
 			}
 		}
 	}
-
 
 	User.getUser = function() {
 		return user;
@@ -100,6 +100,10 @@ var UserFactory = function(Core, Notification, $rootScope) {
 		loadProfiles();
 		loadLocations();
 	});
+
+	User.loggedIn = function() {
+		return Core.loggedIn();
+	}
 
 	return User;
 }
