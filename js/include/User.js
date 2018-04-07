@@ -18,6 +18,18 @@ var UserFactory = function(Core, Notification, $rootScope) {
 					+ response.status);
 			});
 	}
+	
+	function loadLocations() {
+		Core.get("/desk/locations").then(
+			function(response) {
+				user.locations = response.data;
+				restoreLocation();
+			},
+			function(response) {
+				Notification.error("Kunde inte hämta försäljningsställe: "
+					+ response.status);
+			});
+	}
 
 	function restoreProfile() {
 		console.log("Restoring profile: " + sessionStorage.profile_id);
@@ -31,6 +43,19 @@ var UserFactory = function(Core, Notification, $rootScope) {
 		}
 	}
 
+	function restoreLocation() {
+		console.log("Restoring location: " + sessionStorage.location_id);
+		if (sessionStorage.location_id) {
+			for (var i = 0; i < user.locations.length; i++) {
+				if (user.locations[i].id == sessionStorage.location_id) {
+					User.setLocation(user.locations[i]);
+					return;
+				}
+			}
+		}
+	}
+
+
 	User.getUser = function() {
 		return user;
 	}
@@ -42,8 +67,19 @@ var UserFactory = function(Core, Notification, $rootScope) {
 		return user.profile.id;
 	}
 
+	User.locationID = function() {
+		if (!user.location) {
+			return 0;
+		}
+		return user.location.id;
+	}
+
 	User.getProfile = function() {
 		return user.profile;
+	}
+
+	User.getLocation = function() {
+		return user.location;
 	}
 
 	User.setProfile = function(profile) {
@@ -53,8 +89,16 @@ var UserFactory = function(Core, Notification, $rootScope) {
 		$rootScope.$emit("PROFILE_SELECTED");
 	}
 
+	User.setLocation = function(location) {
+		user.location = location;
+		sessionStorage.location_id = location.id;
+		Notification.info("Försäljningsställe är " + location.name);
+		$rootScope.$emit("LOCATION_SELECTED");
+	}
+
 	$rootScope.$on("LOGIN_SUCCESS", function(event, data) {
 		loadProfiles();
+		loadLocations();
 	});
 
 	return User;

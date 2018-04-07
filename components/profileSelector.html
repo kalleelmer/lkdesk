@@ -1,4 +1,6 @@
 <div id="profile-select">
 	<select ng-options="p as p.name for p in profiles()" ng-model="profile"
 		class="div-control" ng-change="setProfile()"></select>
+	<select ng-options="l as l.name for l in locations()" ng-model="location"
+		class="div-control" ng-change="setLocation()"></select>
 </div>

@@ -101,7 +101,8 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				performance_id : ticket.performance.id,
 				rate_id : ticket.rate_id,
 				count : parseInt(ticket.count),
-				profile_id : User.profileID()
+				profile_id : User.profileID(),
+				location_id : User.locationID()
 			}
 
 			var req = Core.post("/desk/orders/" + cart.id + "/tickets",
