@@ -102,18 +102,18 @@
 				</div>
 				<div class="modal-body">
 
-					<button ng-show="cash || swish || card" type="button" class="material-btn btn btn-primary" ng-click="cash= false; swish= false; card = false" ng-init="card=true" ng-hide="true">
+					<button ng-show="cash || faktura || card" type="button" class="material-btn btn btn-primary" ng-click="cash= false; swish= false; card = false" ng-init="card=true">
 							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 							Byt betalningsmetod -
 						</button>
 
-					<div ng-hide="cash || swish || card">
+					<div ng-hide="cash || faktura || card">
 						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
-						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="swish=true" disabled>Swish</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="faktura=true" disabled>Swish</button>
 						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="card=true">Kort</button>
 					</div>
 
-					<div ng-if="cash || card" id="price-label">
+					<div ng-if="cash || card || faktura" id="price-label">
 						<h1 style="color: #000">{{totalPrice()}} kr</h1>
 					</div>
 
@@ -125,6 +125,7 @@
 							tagit betalt med kontanter</button>
 					<button ng-if="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
 								tagit betalt med kort</button>
+					<button ng-if="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('faktura')">Jag lovar att jag tagit betalt med faktura</button>
 				</div>
 			</div>
 
