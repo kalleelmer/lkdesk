@@ -85,6 +85,26 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 		});
 	}
 
+	Cart.fetchBooking = function(identifier) {
+		var req = Core.get("/desk/orders/identifier/" + identifier);
+		req.then(function(response) {
+			replaceObject(cart, response.data);
+			loadCustomer();
+
+			Core.get("/desk/orders/" + cart.id + "/tickets").then(
+				function(response) {
+					cart.tickets = response.data;
+				}, function(response) {
+					alert("fel: " + response.status);
+				});
+
+		}, function(response) {
+			Notification.error("Bokningen kunde inte hämtas: "
+				+ response.status);
+		});
+		return req;
+	}
+
 	function addTicketsToCart(ticketsToAdd) {
 		for (var i = 0; i < ticketsToAdd.length; i++) {
 			cart.tickets.push(ticketsToAdd[i]);
@@ -101,14 +121,16 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				performance_id : ticket.performance.id,
 				rate_id : ticket.rate_id,
 				count : parseInt(ticket.count),
-				profile_id : User.profileID()
+				profile_id : User.profileID(),
+				location_id : User.locationID()
 			}
 
 			var req = Core.post("/desk/orders/" + cart.id + "/tickets",
 				sendToServer);
 			req.then(function(response) {
 				addTicketsToCart(response.data);
-			}, function(error) {
+			}, function(response) {
+				// Pass
 			});
 			return req;
 		}
@@ -218,7 +240,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 				console.log(error);
 			});
 	}
-	
+
 	Cart.unassignCustomer = function(callback) {
 		Core.deleet("/desk/orders/" + cart.id + "/customer").then(
 			function(response) {
@@ -259,7 +281,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 		});
 
 	}
-	
+
 	Cart.isEmpty = function() {
 		return cart.tickets && cart.tickets.length == 0;
 	}

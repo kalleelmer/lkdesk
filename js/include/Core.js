@@ -38,6 +38,7 @@ var CoreFactory = function($rootScope, $http, $timeout, ENV) {
 					Core.token = response.data.token;
 					sessionStorage.setItem("lkticket.api.token", Core.token);
 					Core.STATE = "LOGGED_IN";
+					$rootScope.$emit("LOGIN_SUCCESS");
 					history.pushState(null, "index", "/");
 				}, function(response) {
 					history.pushState(null, "index", "/");

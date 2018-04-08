@@ -26,6 +26,14 @@ module.config([ "$routeProvider", function($routeProvider) {
 		templateUrl : "/pages/favorites/favorites.html?v=BUILD_NUMBER",
 		controller : "FavCtrl"
 	});
+	$routeProvider.when("/ticket", {
+		templateUrl : "/pages/ticket/ticket.html?v=BUILD_NUMBER",
+		controller : "TicketCtrl"
+	});
+	$routeProvider.when("/ticket/:id", {
+		templateUrl : "/pages/ticket/ticket.html?v=BUILD_NUMBER",
+		controller : "TicketCtrl"
+	});
 	$routeProvider.otherwise({
 		redirectTo : "/"
 	});

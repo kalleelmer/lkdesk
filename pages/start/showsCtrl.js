@@ -14,6 +14,10 @@ var ShowsCtrl = function($rootScope, $scope, $http, User, Core) {
 	$rootScope.$on("PROFILE_SELECTED", function(event, data) {
 		reloadShows();
 	});
+
+	if (User.loggedIn() && User.getProfile() != null) {
+		reloadShows();
+	}
 }
 
 module.controller("ShowsCtrl", ShowsCtrl);
