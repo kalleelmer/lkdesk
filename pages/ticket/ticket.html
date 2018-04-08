@@ -1,0 +1,15 @@
+<div class="container">
+	<br />
+	<form ng-submit="showTicket()">
+		<input type="text" ng-model="ticketID" /><input type="submit"
+			value="Visa" />
+	</form>
+</div>
+<div class="container ticket-info" ng-show="ticket">
+	<h2>{{ticket.show_name}}</h2>
+	<p>{{ticket.performance_start | date:'yyyy-MM-dd hh:mm'}}</p>
+	<p>{{ticket.category_name}}, {{ticket.rate_name}}</p>
+	<p>
+		<b>{{ticket.price}} kr</b>
+	</p>
+</div>
