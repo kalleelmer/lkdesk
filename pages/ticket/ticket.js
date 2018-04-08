@@ -22,6 +22,31 @@ var TicketCtrl = function($rootScope, $scope, $http, User, Core, $routeParams,
 		}
 	}
 
+	$scope.refundTicket = function() {
+		alert("Endast kortköp!");
+		if (!confirm("Klipp sönder biljetten.")) {
+			return;
+		}
+		if (!confirm("Ge " + $scope.ticket.price + " kr till kunden.")) {
+			return;
+		}
+		Notification.info("Registrerar återköp...");
+		var data = {
+			method : "card",
+			reference : null
+		};
+		$scope.working = true;
+		Core.post("/desk/tickets/" + $scope.ticket.id + "/refund", data).then(
+			function(response) {
+				$scope.ticket = response.data;
+				Notification.success("Återköp registrerat");
+				$scope.working = false;
+			}, function(failure) {
+				Notification.error("Återköp mislyckades: " + failure.status);
+				$scope.working = false;
+			});
+	}
+
 	$rootScope.$on("LOGIN_SUCCESS", function(event, data) {
 		reloadTicket();
 	});
