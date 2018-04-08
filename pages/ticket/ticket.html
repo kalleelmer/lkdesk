@@ -5,11 +5,20 @@
 			value="Visa" />
 	</form>
 </div>
-<div class="container ticket-info" ng-show="ticket">
+<div class="container ticket-info" ng-show="ticket && !working">
 	<h2>{{ticket.show_name}}</h2>
-	<p>{{ticket.performance_start | date:'yyyy-MM-dd hh:mm'}}</p>
+	<p>{{ticket.performance_start | date:'yyyy-MM-dd HH:mm'}}</p>
 	<p>{{ticket.category_name}}, {{ticket.rate_name}}</p>
 	<p>
 		<b>{{ticket.price}} kr</b>
 	</p>
+	<p ng-show="!ticket.cancelled">
+		<span class="clickable btn btn-primary" ng-click="refundTicket()">Återköp
+			och makulera</span>
+	</p>
+	<p ng-show="ticket.cancelled">Återköpt och makulerad</p>
+</div>
+<div class="container ticket-info" ng-show="working">
+	<br />
+	<br /> <i class="fa fa-5x fa-spin fa-refresh"></i>
 </div>
