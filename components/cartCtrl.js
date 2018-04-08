@@ -74,8 +74,17 @@ var cartCtrl = function($filter, $scope, Core, $attrs, Cart, $location,
 		Cart.printAllTickets();
 	}
 
-	$scope.pay = function(method) {
-		Cart.pay(method);
+	$scope.pay = function(method, reference) {
+
+		if (method == "invoice") {
+			Cart.pay(method, reference);
+		} else {
+			Cart.pay(method, null);
+		}
+		
+		$scope.card = false;
+		$scope.cash = false;
+		$scope.invoice = false;
 	}
 
 	$scope.saveCustomer = function() {

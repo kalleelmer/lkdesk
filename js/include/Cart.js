@@ -266,16 +266,19 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 		});
 	}
 
-	Cart.pay = function(method) {
+	Cart.pay = function(method, reference) {
 
-		Core.post("/desk/orders/" + cart.id + "/payments", {
+		var body = {
 			method : method,
 			amount : Cart.getSum(),
-			reference : "Kristoffer",
+			reference : reference,
 			profile_id : User.profileID()
-		}).then(function(response) {
+		};
+
+		Core.post("/desk/orders/" + cart.id + "/payments", body).then(function(response) {
 			console.log(response.data.id);
 			cart.payment_id = response.data.id;
+			reference = null;
 		}, function(error) {
 			console.log(error.status);
 		});

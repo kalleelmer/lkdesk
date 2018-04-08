@@ -105,30 +105,32 @@
 				</div>
 				<div class="modal-body">
 
-					<button ng-show="cash || faktura || card" type="button" class="material-btn btn btn-primary" ng-click="cash= false; swish= false; card = false" ng-init="card=true">
+					<button ng-show="cash || invoice || card" type="button" class="material-btn btn btn-primary" ng-click="cash= false; invoice= false; card = false">
 							<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-							Byt betalningsmetod -
+							Byt betalningsmetod
 						</button>
 
-					<div ng-hide="cash || faktura || card">
+					<div ng-hide="cash || invoice || card">
 						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="cash=true">Kontant</button>
-						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="faktura=true" disabled>Swish</button>
+						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="invoice=true">Faktura</button>
 						<button type="button" class="btn btn-secondary btn-lg btn-block" ng-click="card=true">Kort</button>
 					</div>
 
-					<div ng-if="cash || card || faktura" id="price-label">
+					<div ng-if="cash || card || invoice" id="price-label">
 						<h1 style="color: #000">{{totalPrice()}} kr</h1>
+						<p ng-show = "invoice">Fakturarnummer: </p> <input type="text" ng-model="$parent.inv.reference" ng-show="invoice">
+
 					</div>
 
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="material-btn btn btn-default btn-abort" data-dismiss="modal" ng-click="cash= false; swish= false; card = false">Avbryt</button>
-					<button ng-if="cash" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('cash')">Jag lovar att jag
+					<button ng-show="cash" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('cash', null)">Jag lovar att jag
 							tagit betalt med kontanter</button>
-					<button ng-if="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('card')">Jag lovar att jag
+					<button ng-show="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('card', null)">Jag lovar att jag
 								tagit betalt med kort</button>
-					<button ng-if="card" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('faktura')">Jag lovar att jag tagit betalt med faktura</button>
+					<button ng-show="invoice" type="button" class="material-btn btn btn-default" data-dismiss="modal" ng-click="pay('invoice', inv.reference)">Jag lovar att jag tagit betalt med faktura</button>
 				</div>
 			</div>
 
