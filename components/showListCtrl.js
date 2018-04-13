@@ -82,8 +82,12 @@ var ShowListCtrl = function($filter, $scope, Core, $attrs, Cart, User, Notificat
 				$scope.performances = response.data;
 				for ( var i in response.data) { // Group by date
 					var perf = response.data[i];
-					perf.date = new Date(perf.start).toISOString().substring(0,
-						10);
+					if (perf.title) {
+						perf.date = null;
+					} else {
+						perf.date = new Date(perf.start).toISOString()
+							.substring(0, 10);
+					}
 					$ctrl.loadAvailability(perf)
 				}
 			}, function(response) {

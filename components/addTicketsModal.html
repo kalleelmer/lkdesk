@@ -4,9 +4,12 @@
 			<form id="cat.name" ng-model="tickets">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">{{$ctrl.showname.name}} -
-						{{$ctrl.selectedperformance.start | date : 'EEEE d MMMM yyyy
-						HH:mm'}}</h4>
+					<h4 class="modal-title">
+						{{$ctrl.showname.name}} - <span
+							ng-show="$ctrl.selectedperformance.title === null">{{$ctrl.selectedperformance.start
+							| date : 'EEEE d MMMM yyyy HH:mm'}}</span><span
+							ng-show="$ctrl.selectedperformance.title !== null">{{$ctrl.selectedperformance.title}}</span>
+					</h4>
 				</div>
 				<div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
 					<table class="table table-bordered">
