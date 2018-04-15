@@ -181,7 +181,8 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 			Printer.refreshCurrentPrinter(function(printer) {
 				if (Date.now() - printer.alive < 60000) {
 					var data = {
-						tickets : []
+						tickets : [],
+						reprint: false
 					};
 					for (var i = 0; i < cart.tickets.length; i++) {
 						var ticket = cart.tickets[i];
@@ -190,8 +191,17 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 						}
 					}
 					if (data.tickets.length == 0) {
-						Notification.error("Biljetterna är redan utskrivna.");
-						return;
+						Notification.warning("Biljetterna är redan utskrivna.");
+						if (!confirm("Biljetterna är utskrivna. Vill du skriva ut igen?")) {
+							return;
+						}
+						if(!confirm("Var noga med att riva ALLA biljetter i HELA bokningen!")){
+							return;
+						}
+						data.reprint = true;
+						for (var i = 0; i < cart.tickets.length; i++) {
+							data.tickets.push(cart.tickets[i].id);
+						}
 					}
 					Core.post(
 						"/desk/printers/" + Printer.getSelectedPrinter().id
