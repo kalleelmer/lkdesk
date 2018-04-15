@@ -1,3 +1,7 @@
 .performance-list .list-group-item .label {
 	float: right;
 }
+
+.availability-label {
+	margin: 0px 2px;
+}
