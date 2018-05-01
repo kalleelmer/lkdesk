@@ -33,7 +33,8 @@ var TicketCtrl = function($rootScope, $scope, $http, User, Core, $routeParams,
 		Notification.info("Registrerar återköp...");
 		var data = {
 			method : "card",
-			reference : null
+			reference : null,
+			location_id : User.locationID()
 		};
 		$scope.working = true;
 		Core.post("/desk/tickets/" + $scope.ticket.id + "/refund", data).then(

@@ -74,15 +74,14 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 			return;
 		}
 
-		Core.get("/desk/orders/create").then(function(response) {
-
-			replaceObject(cart, response.data);
-			sessionStorage.cartId = response.data.id;
-			cart.tickets = [];
-
-		}, function(response) {
-			alert("fel: " + response.status);
-		});
+		Core.get("/desk/orders/create?location_id=" + User.locationID()).then(
+			function(response) {
+				replaceObject(cart, response.data);
+				sessionStorage.cartId = response.data.id;
+				cart.tickets = [];
+			}, function(response) {
+				alert("fel: " + response.status);
+			});
 	}
 
 	Cart.fetchBooking = function(identifier) {
@@ -205,7 +204,7 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 					}
 					Core.post(
 						"/desk/printers/" + Printer.getSelectedPrinter().id
-							+ "/print", data).then(
+							+ "/print?location_id=" + User.locationID(), data).then(
 						function(response) {
 							for (var i = 0; i < cart.tickets.length; i++) {
 								var ticket = cart.tickets[i];
@@ -230,69 +229,63 @@ var CartFactory = function(Core, $routeParams, $location, Notification, User,
 	}
 
 	Cart.removeTicket = function(ticket, callback) {
-		Core.deleet("/desk/orders/" + cart.id + "/tickets/" + ticket.id).then(
-			function(response) {
-				cart.tickets = cart.tickets.filter(function(obj) {
-					return obj.id != ticket.id;
-				});
-				callback();
-			}, function(error) {
+		Core.deleet(
+			"/desk/orders/" + cart.id + "/tickets/" + ticket.id
+				+ "?location_id=" + User.locationID()).then(function(response) {
+			cart.tickets = cart.tickets.filter(function(obj) {
+				return obj.id != ticket.id;
 			});
+			callback();
+		}, function(error) {
+		});
 	}
 
 	Cart.assignCartToCustomer = function(customerId, callback) {
-		Core.put("/desk/orders/" + cart.id + "/customer", customerId).then(
-			function(response) {
-				// cart.customer = response.data;
-				getCartFromServer();
-				callback();
-			}, function(error) {
-				console.log(error);
-			});
+		Core.put(
+			"/desk/orders/" + cart.id + "/customer?location_id="
+				+ User.locationID(), customerId).then(function(response) {
+			getCartFromServer();
+			callback();
+		}, function(error) {
+			console.log(error);
+		});
 	}
 
 	Cart.unassignCustomer = function(callback) {
-		Core.deleet("/desk/orders/" + cart.id + "/customer").then(
-			function(response) {
-				getCartFromServer();
-				callback();
-			}, function(error) {
-				console.log(error);
-			});
+		Core.deleet(
+			"/desk/orders/" + cart.id + "/customer?location_id="
+				+ User.locationID()).then(function(response) {
+			getCartFromServer();
+			callback();
+		}, function(error) {
+			console.log(error);
+		});
 	}
 
 	Cart.removeAllTickets = function() {
-
 		Notification.success("Kundvagn tömd");
-
 		_.forEach(cart.tickets, function(ticket) {
-			Core.deleet("/desk/orders/" + cart.id + "/tickets/" + ticket.id)
-				.then(function(response) {
-					cart.tickets = cart.tickets.filter(function(obj) {
-						return obj.id != ticket.id;
-					});
-				}, function(error) {
-				});
+			Cart.removeTicket(ticket, function() {
+			});
 		});
 	}
 
 	Cart.pay = function(method, reference) {
-
 		var body = {
 			method : method,
 			amount : Cart.getSum(),
 			reference : reference,
-			profile_id : User.profileID()
+			profile_id : User.profileID(),
+			location_id : User.locationID()
 		};
 
-		Core.post("/desk/orders/" + cart.id + "/payments", body).then(function(response) {
-			console.log(response.data.id);
-			cart.payment_id = response.data.id;
-			reference = null;
-		}, function(error) {
-			console.log(error.status);
-		});
-
+		Core.post("/desk/orders/" + cart.id + "/payments", body).then(
+			function(response) {
+				cart.payment_id = response.data.id;
+				reference = null;
+			}, function(error) {
+				console.log(error.status);
+			});
 	}
 
 	Cart.isEmpty = function() {
