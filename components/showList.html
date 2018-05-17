@@ -19,6 +19,7 @@
 			<div class="label availability-label"
 				ng-repeat="cat in performance.availability"
 				ng-class="{'label-danger':cat.available == 0,'label-warning':cat.available < 10,'label-success':cat.available >= 10}">{{cat.available}}</div>
+			<div class="label label-default availability-label" ng-show="performance.label">{{performance.label}}</div>
 			<div ng-show="performance.title === null">{{performance.start |
 				date : 'HH:mm'}}</div>
 			<div ng-show="performance.title !== null">{{performance.title}}</div>
